@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: furnidream
+  datasource:
+    url: jdbc:mysql://ssg-java3.iptime.org:3306
+    username: furni
+    password: furni
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 50
+      max-lifetime: 60000
+      minimum-idle: 5
+      idle-timeout: 30000
+      auto-commit: false
+
+logging:
+  level:
+    root: info
+    com.sh: debug
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: com.sh
+  mapper-locations: classpath*:mappers/**/*-mapper.xml
+
+server:
+  servlet:
+    context-path: /app
