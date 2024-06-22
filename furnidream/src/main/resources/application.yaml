@@ -22,7 +22,7 @@ logging:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  type-aliases-package: com.sh
+  type-aliases-package: com.furnycrew.furnidream
   mapper-locations: classpath*:mappers/**/*-mapper.xml
 
 server:
