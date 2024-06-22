@@ -19,7 +19,7 @@ public class ProductDto {
     private String productCode;
     private int discountRate;
     private int shippingFee;
-    private String productStatus;
+    private ProductStatus productStatus;
     private String color;
     private int size;
 }

@@ -7,4 +7,7 @@ import java.util.List;
 public interface ProductMapper {
     // 상품 전체 리스트
     List<ProductDto> findAll();
+
+    // 상품 등록
+    int insertProduct(ProductDto productDto);
 }
