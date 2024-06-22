@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.product.model.dao.ProductMapper">
+    <resultMap id="productDtoMap" type="productDto">
+        <id column="product_id" property="productId"/>
+        <result column="product_name" property="productName"/>
+        <result column="product_image" property="productImage"/>
+        <result column="category" property="category"/>
+        <result column="cost_price" property="costPrice"/>
+        <result column="retail_price" property="retailPrice"/>
+        <result column="stock" property="stock"/>
+        <result column="description" property="description"/>
+        <result column="product_code" property="productCode"/>
+        <result column="discount_rate" property="discountRate"/>
+        <result column="shipping_fee" property="shippingFee"/>
+        <result column="product_status" property="productStatus"/>
+        <result column="color" property="color"/>
+        <result column="size" property="size"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="productDtoMap">
+        select
+            *
+        from
+            product
+    </select>
+</mapper>
