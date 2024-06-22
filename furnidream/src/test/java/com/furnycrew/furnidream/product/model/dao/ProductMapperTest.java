@@ -31,6 +31,7 @@ class ProductMapperTest {
                 .allMatch((product) -> product != null);
     }
 
+
     @Test
     @DisplayName("상품 등록")
     void insertProduct() {
