@@ -10,4 +10,9 @@ public interface ProductMapper {
 
     // 상품 등록
     int insertProduct(ProductDto productDto);
+
+    // 상품 수정
+    int updateProduct(ProductDto productDto);
+
+    ProductDto findByProductId(Long productId);
 }

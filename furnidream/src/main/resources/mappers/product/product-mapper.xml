@@ -37,4 +37,35 @@
             #{productCode}, #{discountRate}, #{shippingFee}, #{productStatus}, #{color}, #{size}
         )
     </insert>
+
+    <select id="findByProductId" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+        where
+            product_status = 'AVAILABLE'
+            and product_id = #{productId}
+    </select>
+
+    <update id="updateProduct">
+        update
+            tbl_product
+        set
+            product_name = #{productName},
+            product_image = #{productImage},
+            category = #{category},
+            cost_price = #{costPrice},
+            retail_price = #{retailPrice},
+            stock = #{stock},
+            description = #{description},
+            product_code = #{productCode},
+            discount_rate = #{discountRate},
+            shipping_fee = #{shippingFee},
+            product_status = #{productStatus},
+            color = #{color},
+            size = #{size}
+        where
+            product_id = #{productId}
+    </update>
 </mapper>
