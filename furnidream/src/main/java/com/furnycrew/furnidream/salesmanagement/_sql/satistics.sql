@@ -1,4 +1,5 @@
 select * from tbl_order order by created_at;
+
 select * from tbl_order;
 select * from tbl_order_product;
 select * from tbl_order_canceled;
@@ -78,4 +79,23 @@ order by
     판매수량 desc ;
 
 -- 연령대별
+select
+
+from tbl_order o
+    left join  tbl_customer c
+        on o.customer_id = c.customer_id
 -- 성별
+
+select
+    p.product_name,
+    p.color,
+    sum(op.quantity),
+    sum(o.total_price)
+
+from tbl_order_product op left join tbl_order o using(order_code)
+left join tbl_product p using (product_id)
+group by
+    p.product_id
+order by
+    product_name,
+    p.color;
