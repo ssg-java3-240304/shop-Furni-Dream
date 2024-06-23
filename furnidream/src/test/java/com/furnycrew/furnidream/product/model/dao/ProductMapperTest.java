@@ -138,18 +138,18 @@ class ProductMapperTest {
         assertThat(result).isEqualTo(1);
         // 등록된 행을 조회해서 컬럼값 비교
         assertThat(updatePtoductDto.getProductId()).isEqualTo(productId);
-        assertThat(updatePtoductDto.getProductName()).isEqualTo(productName);
-        assertThat(updatePtoductDto.getProductImage()).isEqualTo(productImage);
-        assertThat(updatePtoductDto.getCategory()).isEqualTo(category);
-        assertThat(updatePtoductDto.getCostPrice()).isEqualTo(costPrice);
-        assertThat(updatePtoductDto.getRetailPrice()).isEqualTo(retailPrice);
-        assertThat(updatePtoductDto.getStock()).isEqualTo(stock);
-        assertThat(updatePtoductDto.getDescription()).isEqualTo(description);
-        assertThat(updatePtoductDto.getProductCode()).isEqualTo(productCode);
-        assertThat(updatePtoductDto.getDiscountRate()).isEqualTo(discountRate);
-        assertThat(updatePtoductDto.getShippingFee()).isEqualTo(shippingFee);
-        assertThat(updatePtoductDto.getProductStatus()).isEqualTo(productStatus);
-        assertThat(updatePtoductDto.getColor()).isEqualTo(color);
-        assertThat(updatePtoductDto.getSize()).isEqualTo(size);
+        assertThat(updatePtoductDto.getProductName()).isEqualTo(newProductName);
+        assertThat(updatePtoductDto.getProductImage()).isEqualTo(newProductImage);
+        assertThat(updatePtoductDto.getCategory()).isEqualTo(newCategory);
+        assertThat(updatePtoductDto.getCostPrice()).isEqualTo(newCostPrice);
+        assertThat(updatePtoductDto.getRetailPrice()).isEqualTo(newRetailPrice);
+        assertThat(updatePtoductDto.getStock()).isEqualTo(newStock);
+        assertThat(updatePtoductDto.getDescription()).isEqualTo(newDescription);
+        assertThat(updatePtoductDto.getProductCode()).isEqualTo(newProductCode);
+        assertThat(updatePtoductDto.getDiscountRate()).isEqualTo(newDiscountRate);
+        assertThat(updatePtoductDto.getShippingFee()).isEqualTo(newShippingFee);
+        assertThat(updatePtoductDto.getProductStatus()).isEqualTo(newProductStatus);
+        assertThat(updatePtoductDto.getColor()).isEqualTo(newColor);
+        assertThat(updatePtoductDto.getSize()).isEqualTo(newSize);
     }
 }
