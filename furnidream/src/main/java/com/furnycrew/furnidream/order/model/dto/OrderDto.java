@@ -18,6 +18,6 @@ public class OrderDto {
     private LocalDateTime createdAt;
     private String phone;
     private String shippingAddress;
-    private OrderStatus orderStatus;
-    private List<OrderProductDto> orderProductDto;
+    private int orderStatus;
+    private List<OrderProductDto> orderProductList;
 }

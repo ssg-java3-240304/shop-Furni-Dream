@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDto {
-    private long customer_id;
+    private long customerId;
     private String name;
-    private Gender gender;
+    private char gender;
     private int age;
     private String address;
-    private String Phone;
+    private String phone;
 }
