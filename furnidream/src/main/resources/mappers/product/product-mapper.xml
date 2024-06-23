@@ -26,4 +26,15 @@
         from
             product
     </select>
+
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId">
+        insert into
+            tbl_product (
+                product_name, product_image, category, cost_price, retail_price, stock, description,
+                product_code, discount_rate, shipping_fee, product_status, color, size)
+        values(
+            #{productName}, #{productImage}, #{category}, #{costPrice}, #{retailPrice}, #{stock}, #{description},
+            #{productCode}, #{discountRate}, #{shippingFee}, #{productStatus}, #{color}, #{size}
+        )
+    </insert>
 </mapper>

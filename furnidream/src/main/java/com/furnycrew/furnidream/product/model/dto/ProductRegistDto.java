@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductDto {
-    private Long productId;
+public class ProductRegistDto {
     private String productName;
     private String productImage;
     private String category;
@@ -22,4 +21,10 @@ public class ProductDto {
     private ProductStatus productStatus;
     private String color;
     private int size;
+
+    public ProductDto toProductDto() {
+        return new ProductDto(null, this.productName, this.productImage, this.category, this.costPrice, this.retailPrice,
+                this.stock, this.description, this.productCode, this.discountRate, this.shippingFee, this.productStatus,
+                this.color, this.size);
+    }
 }
