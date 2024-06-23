@@ -29,7 +29,7 @@ public class ProductController {
         log.info("GET /product/list");
         List<ProductDto> products = productQueryService.findAll();
         log.debug("products = {}", products);
-//        model.addAllAttributes("products", products);
+        model.addAttribute("products", products);
     }
 
     @PostMapping("/regist")
