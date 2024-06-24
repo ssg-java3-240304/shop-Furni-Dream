@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.statistics.model.dao.StatisticsMapper">
+
+    <resultMap id="OrderCountRankingMap" type="OrderCountRankingDto" >
+        <result column="product_code" property="productCode"/>
+        <result column="product_name" property="name"/>
+        <result column="quantity" property="quantity"/>
+    </resultMap>
+
+
+    <select id="calculateOrderCountRank" resultMap="OrderCountRankingMap" >
+        select product_code, product_name, SUM(o.quantity) quantity
+        from (select product_id, SUM(quantity) quantity
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5)
+        group by product_id) o
+        JOIN tbl_product p on o.product_id = p.product_id
+        group by p.product_code, product_name
+        order by quantity desc;
+    </select>
+
+
+</mapper>
