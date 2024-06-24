@@ -42,17 +42,19 @@
             tbl_order o join tbl_customer c on o.customer_id = c.customer_id
                 join tbl_order_product op on o.order_code = op.order_code
         <where>
-            <if test="name == 'day'">
-                date(o.created_at) = date(#{value});
+            <if test="searchCriteria.name == 'day'">
+                date(o.created_at) = date(#{searchCriteria.value})
             </if>
-            <if test="name == 'month'">
-                left(o.created_at, 7) = left(#{value}, 7);
+            <if test="searchCriteria.name == 'month'">
+                left(o.created_at, 7) = left(#{searchCriteria.value}, 7)
             </if>
-            <if test="name == 'year'">
-                year(o.created_at) = year(#{value})
+            <if test="searchCriteria.name == 'year'">
+                year(o.created_at) = year(#{searchCriteria.value})
             </if>
         </where>
-
+<!--        limit-->
+<!--            1, 10-->
+<!--            #{offset}, #{limit};-->
     </select>
 
 <!--    -->
