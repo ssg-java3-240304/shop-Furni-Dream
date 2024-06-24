@@ -117,9 +117,6 @@ class OrderMapperTest {
                     assertThat(order.getOrderStatus()).isBetween(1, 7);
                     assertThat(order.getOrderProductList()).isNotNull().isNotEmpty();
                 });
-//        orders.stream().forEach(orderDto -> {
-//            System.out.println("주문시간 = " + orderDto.getCreatedAt());
-//        });
     }
 
 }
