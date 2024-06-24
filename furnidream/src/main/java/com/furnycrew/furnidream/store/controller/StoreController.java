@@ -1,14 +1,14 @@
 package com.furnycrew.furnidream.store.controller;
 
 import com.furnycrew.furnidream.store.model.dto.StoreDto;
+import com.furnycrew.furnidream.store.model.dto.StoreRegistDto;
 import com.furnycrew.furnidream.store.model.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -26,5 +26,17 @@ public class StoreController {
         List<StoreDto> stores = storeService.findAll();
         log.debug("stores : {}", stores);
         model.addAttribute("stores", stores);
+    }
+
+    // 상점 등록
+    @PostMapping("/regist")
+    public String regist(@ModelAttribute StoreRegistDto storeRegistDto, RedirectAttributes redirectAttributes) {
+        log.info("POST /store/regist");
+        log.debug("storeRegistDto = {}", storeRegistDto);
+        StoreDto storeDto = storeRegistDto.toStoreDto();
+        int result = storeService.insertStore(storeDto);
+        redirectAttributes.addFlashAttribute("message", "상점을 성공적으로 등록했습니다.👏👏👏");
+        log.debug("result = {}", result);
+        return "redirect:/store/list";
     }
 }

@@ -25,4 +25,13 @@
         from
             tbl_store
     </select>
+
+    <!--  상점 등록  -->
+    <insert id="insertStore" useGeneratedKeys="true" keyProperty="storeId">
+        insert into
+            tbl_store (business_num, store_name, ceo_name, ceo_phone, ceo_email, business_address, business_status, business_category, stamp_image, mail_order_yn, mail_order_num)
+        values (
+            #{businessNum}, #{storeName}, #{ceoName}, #{ceoPhone}, #{ceoEmail}, #{businessAddress}, #{businessStatus}, #{businessCategory}, #{stampImage}, #{mailOrderYn}, #{mailOrderNum}
+        )
+    </insert>
 </mapper>

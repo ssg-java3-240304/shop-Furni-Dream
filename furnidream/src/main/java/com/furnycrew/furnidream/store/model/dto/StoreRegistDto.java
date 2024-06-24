@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreDto {
-    private Long storeId;
+public class StoreRegistDto {
     private String businessNum;
     private String storeName;
     private String ceoName;
@@ -20,4 +19,8 @@ public class StoreDto {
     private String stampImage;
     private char mailOrderYn;
     private String mailOrderNum;
+
+    public StoreDto toStoreDto() {
+        return new StoreDto(null, this.businessNum, this.storeName, this.ceoName, this.ceoPhone, this.ceoEmail, this.businessAddress, this.businessStatus, this.businessCategory, this.stampImage, this.mailOrderYn, this.mailOrderNum);
+    }
 }
