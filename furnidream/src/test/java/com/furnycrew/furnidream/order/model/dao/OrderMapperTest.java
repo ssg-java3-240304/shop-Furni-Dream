@@ -1,9 +1,7 @@
 package com.furnycrew.furnidream.order.model.dao;
 
-import com.furnycrew.furnidream.common.SearchCriteria;
-import com.furnycrew.furnidream.common.enums.OrderStatus;
+import com.furnycrew.furnidream.common.search.SearchCriteria;
 import com.furnycrew.furnidream.order.model.dto.OrderDto;
-import com.furnycrew.furnidream.order.model.dto.OrderProductDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 
