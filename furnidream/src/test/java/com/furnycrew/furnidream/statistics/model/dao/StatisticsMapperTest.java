@@ -18,15 +18,14 @@ class StatisticsMapperTest {
     @Autowired
     private StatisticsMapper menuMapper;
 
-    @DisplayName("전체 상품별 주문량 내림차순 정렬로 가져오기")
+    @DisplayName("[모든 기간/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @Test
-    void calculateOrderCountRankByDesc() {
+    void calculateOrderCountRankByAllPeriod() {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRank();
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByAllPeriod();
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
-
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
 
         // then
@@ -35,4 +34,20 @@ class StatisticsMapperTest {
 //            System.out.println(orderCountRankingDto);
 //        }
     }
+
+    @DisplayName("[분기별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
+    @Test
+    void  calculateOrderCountRankByQuarterPeriod(){
+        // given
+        // when
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(2024, 2);
+
+        List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+
+    }
+
 }
