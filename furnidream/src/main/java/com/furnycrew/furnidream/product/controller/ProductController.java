@@ -55,4 +55,15 @@ public class ProductController {
         model.addAttribute("product", product);
         return "product/detail";
     }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "productName", required = false) String productName,
+                         @RequestParam(value = "category", required = false) String category,
+                         @RequestParam(value = "productCode", required = false) String productCode,
+                         Model model) {
+        log.info("GET /product/search?productName={}&category={}&productCode={}", productName, category, productCode);
+        List<ProductDto> products = productQueryService.searchProduct(productName, category, productCode);
+        model.addAttribute("products", products);
+        return "product/search";
+    }
 }
