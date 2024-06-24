@@ -24,7 +24,7 @@
         select
             *
         from
-            product
+            tbl_product
     </select>
 
     <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId">
