@@ -17,4 +17,8 @@ public class ProductQueryService {
     public List<ProductDto> findAll(){
         return productMapper.findAll();
     }
+
+    public ProductDto findByProductId(Long productId) {
+        return productMapper.findByProductId(productId);
+    }
 }
