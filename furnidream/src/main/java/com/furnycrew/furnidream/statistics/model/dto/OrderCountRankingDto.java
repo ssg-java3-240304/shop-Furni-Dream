@@ -10,6 +10,7 @@ import lombok.ToString;
 public class OrderCountRankingDto {
     private String productCode;
     private String name;
+    private String category;
     private int quantity;
 
 }
