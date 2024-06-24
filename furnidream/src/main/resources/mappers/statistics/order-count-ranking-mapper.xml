@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.furnycrew.furnidream.statistics.model.dao.StatisticsMapper">
+<mapper namespace="com.furnycrew.furnidream.statistics.model.dao.OrderCountRankingMapper">
 
     <resultMap id="OrderCountRankingMap" type="OrderCountRankingDto" >
         <result column="product_code" property="productCode"/>
@@ -12,7 +12,7 @@
     </resultMap>
 
 
-    <select id="calculateOrderCountRankByAllPeriod" resultMap="OrderCountRankingMap" >
+    <select id="calculateOrderCountRankingByAllPeriod" resultMap="OrderCountRankingMap" >
         select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
@@ -25,7 +25,7 @@
         order by quantity desc;
     </select>
 
-    <select id="calculateOrderCountRankByQuarterPeriod" resultMap="OrderCountRankingMap">
+    <select id="calculateOrderCountRankingByQuarterPeriod" resultMap="OrderCountRankingMap">
         select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
@@ -40,7 +40,7 @@
         order by quantity desc;
     </select>
 
-    <select id="calculateOrderCountRankByMonthPeriod" resultMap="OrderCountRankingMap">
+    <select id="calculateOrderCountRankingByMonthPeriod" resultMap="OrderCountRankingMap">
         select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
@@ -55,7 +55,7 @@
         order by quantity desc;
     </select>
 
-    <select id="calculateOrderCountRankByCategoryAndAllPeriod" resultMap="OrderCountRankingMap">
+    <select id="calculateOrderCountRankingByCategoryAndAllPeriod" resultMap="OrderCountRankingMap">
         select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
@@ -68,7 +68,7 @@
         order by quantity desc;
     </select>
 
-    <select id="calculateOrderCountRankByCategoryAndQuarterPeriod" resultMap="OrderCountRankingMap">
+    <select id="calculateOrderCountRankingByCategoryAndQuarterPeriod" resultMap="OrderCountRankingMap">
         select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
@@ -83,7 +83,7 @@
         order by quantity desc;
     </select>
 
-    <select id="calculateOrderCountRankByCategoryAndMonthPeriod" resultMap="OrderCountRankingMap">
+    <select id="calculateOrderCountRankingByCategoryAndMonthPeriod" resultMap="OrderCountRankingMap">
         select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
