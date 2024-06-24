@@ -10,5 +10,5 @@ import java.util.List;
 @SpringBootApplication
 @Mapper
 public interface OrderMapper {
-    public List<OrderDto> findOrdersByDateTime(SearchCriteria searchCriteria);
+    List<OrderDto> findOrdersByDateTime(SearchCriteria searchCriteria);
 }
