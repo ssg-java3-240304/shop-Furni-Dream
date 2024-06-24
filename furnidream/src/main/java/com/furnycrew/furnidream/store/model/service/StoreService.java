@@ -18,4 +18,9 @@ public class StoreService {
     public List<StoreDto> findAll() {
         return storeMapper.findAll();
     }
+
+    // 상점 등록
+    public int insertStore(StoreDto storeDto) {
+        return storeMapper.insertStore(storeDto);
+    }
 }
