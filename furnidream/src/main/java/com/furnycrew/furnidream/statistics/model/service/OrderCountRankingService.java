@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class StatisticsService {
+public class OrderCountRankingService {
     private final OrderCountRankingMapper orderCountRankingMapper;
 
     public List<OrderCountRankingDto> calculateOrderCountRankingByAllPeriod() {
