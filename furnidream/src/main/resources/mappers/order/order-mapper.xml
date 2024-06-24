@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.order.model.dao.OrderMapper">
+    <resultMap id="orderDtoMap" type="orderDto">
+        <id column="order_code" property="orderCode"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="phone" property="phone"/>
+        <result column="shipping_address" property="shippingAddress"/>
+        <result column="order_status" property="orderStatus"/>
+        <association property="customerDto" javaType="customerDto">
+            <id column="customer_id" property="customerId"/>
+            <result column="name" property="name"/>
+            <result column="gender" property="gender"/>
+            <result column="age" property="age"/>
+            <result column="address" property="address"/>
+            <result column="phone" property="phone"/>
+        </association>
+        <collection property="orderProductList" ofType="orderProductDto">
+            <id column="order_code" property="orderCode"/>
+            <id column="product_id" property="productId"/>
+            <result column="quantity" property="quantity"/>
+            <result column="price" property="price"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="findAllOrder" resultMap="orderDtoMap">
+        select
+                *
+        from
+            tbl_order o join tbl_customer c on o.customer_id = c.customer_id
+                        join tbl_order_product op on o.order_code = op.order_code;
+    </select>
+
+
+    <select id="findOrdersByDateTime" resultMap="orderDtoMap">
+        select
+            *
+        from
+            tbl_order o join tbl_customer c on o.customer_id = c.customer_id
+                join tbl_order_product op on o.order_code = op.order_code
+        <where>
+            <if test="name == 'day'">
+                date(o.created_at) = date(#{value});
+            </if>
+            <if test="name == 'month'">
+                left(o.created_at, 7) = left(#{value}, 7);
+            </if>
+            <if test="name == 'year'">
+                year(o.created_at) = year(#{value})
+            </if>
+        </where>
+
+    </select>
+
+<!--    -->
+<!--    <insert id="insertMenu" useGeneratedKeys="true" keyProperty="menuCode">-->
+<!--        insert into-->
+<!--        tbl_menu (menu_name, menu_price, category_code, orderable_status)-->
+<!--        values(-->
+<!--        #{menuName}, #{menuPrice}, #{categoryCode}, #{orderableStatus}-->
+<!--        )-->
+<!--    </insert>-->
+
+</mapper>
