@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -36,7 +38,7 @@ class StatisticsMapperTest {
 
     @DisplayName("[분기별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @Test
-    void  calculateOrderCountRankByQuarterPeriod(){
+    void calculateOrderCountRankByQuarterPeriod() {
         // given
         // when
         List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(2024, 2);
@@ -50,7 +52,7 @@ class StatisticsMapperTest {
 
     @DisplayName("[월별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @Test
-    void  calculateOrderCountRankByMonthPeriod(){
+    void calculateOrderCountRankByMonthPeriod() {
         // given
         // when
         List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(2024, 4);
@@ -62,4 +64,19 @@ class StatisticsMapperTest {
         assertThat(result).isNotNull().isEqualTo(sortedResult);
     }
 
+    @DisplayName("[모든 기간/카테고리] 상품별 주문량 내림차순 정렬로 가져오기")
+    @ParameterizedTest()
+    @ValueSource(strings = {"소파", "침대","책상" })
+    void calculateOrderCountRankByCategoryAndAllPeriod(String category) {
+        // given
+        // when
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByCategoryAndAllPeriod(category);
+
+        List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+        assertThat(result).extracting(OrderCountRankingDto::getCategory).containsOnly(category);
+    }
 }
