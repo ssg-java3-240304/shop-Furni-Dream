@@ -1,6 +1,5 @@
 package com.furnycrew.furnidream.statistics.model.dao;
 
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.furnycrew.furnidream.statistics.model.dto.OrderCountRankingDto;
@@ -47,7 +46,20 @@ class StatisticsMapperTest {
 
         // then
         assertThat(result).isNotNull().isEqualTo(sortedResult);
+    }
 
+    @DisplayName("[월별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
+    @Test
+    void  calculateOrderCountRankByMonthPeriod(){
+        // given
+        // when
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(2024, 4);
+
+        List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
     }
 
 }

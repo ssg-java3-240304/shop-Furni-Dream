@@ -11,11 +11,15 @@ import org.springframework.stereotype.Service;
 public class StatisticsService {
     private final StatisticsMapper statisticsMapper;
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByAllPeriod(){
+    public List<OrderCountRankingDto> calculateOrderCountRankByAllPeriod() {
         return statisticsMapper.calculateOrderCountRankByAllPeriod();
     }
-    public List<OrderCountRankingDto> calculateOrderCountRankByQuarterPeriod(int year, int period){
-        return statisticsMapper.calculateOrderCountRankByQuarterPeriod(year,period);
+
+    public List<OrderCountRankingDto> calculateOrderCountRankByQuarterPeriod(int year, int period) {
+        return statisticsMapper.calculateOrderCountRankByQuarterPeriod(year, period);
     }
 
+    public List<OrderCountRankingDto> calculateOrderCountRankByMonthPeriod(int year, int month) {
+        return statisticsMapper.calculateOrderCountRankByMonthPeriod(year, month);
+    }
 }
