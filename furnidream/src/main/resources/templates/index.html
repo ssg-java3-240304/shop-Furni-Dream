@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <meta charset="UTF-8">
-    <title>FurniDream</title>
+
+    <title>Index</title>
+    <script>
+        console.log(1234);
+    </script>
 </head>
-<body>
-    <h1>FurniDream</h1>
+<body >
+<main layout:fragment="main">
+    <h1>🦄🦄🦄🦄🦄💖💖💖</h1>
+</main>
+
+<script layout:fragment="script" th:src="@{/js/script.js}"></script>
 </body>
 </html>
