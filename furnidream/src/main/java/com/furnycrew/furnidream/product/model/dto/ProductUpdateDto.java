@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductRegistDto {
+public class ProductUpdateDto {
     private String productName;
     private String productImage;
     private String category;

@@ -15,4 +15,8 @@ public class ProductCommandService {
     public int insertProduct(ProductDto productDto) {
         return productMapper.insertProduct(productDto);
     }
+
+    public int updateProduct(ProductDto productDto) {
+        return productMapper.updateProduct(productDto);
+    }
 }
