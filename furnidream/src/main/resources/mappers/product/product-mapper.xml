@@ -68,4 +68,22 @@
         where
             product_id = #{productId}
     </update>
+
+    <select id="searchProduct" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+        where
+            product_status = 'AVAILABLE'
+        <if test="name == 'name'">
+            and product_name like concat('%', #{value}, '%');
+        </if>
+        <if test="name == 'category'">
+            and category = #{value}
+        </if>
+        <if test="name == 'productCode'">
+            and product_code = #{value}
+        </if>
+    </select>
 </mapper>
