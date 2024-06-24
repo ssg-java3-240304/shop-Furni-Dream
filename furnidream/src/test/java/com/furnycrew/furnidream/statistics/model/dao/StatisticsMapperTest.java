@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,6 +72,22 @@ class StatisticsMapperTest {
         // given
         // when
         List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByCategoryAndAllPeriod(category);
+
+        List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+        assertThat(result).extracting(OrderCountRankingDto::getCategory).containsOnly(category);
+    }
+
+    @DisplayName("[분기별/카테고리] 상품별 주문량 내림차순 정렬로 가져오기")
+    @ParameterizedTest()
+    @CsvSource(value = {"소파, 2024, 2", "침대, 2024, 2","책상, 2024, 2"})
+    void calculateOrderCountRankByCategoryAndQuarterPeriod(String category, int year, int quarter) {
+        // given
+        // when
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByCategoryAndQuarterPeriod(category,year, quarter);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
