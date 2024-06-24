@@ -11,4 +11,6 @@ public interface StatisticsMapper {
     List<OrderCountRankingDto> calculateOrderCountRankByMonthPeriod(int year, int month);
 
     List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndAllPeriod(String category);
+    List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndQuarterPeriod(String category, int year,
+                                                                                 int quarter);
 }

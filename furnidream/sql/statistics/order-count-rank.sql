@@ -30,7 +30,7 @@ order by SUM(quantity) desc;
 
 
 ## 4. 상품 코드별 주문수량 내림차순으로 가져오기
-select product_code, product_name,category, SUM(o.quantity) quantity
+select product_code, product_name, category, SUM(o.quantity) quantity
 from (select product_id, SUM(quantity) quantity
       from tbl_order_product
       where order_code in (select order_code
@@ -60,7 +60,7 @@ having product_id in (50, 51, 52)
 order by SUM(quantity) desc;
 
 # 분기별 - 전체 상품 (year, quarter 변수로 변경 필수!!!)
-select product_code, product_name, category,SUM(o.quantity) quantity
+select product_code, product_name, category, SUM(o.quantity) quantity
 from (select product_id, SUM(quantity) quantity
       from tbl_order_product
       where order_code in (select order_code
@@ -70,7 +70,7 @@ from (select product_id, SUM(quantity) quantity
                              and QUARTER(created_at) = 2)
       group by product_id) o
          JOIN tbl_product p on o.product_id = p.product_id
-group by p.product_code, product_name ,category
+group by p.product_code, product_name, category
 order by quantity desc;
 
 
@@ -114,5 +114,20 @@ from (select product_id, SUM(quantity) quantity
                            where order_status = 5)
       group by product_id) o
          JOIN (select * from tbl_product where category = '소파') p on o.product_id = p.product_id
-group by p.product_code, product_name,category
+group by p.product_code, product_name, category
+order by quantity desc;
+
+
+# 분기 - 카테고리  (category, year, quarter 변수로 변경 필수!!!)
+select product_code, product_name, category, SUM(o.quantity) quantity
+from (select product_id, SUM(quantity) quantity
+      from tbl_order_product
+      where order_code in (select order_code
+                           from tbl_order
+                           where order_status = 5
+                             and YEAR(created_at) = 2024
+                             and QUARTER(created_at) = 2)
+      group by product_id) o
+         JOIN (select * from tbl_product where category = '소파') p on o.product_id = p.product_id
+group by p.product_code, product_name, category
 order by quantity desc;

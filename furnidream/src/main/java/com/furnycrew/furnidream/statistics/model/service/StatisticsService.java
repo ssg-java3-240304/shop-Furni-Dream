@@ -23,8 +23,14 @@ public class StatisticsService {
         return statisticsMapper.calculateOrderCountRankByMonthPeriod(year, month);
     }
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndAllPeriod(String category){
+    public List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndAllPeriod(String category) {
         return statisticsMapper.calculateOrderCountRankByCategoryAndAllPeriod(category);
     }
+
+    public List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndQuarterPeriod(String category, int year,
+                                                                                        int quarter) {
+        return statisticsMapper.calculateOrderCountRankByCategoryAndQuarterPeriod(category, year, quarter);
+    }
+
 
 }
