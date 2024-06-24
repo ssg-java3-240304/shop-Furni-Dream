@@ -145,3 +145,16 @@ from (select product_id, SUM(quantity) quantity
          JOIN (select * from tbl_product where category = '소파') p on o.product_id = p.product_id
 group by p.product_code, product_name, category
 order by quantity desc;
+
+
+# 원가 추가
+# alter table tbl_order_product ADD net_profit int NOT NULL DEFAULT 1000;
+# ALTER TABLE tbl_order_product ALTER net_profit DROP DEFAULT;
+# SELECT COLUMN_NAME, COLUMN_DEFAULT
+# FROM INFORMATION_SCHEMA.COLUMNS
+# WHERE TABLE_NAME = 'tbl_order_product'
+#   AND TABLE_SCHEMA = 'furnidb'
+#   AND COLUMN_NAME = 'net_profit';
+#
+# ALTER TABLE tbl_order_product
+#     CHANGE net_profit cost_price int;
