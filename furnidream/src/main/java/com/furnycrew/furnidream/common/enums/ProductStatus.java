@@ -1,4 +1,4 @@
-package com.furnycrew.furnidream.product.model.dto;
+package com.furnycrew.furnidream.common.enums;
 
 public enum ProductStatus {
     AVAILABLE, UNAVAILABLE

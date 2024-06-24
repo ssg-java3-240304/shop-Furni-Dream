@@ -1,17 +1,15 @@
 package com.furnycrew.furnidream.product.model.dao;
 
 import com.furnycrew.furnidream.product.model.dto.ProductDto;
-import com.furnycrew.furnidream.product.model.dto.ProductStatus;
+import com.furnycrew.furnidream.common.enums.ProductStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.awt.*;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ProductMapperTest {
