@@ -1,6 +1,6 @@
 package com.furnycrew.furnidream.statistics.model.service;
 
-import com.furnycrew.furnidream.statistics.model.dao.StatisticsMapper;
+import com.furnycrew.furnidream.statistics.model.dao.OrderCountRankingMapper;
 import com.furnycrew.furnidream.statistics.model.dto.OrderCountRankingDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class StatisticsService {
-    private final StatisticsMapper statisticsMapper;
+    private final OrderCountRankingMapper orderCountRankingMapper;
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByAllPeriod() {
-        return statisticsMapper.calculateOrderCountRankByAllPeriod();
+    public List<OrderCountRankingDto> calculateOrderCountRankingByAllPeriod() {
+        return orderCountRankingMapper.calculateOrderCountRankingByAllPeriod();
     }
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByQuarterPeriod(int year, int period) {
-        return statisticsMapper.calculateOrderCountRankByQuarterPeriod(year, period);
+    public List<OrderCountRankingDto> calculateOrderCountRankingByQuarterPeriod(int year, int period) {
+        return orderCountRankingMapper.calculateOrderCountRankingByQuarterPeriod(year, period);
     }
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByMonthPeriod(int year, int month) {
-        return statisticsMapper.calculateOrderCountRankByMonthPeriod(year, month);
+    public List<OrderCountRankingDto> calculateOrderCountRankingByMonthPeriod(int year, int month) {
+        return orderCountRankingMapper.calculateOrderCountRankingByMonthPeriod(year, month);
     }
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndAllPeriod(String category) {
-        return statisticsMapper.calculateOrderCountRankByCategoryAndAllPeriod(category);
+    public List<OrderCountRankingDto> calculateOrderCountRankingByCategoryAndAllPeriod(String category) {
+        return orderCountRankingMapper.calculateOrderCountRankingByCategoryAndAllPeriod(category);
     }
 
-    public List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndQuarterPeriod(String category, int year,
+    public List<OrderCountRankingDto> calculateOrderCountRankingByCategoryAndQuarterPeriod(String category, int year,
                                                                                         int quarter) {
-        return statisticsMapper.calculateOrderCountRankByCategoryAndQuarterPeriod(category, year, quarter);
+        return orderCountRankingMapper.calculateOrderCountRankingByCategoryAndQuarterPeriod(category, year, quarter);
     }
-    public     List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndMonthPeriod(String category, int year,
+    public     List<OrderCountRankingDto> calculateOrderCountRankingByCategoryAndMonthPeriod(String category, int year,
                                                                                           int month){
-        return statisticsMapper.calculateOrderCountRankByCategoryAndMonthPeriod(category, year, month);
+        return orderCountRankingMapper.calculateOrderCountRankingByCategoryAndMonthPeriod(category, year, month);
     }
 
 }

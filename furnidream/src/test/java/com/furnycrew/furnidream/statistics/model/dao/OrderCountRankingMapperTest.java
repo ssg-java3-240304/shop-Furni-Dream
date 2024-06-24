@@ -15,17 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StatisticsMapperTest {
+class OrderCountRankingMapperTest {
 
     @Autowired
-    private StatisticsMapper menuMapper;
+    private OrderCountRankingMapper menuMapper;
 
     @DisplayName("[모든 기간/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @Test
-    void calculateOrderCountRankByAllPeriod() {
+    void calculateOrderCountRankingByAllPeriod() {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByAllPeriod();
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByAllPeriod();
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -40,10 +40,10 @@ class StatisticsMapperTest {
     @DisplayName("[분기별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @ParameterizedTest
     @CsvSource(value = {"2024,2","2024,1", "2023,4"})
-    void calculateOrderCountRankByQuarterPeriod(int year, int quarter) {
+    void calculateOrderCountRankingByQuarterPeriod(int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(year, quarter);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -55,10 +55,10 @@ class StatisticsMapperTest {
     @DisplayName("[분기별/전체] 기간을 벗어난 상품별 주문량 내림차순 정렬로 가져오기 ")
     @ParameterizedTest
     @CsvSource(value = {"2025,1","2025,2", "2026,1"})
-    void calculateOrderCountRankByQuarterPeriodAndNotPeriod(int year, int quarter) {
+    void calculateOrderCountRankingByQuarterPeriodAndNotPeriod(int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(year, quarter);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
 
         // then
         assertThat(result).isEmpty();
@@ -67,10 +67,10 @@ class StatisticsMapperTest {
     @DisplayName("[월별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @ParameterizedTest
     @CsvSource(value = {"2024,4","2024,3", "2024,2"})
-    void calculateOrderCountRankByMonthPeriod(int year, int month) {
+    void calculateOrderCountRankingByMonthPeriod(int year, int month) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(year, month);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByMonthPeriod(year, month);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -82,10 +82,10 @@ class StatisticsMapperTest {
     @DisplayName("[월별/전체] 기간을 벗어난 상품별 주문량 내림차순 정렬로 가져오기")
     @ParameterizedTest
     @CsvSource(value = {"2025,1","2025,6", "2026,9"})
-    void calculateOrderCountRankByMonthPeriodAndNotPeriod(int year, int month) {
+    void calculateOrderCountRankingByMonthPeriodAndNotPeriod(int year, int month) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(year, month);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByMonthPeriod(year, month);
 
 
         // then
@@ -95,10 +95,10 @@ class StatisticsMapperTest {
     @DisplayName("[모든 기간/카테고리] 상품별 주문량 내림차순 정렬로 가져오기")
     @ParameterizedTest()
     @ValueSource(strings = {"소파", "침대", "책상"})
-    void calculateOrderCountRankByCategoryAndAllPeriod(String category) {
+    void calculateOrderCountRankingByCategoryAndAllPeriod(String category) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByCategoryAndAllPeriod(category);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByCategoryAndAllPeriod(category);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -111,10 +111,10 @@ class StatisticsMapperTest {
     @DisplayName("[분기별/카테고리] 상품별 주문량 내림차순 정렬로 가져오기")
     @ParameterizedTest()
     @CsvSource(value = {"소파, 2024, 2", "침대, 2024, 2", "책상, 2024, 2"})
-    void calculateOrderCountRankByCategoryAndQuarterPeriod(String category, int year, int quarter) {
+    void calculateOrderCountRankingByCategoryAndQuarterPeriod(String category, int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByCategoryAndQuarterPeriod(category, year,
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByCategoryAndQuarterPeriod(category, year,
                 quarter);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
@@ -128,10 +128,10 @@ class StatisticsMapperTest {
     @DisplayName("[월별/카테고리] 상품별 주문량 내림차순 정렬로 가져오기")
     @ParameterizedTest()
     @CsvSource(value = {"소파, 2024, 4", "침대, 2024, 4", "책상, 2024, 4"})
-    void calculateOrderCountRankByCategoryAndMonthPeriod(String category, int year, int month) {
+    void calculateOrderCountRankingByCategoryAndMonthPeriod(String category, int year, int month) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByCategoryAndMonthPeriod(category, year,
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByCategoryAndMonthPeriod(category, year,
                 month);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
