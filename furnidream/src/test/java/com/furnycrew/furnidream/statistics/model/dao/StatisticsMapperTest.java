@@ -38,11 +38,12 @@ class StatisticsMapperTest {
     }
 
     @DisplayName("[분기별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
-    @Test
-    void calculateOrderCountRankByQuarterPeriod() {
+    @ParameterizedTest
+    @CsvSource(value = {"2024,2","2024,1", "2023,4"})
+    void calculateOrderCountRankByQuarterPeriod(int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(2024, 2);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(year, quarter);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -51,18 +52,44 @@ class StatisticsMapperTest {
         assertThat(result).isNotNull().isEqualTo(sortedResult);
     }
 
-    @DisplayName("[월별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
-    @Test
-    void calculateOrderCountRankByMonthPeriod() {
+    @DisplayName("[분기별/전체] 기간을 벗어난 상품별 주문량 내림차순 정렬로 가져오기 ")
+    @ParameterizedTest
+    @CsvSource(value = {"2025,1","2025,2", "2026,1"})
+    void calculateOrderCountRankByQuarterPeriodAndNotPeriod(int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(2024, 4);
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByQuarterPeriod(year, quarter);
+
+        // then
+        assertThat(result).isEmpty();
+    }
+
+    @DisplayName("[월별/전체] 상품별 주문량 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value = {"2024,4","2024,3", "2024,2"})
+    void calculateOrderCountRankByMonthPeriod(int year, int month) {
+        // given
+        // when
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(year, month);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
 
         // then
         assertThat(result).isNotNull().isEqualTo(sortedResult);
+    }
+
+    @DisplayName("[월별/전체] 기간을 벗어난 상품별 주문량 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value = {"2025,1","2025,6", "2026,9"})
+    void calculateOrderCountRankByMonthPeriodAndNotPeriod(int year, int month) {
+        // given
+        // when
+        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankByMonthPeriod(year, month);
+
+
+        // then
+        assertThat(result).isEmpty();
     }
 
     @DisplayName("[모든 기간/카테고리] 상품별 주문량 내림차순 정렬로 가져오기")
