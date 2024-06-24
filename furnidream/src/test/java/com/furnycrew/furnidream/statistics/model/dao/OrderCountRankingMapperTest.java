@@ -18,14 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 class OrderCountRankingMapperTest {
 
     @Autowired
-    private OrderCountRankingMapper menuMapper;
+    private OrderCountRankingMapper orderCountRankingMapper;
 
     @DisplayName("[모든 기간/전체] 상품별 주문량 내림차순 정렬로 가져오기")
     @Test
     void calculateOrderCountRankingByAllPeriod() {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByAllPeriod();
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByAllPeriod();
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -43,7 +43,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByQuarterPeriod(int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -58,7 +58,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByQuarterPeriodAndNotPeriod(int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
 
         // then
         assertThat(result).isEmpty();
@@ -70,7 +70,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByMonthPeriod(int year, int month) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByMonthPeriod(year, month);
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByMonthPeriod(year, month);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -85,7 +85,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByMonthPeriodAndNotPeriod(int year, int month) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByMonthPeriod(year, month);
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByMonthPeriod(year, month);
 
 
         // then
@@ -98,7 +98,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByCategoryAndAllPeriod(String category) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByCategoryAndAllPeriod(category);
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByCategoryAndAllPeriod(category);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getQuantity() - o1.getQuantity());
@@ -114,7 +114,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByCategoryAndQuarterPeriod(String category, int year, int quarter) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByCategoryAndQuarterPeriod(category, year,
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByCategoryAndQuarterPeriod(category, year,
                 quarter);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
@@ -131,7 +131,7 @@ class OrderCountRankingMapperTest {
     void calculateOrderCountRankingByCategoryAndMonthPeriod(String category, int year, int month) {
         // given
         // when
-        List<OrderCountRankingDto> result = menuMapper.calculateOrderCountRankingByCategoryAndMonthPeriod(category, year,
+        List<OrderCountRankingDto> result = orderCountRankingMapper.calculateOrderCountRankingByCategoryAndMonthPeriod(category, year,
                 month);
 
         List<OrderCountRankingDto> sortedResult = new ArrayList<>(result);
