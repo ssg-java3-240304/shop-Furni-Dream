@@ -7,5 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface StatisticsMapper {
 
-    List<OrderCountRankingDto> calculateOrderCountRank();
+    List<OrderCountRankingDto> calculateOrderCountRankByAllPeriod();
+    List<OrderCountRankingDto> calculateOrderCountRankByQuarterPeriod(int year, int quarter);
 }
