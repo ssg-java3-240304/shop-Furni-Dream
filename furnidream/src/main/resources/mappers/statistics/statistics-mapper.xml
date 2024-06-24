@@ -8,11 +8,12 @@
         <result column="product_code" property="productCode"/>
         <result column="product_name" property="name"/>
         <result column="quantity" property="quantity"/>
+        <result column="category" property="category"/>
     </resultMap>
 
 
-    <select id="calculateOrderCountRank" resultMap="OrderCountRankingMap" >
-        select product_code, product_name, SUM(o.quantity) quantity
+    <select id="calculateOrderCountRankByAllPeriod" resultMap="OrderCountRankingMap" >
+        select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
         where order_code in (select order_code
@@ -20,12 +21,12 @@
         where order_status = 5)
         group by product_id) o
         JOIN tbl_product p on o.product_id = p.product_id
-        group by p.product_code, product_name
+        group by p.product_code, product_name, category
         order by quantity desc;
     </select>
 
     <select id="calculateOrderCountRankByQuarterPeriod" resultMap="OrderCountRankingMap">
-        select product_code, product_name,  SUM(o.quantity) quantity
+        select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
         where order_code in (select order_code
@@ -35,12 +36,12 @@
         and QUARTER(created_at) = #{quarter})
         group by product_id) o
         JOIN tbl_product p on o.product_id = p.product_id
-        group by p.product_code, product_name
+        group by p.product_code, product_name, category
         order by quantity desc;
     </select>
 
     <select id="calculateOrderCountRankByMonthPeriod" resultMap="OrderCountRankingMap">
-        select product_code, product_name,  SUM(o.quantity) quantity
+        select product_code, product_name, category, SUM(o.quantity) quantity
         from (select product_id, SUM(quantity) quantity
         from tbl_order_product
         where order_code in (select order_code
@@ -50,8 +51,22 @@
         and MONTH(created_at) = #{month})
         group by product_id) o
         JOIN tbl_product p on o.product_id = p.product_id
-        group by p.product_code, product_name
+        group by p.product_code, product_name, category
         order by quantity desc;
+    </select>
+
+    <select id="calculateOrderCountRankByCategoryAndAllPeriod" resultMap="OrderCountRankingMap">
+        select product_code, product_name, category, SUM(o.quantity) quantity
+        from (select product_id, SUM(quantity) quantity
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5)
+        group by product_id) o
+        JOIN (select * from tbl_product where category = #{category}) p on o.product_id = p.product_id
+        group by p.product_code, product_name, category
+        order by quantity desc;
+
     </select>
 
 </mapper>

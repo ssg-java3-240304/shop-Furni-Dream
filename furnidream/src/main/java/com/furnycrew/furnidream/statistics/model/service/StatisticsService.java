@@ -22,4 +22,9 @@ public class StatisticsService {
     public List<OrderCountRankingDto> calculateOrderCountRankByMonthPeriod(int year, int month) {
         return statisticsMapper.calculateOrderCountRankByMonthPeriod(year, month);
     }
+
+    public List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndAllPeriod(String category){
+        return statisticsMapper.calculateOrderCountRankByCategoryAndAllPeriod(category);
+    }
+
 }
