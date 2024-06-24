@@ -31,6 +31,9 @@ public class StatisticsService {
                                                                                         int quarter) {
         return statisticsMapper.calculateOrderCountRankByCategoryAndQuarterPeriod(category, year, quarter);
     }
-
+    public     List<OrderCountRankingDto> calculateOrderCountRankByCategoryAndMonthPeriod(String category, int year,
+                                                                                          int month){
+        return statisticsMapper.calculateOrderCountRankByCategoryAndMonthPeriod(category, year, month);
+    }
 
 }
