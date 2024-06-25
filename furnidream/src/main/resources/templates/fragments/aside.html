@@ -5,6 +5,7 @@
     <title></title>
 </head>
 <body class="sb-nav-fixed">
+
 <aside th:fragment="asideFragment">
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -43,11 +44,36 @@
                             주문관리
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
+                        <!-- 통계 메뉴 -->
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStatistics" aria-expanded="false" aria-controls="collapseStatistics">
+                            <div class="sb-nav-link-icon"><i class="fas fa-chart-bar"></i></div>
+                            통계
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseStatistics" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/app/statistics/order/count-ranking/all">주문량 순위</a>
+                                <a class="nav-link" href="/app/statistics/order/net-profit-ranking/all">순수익 순위</a>
+                            </nav>
+                        </div>
                         <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="/app/order/list">주문 조회</a>
                                 <a class="nav-link" href="/app">애기메뉴2</a>
                             </nav>
+                            <div class="sb-sidenav-menu-heading">Interface</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                주문관리
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="/app">애기메뉴1</a>
+                                    <a class="nav-link" href="/app">애기메뉴2</a>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
