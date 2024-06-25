@@ -21,12 +21,9 @@ class StoreMapperTest {
     @DisplayName("상점 모든 정보 조회")
     void test1() {
         // given
-        List<StoreDto> stores = storeMapper.findAll();
+        StoreDto store = storeMapper.findAll();
         // then
-        assertThat(stores)
-                .isNotNull()
-                .isNotEmpty()
-                .allMatch((store) -> store != null);
+        assertThat(store).isNotNull();
     }
 
     @Test

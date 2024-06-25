@@ -18,12 +18,16 @@
         <result column="mail_order_num" property="mailOrderNum"/>
     </resultMap>
 
-    <!--  상점 모든 정보 조회  -->
+    <!--  한 상점의 모든 정보 조회  -->
     <select id="findAll" resultMap="storeDtoMap">
         select
             *
         from
             tbl_store
+        order by
+            store_id desc
+        limit
+            1
     </select>
 
     <!--  상점 ID 일치하는 한 건 조회  -->
