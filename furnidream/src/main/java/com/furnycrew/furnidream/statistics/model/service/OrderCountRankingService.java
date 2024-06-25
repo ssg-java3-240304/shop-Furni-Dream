@@ -17,8 +17,8 @@ public class OrderCountRankingService {
         return orderCountRankingMapper.calculateOrderCountRankingByAllPeriod();
     }
 
-    public List<OrderCountRankingDto> calculateOrderCountRankingByQuarterPeriod(int year, int period) {
-        return orderCountRankingMapper.calculateOrderCountRankingByQuarterPeriod(year, period);
+    public List<OrderCountRankingDto> calculateOrderCountRankingByQuarterPeriod(int year, int quarter) {
+        return orderCountRankingMapper.calculateOrderCountRankingByQuarterPeriod(year, quarter);
     }
 
     public List<OrderCountRankingDto> calculateOrderCountRankingByMonthPeriod(int year, int month) {
