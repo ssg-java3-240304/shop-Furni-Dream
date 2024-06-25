@@ -104,4 +104,8 @@
         ]]>
     </select>
 
+<!--    <select id = "findSalesByGender" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalsesStatisticsByGenderDto">-->
+
+<!--    </select>-->
+
 </mapper>

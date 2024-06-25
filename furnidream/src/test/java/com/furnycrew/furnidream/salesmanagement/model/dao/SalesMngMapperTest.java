@@ -1,10 +1,7 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
 
-import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto;
-import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngMonthlyDto;
-import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngQuarterDto;
-import com.furnycrew.furnidream.salesmanagement.model.dto.SalesStatisticsByAgeDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +80,12 @@ class SalesMngMapperTest {
     void findSalesByGender() {
         // given
         // when
+        List<SalsesStatisticsByGenderDto> salsesStatisticsByGenderDtos = salesMngMapper.findSalesByGender();
+        System.out.println(salsesStatisticsByGenderDtos);
+
         // then
+        assertThat(salsesStatisticsByGenderDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 }

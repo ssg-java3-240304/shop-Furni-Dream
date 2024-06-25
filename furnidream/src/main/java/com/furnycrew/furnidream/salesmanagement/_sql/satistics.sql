@@ -180,7 +180,9 @@ ORDER BY
 -- 상품별 매출 내역
 select
     p.product_name,
-    sum(op.quantity) 판매수량,
+    (select sum(op.quantity * op.price)
+    from tbl_order_product op left join tbl_order o on op.order_code = o.order_code
+    left join tbl_customer c on o.customer_id = c.customer_id where c.gender = 'M' group by p.product_name) 남자매출액 ,
     sum(o.total_price)
 
 from tbl_order o
@@ -191,22 +193,40 @@ from tbl_order o
          left join tbl_product p
                    using (product_id)
 group by
-    product_id
+    p.product_name
 order by
-    판매수량 desc ;
+    p.product_name ;
+
+SELECT
+    p.product_name,
+    SUM(CASE WHEN c.gender = 'M' THEN op.quantity * op.price ELSE 0 END) AS 남자매출액,
+
+    SUM(CASE WHEN c.gender = 'W' THEN op.quantity * op.price ELSE 0 END) AS 여자매출액,
+    SUM(o.total_price) AS 총매출액
+FROM
+    tbl_order o
+        LEFT JOIN tbl_order_product op ON o.order_code = op.order_code
+        LEFT JOIN tbl_customer c ON o.customer_id = c.customer_id
+        LEFT JOIN tbl_product p ON op.product_id = p.product_id
+GROUP BY
+    p.product_name
+ORDER BY
+    p.product_name;
+
+select * from tbl_customer join tbl_order where gender = 'M'
+select * from tbl_customer join tbl_order where gender = 'W';
 
 -- 성별
 
 select
     p.product_name,
-    p.color,
     sum(op.quantity),
     sum(o.total_price)
 
-from tbl_order_product op left join tbl_order o using(order_code)
+from
+    tbl_order_product op left join tbl_order o using(order_code)
 left join tbl_product p using (product_id)
 group by
-    p.product_id
+    p.product_name
 order by
-    product_name,
-    p.color;
+    p.product_name;
