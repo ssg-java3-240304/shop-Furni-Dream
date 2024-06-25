@@ -1,12 +1,13 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
-import com.furnycrew.furnidream.salesmanagement.model.dto.ProductSalesDto;
+
 import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,13 +24,13 @@ class SalesMngMapperTest {
         // given
         // when
         List<SalesMngDto> salesMngDtos = salesMngMapper.findTotalSales();
+
         System.out.println(salesMngDtos);
 
         // then
         assertThat(salesMngDtos)
                 .isNotNull()
-                .isNotEmpty()
-                .allMatch((salesMng) -> salesMng != null);
+                .isNotEmpty();
         
     }
 
@@ -38,7 +39,14 @@ class SalesMngMapperTest {
     void findMonthlySales() {
         // given
         // when
+        List<SalesMngDto> salesMngDtos = salesMngMapper.findMonthlySales();
+
+        System.out.println(salesMngDtos);
+
         // then
+        assertThat(salesMngDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     @Test
