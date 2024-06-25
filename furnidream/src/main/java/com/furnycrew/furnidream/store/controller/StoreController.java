@@ -2,6 +2,7 @@ package com.furnycrew.furnidream.store.controller;
 
 import com.furnycrew.furnidream.store.model.dto.StoreDto;
 import com.furnycrew.furnidream.store.model.dto.StoreRegistDto;
+import com.furnycrew.furnidream.store.model.dto.StoreUpdateDto;
 import com.furnycrew.furnidream.store.model.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,18 @@ public class StoreController {
         StoreDto storeDto = storeRegistDto.toStoreDto();
         int result = storeService.insertStore(storeDto);
         redirectAttributes.addFlashAttribute("message", "상점을 성공적으로 등록했습니다.👏👏👏");
+        log.debug("result = {}", result);
+        return "redirect:/store/list";
+    }
+
+    // 상품 수정
+    @RequestMapping(path="/store/modify", method = RequestMethod.POST)
+    @PostMapping("/store/modify")
+    public String modify(@ModelAttribute StoreUpdateDto storeUpdateDto, RedirectAttributes redirectAttributes) {
+        log.info("POST /store/modify");
+        StoreDto storeDto = storeUpdateDto.toStoreDto();
+        int result = storeService.insertStore(storeDto);
+        redirectAttributes.addFlashAttribute("message", "상점을 성공적으로 수정했습니다✨✨✨");
         log.debug("result = {}", result);
         return "redirect:/store/list";
     }

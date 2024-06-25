@@ -18,6 +18,6 @@ public class StoreDto {
     private String businessStatus;
     private String businessCategory;
     private String stampImage;
-    private char mailOrderYn;
+    private String mailOrderYn;
     private String mailOrderNum;
 }

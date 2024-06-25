@@ -58,13 +58,22 @@
                 join tbl_order_product op on o.order_code = op.order_code;
     </select>
 
-<!--    -->
-<!--    <insert id="insertMenu" useGeneratedKeys="true" keyProperty="menuCode">-->
-<!--        insert into-->
-<!--        tbl_menu (menu_name, menu_price, category_code, orderable_status)-->
-<!--        values(-->
-<!--        #{menuName}, #{menuPrice}, #{categoryCode}, #{orderableStatus}-->
-<!--        )-->
-<!--    </insert>-->
+    <select id="countOrderByDateTime" resultType="_int">
+        select
+            count(*)
+        from
+            tbl_order
+        <where>
+            <if test="#{name} == 'day'">
+                date(created_at) = date(#{searchCriteria.value})
+            </if>
+            <if test="#{name} == 'month'">
+                left(created_at, 7) = left(#{searchCriteria.value}, 7)
+            </if>
+            <if test="#{name} == 'year'">
+                year(created_at) = year(#{searchCriteria.value})
+            </if>
+        </where>
+    </select>
 
 </mapper>

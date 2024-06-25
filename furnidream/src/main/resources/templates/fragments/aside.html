@@ -39,7 +39,7 @@
                             </a>
                             <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="/app">애기메뉴1</a>
+                                    <a class="nav-link" href="/app/order/list">주문 조회</a>
                                     <a class="nav-link" href="/app">애기메뉴2</a>
                                 </nav>
                             </div>
@@ -59,18 +59,30 @@
                         <h1>본문 입니다</h1>
                     </div>
                 </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                <!--/* 페이지 번호 설정부 */-->
+                <nav th:if="${pageCriteria != null}" th:object="${pageCriteria}" aria-label="Page navigation example">
+                    <!--    [[${pageCriteria}]]-->
+                    <ul class="pagination justify-content-center">
+                        <!--/* 이전 영역 */-->
+                        <li th:class="|page-item *{pagebarStart == 1 ? 'disabled' : ''}|">
+                            <a class="page-link" th:href="|*{url}*{pagebarStart - 1}|">&lt;</a>
+                        </li>
+
+                        <!--/* 페이지숫자 영역 */-->
+                        <!--/* th:each에는 break 기능이 없다.*/-->
+                        <th:block th:each="pageNo : *{#numbers.sequence(pagebarStart, pagebarEnd)}">
+                            <li th:if="${pageNo <= pageCriteria.maxPage}" th:class="|page-item ${pageCriteria.page == pageNo ? 'active' : ''}|">
+                                <a class="page-link" th:href="|*{url}${pageNo}|" th:text="${pageNo}"></a>
+                            </li>
+                        </th:block>
+
+                        <!--/* 다음 영역 */-->
+                        <li th:class="|page-item *{pagebarEnd > maxPage ? 'disabled' : ''}|">
+                            <a class="page-link" th:href="|*{url}*{pagebarEnd + 1}|">&gt;</a>
+                        </li>
+                    </ul>
+                </nav>
+                <footer th:replace="~{/fragments/footer::footerFragment}"></footer>
             </div>
         </div>
     </aside>
