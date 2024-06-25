@@ -4,11 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.furnycrew.furnidream.statistics.model.dto.OrderCountRankingDto;
 import com.furnycrew.furnidream.statistics.model.dto.OrderNetProfitRankingDto;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -25,7 +29,7 @@ public class OrderNetProfitRankingMapperTest {
         // when
         List<OrderNetProfitRankingDto> result = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByAllPeriod();
 
-        List<OrderNetProfitRankingDto>  sortedResult = new ArrayList<>(result);
+        List<OrderNetProfitRankingDto> sortedResult = new ArrayList<>(result);
         Collections.sort(sortedResult, (o1, o2) -> o2.getNetProfit() - o1.getNetProfit());
 
         // then
@@ -33,6 +37,36 @@ public class OrderNetProfitRankingMapperTest {
 //        for (OrderCountRankingDto orderCountRankingDto : result) {
 //            System.out.println(orderCountRankingDto);
 //        }
+    }
+
+    @DisplayName("[분기별/전체] 상품별 순수익 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value = {"2023,4", "2024,1", "2024,2"})
+    void calculateOrderNetProfitRankingByQuarterPeriod(int year, int quarter) {
+        // given
+        // when
+        List<OrderNetProfitRankingDto> result
+                = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByQuarterPeriod(year, quarter);
+
+        List<OrderNetProfitRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getNetProfit() - o1.getNetProfit());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+
+    }
+
+    @DisplayName("[분기별/전체] 잘못된 기간의 상품별 순수익 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value = {"2025,1","2025,2", "2026,1"})
+    void calculateOrderNetProfitRankingByQuarterPeriodNotPeriod(int year, int quarter) {
+        // given
+        // when
+        List<OrderNetProfitRankingDto> result
+                = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByQuarterPeriod(year, quarter);
+
+        // then
+        assertThat(result).isEmpty();
     }
 
 }
