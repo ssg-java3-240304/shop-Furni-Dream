@@ -39,22 +39,23 @@
         select
             *
         from
-            tbl_order o join tbl_customer c on o.customer_id = c.customer_id
-                join tbl_order_product op on o.order_code = op.order_code
-        <where>
-            <if test="searchCriteria.name == 'day'">
-                date(o.created_at) = date(#{searchCriteria.value})
-            </if>
-            <if test="searchCriteria.name == 'month'">
-                left(o.created_at, 7) = left(#{searchCriteria.value}, 7)
-            </if>
-            <if test="searchCriteria.name == 'year'">
-                year(o.created_at) = year(#{searchCriteria.value})
-            </if>
-        </where>
-<!--        limit-->
-<!--            1, 10-->
-<!--            #{offset}, #{limit};-->
+            (select *
+                from tbl_order
+                <where>
+                    <if test="searchCriteria.name == 'day'">
+                        date(created_at) = date(#{searchCriteria.value})
+                    </if>
+                    <if test="searchCriteria.name == 'month'">
+                        left(created_at, 7) = left(#{searchCriteria.value}, 7)
+                    </if>
+                    <if test="searchCriteria.name == 'year'">
+                        year(created_at) = year(#{searchCriteria.value})
+                    </if>
+                </where>
+                limit
+                    #{offset}, #{limit}
+            ) o join tbl_customer c on o.customer_id = c.customer_id
+                join tbl_order_product op on o.order_code = op.order_code;
     </select>
 
 <!--    -->
