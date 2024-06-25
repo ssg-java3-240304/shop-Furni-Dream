@@ -17,11 +17,11 @@ public class OrderNetProfitRankingService {
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByAllPeriod();
     }
 
-    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByQuarterPeriod(int year, int quarter) {
+    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByQuarterPeriod(Integer year, Integer quarter) {
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByQuarterPeriod(year, quarter);
     }
 
-    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByMonthPeriod(int year, int month) {
+    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByMonthPeriod(Integer year, Integer month) {
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByMonthPeriod(year, month);
     }
 
@@ -29,11 +29,11 @@ public class OrderNetProfitRankingService {
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByCategoryAndAllPeriod(category);
     }
 
-    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndQuarterPeriod(String category, int year, int quarter) {
+    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndQuarterPeriod(String category, Integer year, Integer quarter) {
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByCategoryAndQuarterPeriod(category, year, quarter);
     }
 
-    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndMonthPeriod(String category, int year, int month) {
+    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndMonthPeriod(String category, Integer year, Integer month) {
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByCategoryAndMonthPeriod(category, year, month);
     }
 

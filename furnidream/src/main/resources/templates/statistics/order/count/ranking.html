@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
 <head>
     <meta charset="UTF-8">
     <title>Order Count Ranking</title>
@@ -8,13 +8,17 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" th:fragment="styles">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        main.container {
+            margin: 20px;
+        }
+    </style>
 </head>
 <body class="sb-nav-fixed">
-<!--<header th:replace="~{/fragments/header::headerFragment}"></header>-->
-<!--<aside th:replace="~{/fragments/aside::asideFragment}"/>-->
 
+<main layout:fragment="main" class="container">
 <script>
     var selectedOption1 = ""; // 선택된 옵션을 저장할 변수
     var selectedOption2 = ""; // 선택된 옵션을 저장할 변수
@@ -133,5 +137,6 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
 <script th:src="@{/js/datatables-simple-demo.js}"></script>
+    </main>
 </body>
 </html>

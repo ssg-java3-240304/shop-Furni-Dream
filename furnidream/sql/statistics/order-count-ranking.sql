@@ -149,7 +149,7 @@ order by quantity desc;
 
 # 원가 추가
 # alter table tbl_order_product ADD cost_price int NOT NULL DEFAULT 1000;
-# ALTER TABLE tbl_order_product ALTER net_profit DROP DEFAULT;
+# ALTER TABLE tbl_order_product ALTER cost_price DROP DEFAULT;
 # SELECT COLUMN_NAME, COLUMN_DEFAULT
 # FROM INFORMATION_SCHEMA.COLUMNS
 # WHERE TABLE_NAME = 'tbl_order_product'

@@ -19,6 +19,11 @@ import java.util.List;
 public class OrderNetProfitRankingController {
     private final OrderNetProfitRankingService orderNetProfitRankingService;
 
+    @GetMapping({"/all", "/category"})
+    public String orderCountRankingMain() {
+        return "statistics/order/net-profit/main";
+    }
+
     @GetMapping("/all/{period}")
     public String calculateOrderNetProfitRankingByAll(@PathVariable String period, Integer year, Integer quarter, Integer month, Model model) {
         List<OrderNetProfitRankingDto> orderNetProfitRankingList =null;

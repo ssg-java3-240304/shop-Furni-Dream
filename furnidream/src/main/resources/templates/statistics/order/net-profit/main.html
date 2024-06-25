@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/default}">
 <head>
   <meta charset="UTF-8">
-  <title>Order Count Ranking</title>
+  <title>Order Net Profit Ranking</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <meta name="description" content=""/>
@@ -24,7 +24,7 @@
 
   function saveSelectedOption() {
     var selectBox = document.getElementById("select-box");
-    selectedOption1 = "/app/statistics/order/count-ranking"+  selectBox.value;
+    selectedOption1 = "/app/statistics/order/net-profit-ranking"+  selectBox.value;
   }
 
   function saveSelectedOption2() {
