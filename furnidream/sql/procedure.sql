@@ -50,13 +50,21 @@ BEGIN
             FROM tbl_customer
             WHERE customer_id = @customer_id;
 
+            -- 주문 취소율 1%로 설정
+            SET @order_status = 6;
+            IF 10 < (1 + RAND() * 999) THEN
+                    SET @order_status = FLOOR(1 + RAND() * 5);
+            END IF;
+
             -- 랜덤 주문 생성
             INSERT INTO tbl_order (customer_id, created_at, phone, shipping_address, order_status, tracking_number, total_price)
             VALUES (@customer_id,
-                    DATE_ADD('2023-05-01', INTERVAL FLOOR(RAND() * 365) DAY), -- 랜덤 날짜 생성
+                    DATE_ADD(
+                        DATE_ADD('2023-05-01', INTERVAL FLOOR(RAND() * 365) DAY),
+                            INTERVAL FLOOR(RAND() * 86400) SECOND), -- 랜덤 날짜 생성
                     @phone,
                     @shipping_address,
-                    FLOOR(1 + RAND() * 5), -- 랜덤 주문 상태 생성
+                    @order_status, -- 랜덤 주문 상태 생성
                     FLOOR(1000000000000 + RAND() * 9000000000000), -- 랜덤 추적 번호 생성
                     0 -- 초기 total_price는 0으로 설정
                    );
@@ -82,7 +90,7 @@ BEGIN
                     IF my_product_id > 3 THEN
                         SET my_product_id := 0; -- 상품 ID가 400을 넘어가면 다시 처음부터 시작
                     END IF;
-                END WHILE;
+            END WHILE;
 
             UPDATE tbl_order
             SET
@@ -91,6 +99,12 @@ BEGIN
                 order_code = @last_order_code;
 
             SET my_order_code = my_order_code + 1;
+
+            -- 주문 취소 테이블 추가
+            INSERT INTO tbl_order_canceled(order_code, created_at, refund_amount)
+            SELECT order_code, created_at, total_price
+            FROM tbl_order
+            WHERE order_code = @last_order_code and order_status = 6;
 
         END WHILE;
 

@@ -24,6 +24,66 @@
         select
             *
         from
-            product
+            tbl_product
+    </select>
+
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId">
+        insert into
+            tbl_product (
+                product_name, product_image, category, cost_price, retail_price, stock, description,
+                product_code, discount_rate, shipping_fee, product_status, color, size)
+        values(
+            #{productName}, #{productImage}, #{category}, #{costPrice}, #{retailPrice}, #{stock}, #{description},
+            #{productCode}, #{discountRate}, #{shippingFee}, #{productStatus}, #{color}, #{size}
+        )
+    </insert>
+
+    <select id="findByProductId" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+        where
+            product_status = 'AVAILABLE'
+            and product_id = #{productId}
+    </select>
+
+    <update id="updateProduct">
+        update
+            tbl_product
+        set
+            product_name = #{productName},
+            product_image = #{productImage},
+            category = #{category},
+            cost_price = #{costPrice},
+            retail_price = #{retailPrice},
+            stock = #{stock},
+            description = #{description},
+            product_code = #{productCode},
+            discount_rate = #{discountRate},
+            shipping_fee = #{shippingFee},
+            product_status = #{productStatus},
+            color = #{color},
+            size = #{size}
+        where
+            product_id = #{productId}
+    </update>
+
+    <select id="searchProduct" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+        where
+            product_status = 'AVAILABLE'
+        <if test="name == 'name'">
+            and product_name like concat('%', #{value}, '%');
+        </if>
+        <if test="name == 'category'">
+            and category = #{value}
+        </if>
+        <if test="name == 'productCode'">
+            and product_code = #{value}
+        </if>
     </select>
 </mapper>
