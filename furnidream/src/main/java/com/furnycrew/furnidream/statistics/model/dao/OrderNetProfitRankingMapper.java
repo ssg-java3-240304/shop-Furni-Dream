@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface OrderNetProfitRankingMapper {
     List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByAllPeriod();
     List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByQuarterPeriod(int year, int quarter);
+    List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByMonthPeriod(int year, int month);
 
 }

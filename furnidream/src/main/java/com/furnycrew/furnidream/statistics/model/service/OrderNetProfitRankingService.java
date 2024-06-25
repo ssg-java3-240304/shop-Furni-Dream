@@ -17,4 +17,7 @@ public class OrderNetProfitRankingService {
     public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByQuarterPeriod(int year, int quarter){
         return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByQuarterPeriod(year, quarter);
     }
+    public List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByMonthPeriod(int year, int month){
+        return orderNetProfitRankingMapper.calculateOrderNetProfitRankingByMonthPeriod(year, month);
+    }
 }

@@ -32,3 +32,19 @@ from (select product_id, SUM((price-cost_price)*quantity) net_profit
          JOIN tbl_product p on o.product_id = p.product_id
 group by p.product_code, product_name, category
 order by net_profit desc;
+
+
+
+# [월별/전체] 상품별 순수익 내림차순으로 가져오기 (year, month로 변수 변경 필수!!!)
+select product_code, product_name, category, SUM(o.net_profit) net_profit
+from (select product_id, SUM((price-cost_price)*quantity) net_profit
+      from tbl_order_product
+      where order_code in (select order_code
+                           from tbl_order
+                           where order_status = 5
+                             and YEAR(created_at) = 2024
+                             and MONTH(created_at)= 4)
+      group by product_id) o
+         JOIN tbl_product p on o.product_id = p.product_id
+group by p.product_code, product_name, category
+order by net_profit desc;
