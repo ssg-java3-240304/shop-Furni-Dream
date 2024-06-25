@@ -30,6 +30,7 @@ class SalesMngMapperTest {
                 .isNotNull()
                 .isNotEmpty()
                 .allMatch((salesMng) -> salesMng != null);
+        
     }
 
     @Test

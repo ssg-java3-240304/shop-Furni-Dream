@@ -2,8 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
-<head>
 
+<head>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
     <title>Index</title>
     <script>
         console.log(1234);
@@ -14,6 +15,8 @@
     <h1>🦄🦄🦄🦄🦄💖💖💖</h1>
 </main>
 
-<script layout:fragment="script" th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}">
+
+</script>
 </body>
 </html>
