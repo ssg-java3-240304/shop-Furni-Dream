@@ -25,6 +25,17 @@
             *
         from
             tbl_product
+        WHERE
+            product_status IN ('AVAILABLE', 'UNAVAILABLE')
+        limit
+            #{offset}, #{limit}
+    </select>
+
+    <select id="countProducts" resultType="_int">
+        select
+            count(*)
+        from
+            tbl_product
     </select>
 
     <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId">

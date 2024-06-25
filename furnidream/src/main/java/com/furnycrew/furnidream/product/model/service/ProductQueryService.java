@@ -16,8 +16,8 @@ import java.util.List;
 public class ProductQueryService {
     private final ProductMapper productMapper;
 
-    public List<ProductDto> findAll(){
-        return productMapper.findAll();
+    public List<ProductDto> findAll(int offset, int limit){
+        return productMapper.findAll(offset, limit);
     }
 
     public ProductDto findByProductId(Long productId) {
@@ -36,5 +36,9 @@ public class ProductQueryService {
             searchCriteriaList.add(new SearchCriteria("product_code", productCode, null, null));
         }
         return productMapper.searchProduct((SearchCriteria) searchCriteriaList);
+    }
+
+    public int countProducts() {
+        return productMapper.countProducts();
     }
 }

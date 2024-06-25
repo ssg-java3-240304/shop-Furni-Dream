@@ -1,5 +1,7 @@
 package com.furnycrew.furnidream.product.controller;
 
+import com.furnycrew.furnidream.common.paging.PageCriteria;
+import com.furnycrew.furnidream.common.search.SearchCriteria;
 import com.furnycrew.furnidream.product.model.dto.ProductDto;
 import com.furnycrew.furnidream.product.model.dto.ProductRegistDto;
 import com.furnycrew.furnidream.product.model.dto.ProductUpdateDto;
@@ -23,11 +25,21 @@ public class ProductController {
     private final ProductCommandService productCommandService;
 
     @GetMapping("/list")
-    public void list(Model model){
-        log.info("GET /product/list");
-        List<ProductDto> products = productQueryService.findAll();
+    public void list(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "20") int limit,
+            Model model){
+        log.info("GET /product/list?page{}&limit={}", page, limit);
+        // 1. 컨텐츠 영역 (limit 쿼리)
+        int offset = (page - 1) * limit;
+        List<ProductDto> products = productQueryService.findAll(offset, limit);
         log.debug("products = {}", products);
         model.addAttribute("products", products);
+
+        // 2. 페이지바 영역(html)
+        int totalCount = productQueryService.countProducts();
+        String url = "list";
+        model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
     }
 
     @PostMapping("/regist")

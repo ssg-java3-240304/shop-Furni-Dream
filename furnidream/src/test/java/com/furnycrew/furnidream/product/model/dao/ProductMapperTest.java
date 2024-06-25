@@ -25,8 +25,10 @@ class ProductMapperTest {
     @DisplayName("상품 전체 조회")
     void findAll() {
         // given
+        int offset = 0;
+        int limit = 10;
         // when
-        List<ProductDto> products = productMapper.findAll();
+        List<ProductDto> products = productMapper.findAll(offset, limit);
         // then
         assertThat(products)
                 .isNotNull()
