@@ -34,7 +34,7 @@ public class OrderCountRankingController {
         model.addAttribute("orderCountRankingList", orderCountRankingList);
         model.addAttribute("period", period); // period 정보를 모델에 추가
 
-        return "statistics/order/count-ranking/all/order-ranking";
+        return "statistics/order/count-ranking/ranking";
     }
 
     @GetMapping("/category/{period}")
@@ -55,6 +55,6 @@ public class OrderCountRankingController {
         model.addAttribute("orderCountRankingList", orderCountRankingList);
         model.addAttribute("period", period); // period 정보를 모델에 추가
 
-        return "statistics/order/count-ranking/all/order-ranking";
+        return "statistics/order/count-ranking/ranking";
     }
 }
