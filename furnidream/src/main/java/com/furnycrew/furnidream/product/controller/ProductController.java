@@ -2,16 +2,14 @@ package com.furnycrew.furnidream.product.controller;
 
 import com.furnycrew.furnidream.product.model.dto.ProductDto;
 import com.furnycrew.furnidream.product.model.dto.ProductRegistDto;
+import com.furnycrew.furnidream.product.model.dto.ProductUpdateDto;
 import com.furnycrew.furnidream.product.model.service.ProductCommandService;
 import com.furnycrew.furnidream.product.model.service.ProductQueryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -39,5 +37,22 @@ public class ProductController {
         int result = productCommandService.insertProduct(productDto);
         redirectAttributes.addFlashAttribute("message", "✅상품이 성공적으로 등록되었습니다");
         return "redirect:/product/list";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute ProductUpdateDto productUpdateDto, RedirectAttributes redirectAttributes){
+        log.info("POST /product/update");
+        ProductDto productDto = productUpdateDto.toProductDto();
+        int result = productCommandService.updateProduct(productDto);
+        redirectAttributes.addFlashAttribute("message", "🔄️상품이 성공적으로 수정되었습니다.");
+        return "redirect/product/update";
+    }
+
+    @GetMapping("/datail/{productId}")
+    public String detail(Model model, @PathVariable("productId") Long productId){
+        log.info("GET /product/deatail/{}", productId);
+        ProductDto product = productQueryService.findByProductId(productId);
+        model.addAttribute("product", product);
+        return "product/detail";
     }
 }

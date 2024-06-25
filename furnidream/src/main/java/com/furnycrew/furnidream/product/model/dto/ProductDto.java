@@ -1,5 +1,6 @@
 package com.furnycrew.furnidream.product.model.dto;
 
+import com.furnycrew.furnidream.common.enums.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
