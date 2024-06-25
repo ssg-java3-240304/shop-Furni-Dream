@@ -43,7 +43,7 @@ group by
     date_format(created_at, '%Y-%m')
 order by 주문일자;
 
--- 계절별 💖아직 안함💖
+-- 분기별
 select
     quarter(o.created_at) 주문일자,
     sum(op.quantity) 주문건수,

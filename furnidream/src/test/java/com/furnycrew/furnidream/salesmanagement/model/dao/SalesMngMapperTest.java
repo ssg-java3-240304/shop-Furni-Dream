@@ -25,14 +25,12 @@ class SalesMngMapperTest {
         // when
         List<SalesMngDto> salesMngDtos = salesMngMapper.findTotalSales();
 
-        List<SalesMngDto> sortedResult = new ArrayList<>(salesMngDtos);
         System.out.println(salesMngDtos);
 
         // then
         assertThat(salesMngDtos)
                 .isNotNull()
                 .isNotEmpty();
-//                .allMatch((salesMng) -> salesMng != null);
         
     }
 
@@ -41,7 +39,14 @@ class SalesMngMapperTest {
     void findMonthlySales() {
         // given
         // when
+        List<SalesMngDto> salesMngDtos = salesMngMapper.findMonthlySales();
+
+        System.out.println(salesMngDtos);
+
         // then
+        assertThat(salesMngDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     @Test

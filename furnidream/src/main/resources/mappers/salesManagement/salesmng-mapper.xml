@@ -2,122 +2,70 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--<mapper namespace="com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper">-->
-<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">-->
-<!--        <association property="orderDto" javaType="com.furnycrew.furnidream.order.model.dto.OrderDto">-->
-<!--            <id column="order_code" property="orderCode"/>-->
-<!--            <result column="created_at" property="createdAt"/>-->
-<!--            <result column="total_price" property="totalPrice"/>-->
-<!--        </association>-->
-
-<!--        <association property="orderCanceledDto" javaType="com.furnycrew.furnidream.order.model.dto.OrderCanceledDto">-->
-<!--            <id column="order_code" property="orderCode"/>-->
-<!--            <result column="refund_amount" property="refundAmount"/>-->
-<!--        </association>-->
-<!--        <collection property="orderProductList" ofType="com.furnycrew.furnidream.order.model.dto.OrderProductDto" resultMap="orderProductResultMap"/>-->
-<!--    </resultMap>-->
-
-<!--    <resultMap id="orderProductResultMap" type="com.furnycrew.furnidream.order.model.dto.OrderProductDto">-->
-<!--        <id column="order_code" property="orderCode"/>-->
-<!--        <id column="product_id" property="productId"/>-->
-<!--        <result column="quantity" property="quantity"/>-->
-<!--        <result column="price" property="price"/>-->
-
-<!--        <association property="productDto" javaType="com.furnycrew.furnidream.product.model.dto.ProductDto">-->
-<!--            <id column="product_id" property="productId"/>-->
-<!--            <result column="product_name" property="productName"/>-->
-<!--            <result column="product_image" property="productImage"/>-->
-<!--            <result column="retail_price" property="retailPrice"/>-->
-<!--            <result column="stock" property="stock"/>-->
-<!--            <result column="color" property="color"/>-->
-<!--        </association>-->
-<!--    </resultMap>-->
 <mapper namespace="com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper">
-    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
-        <association property="orderDto" javaType="com.furnycrew.furnidream.order.model.dto.OrderDto">
-            <id column="order_code" property="orderCode"/>
-            <result column="created_at" property="createdAt"/>
-            <result column="total_price" property="totalPrice"/>
-        </association>
+<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">-->
+<!--        <id column="order_code" property="orderCode"/>-->
+<!--        <result column="created_at" property="createdAt"/>-->
+<!--        <result column="total_price" property="totalPrice"/>-->
 
-        <association property="orderCanceledDto" javaType="com.furnycrew.furnidream.order.model.dto.OrderCanceledDto">
-            <id column="order_code" property="orderCode"/>
-            <result column="refund_amount" property="refundAmount"/>
-        </association>
+<!--                <association property="orderDto" javaType="com.furnycrew.furnidream.order.model.dto.OrderDto">-->
+<!--                    <id column="order_code" property="orderCode"/>-->
+<!--                    <result column="created_at" property="createdAt"/>-->
+<!--                    <result column="total_price" property="totalPrice"/>-->
+<!--                </association>-->
+<!--        <collection property="orderProductList" ofType="orderProductDto" resultMap="orderProductResultMap"/>-->
+<!--&lt;!&ndash;            <id column="order_code" property="orderCode"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <id column="product_id" property="productId"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <result column="quantity" property="quantity"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <result column="price" property="price"/>&ndash;&gt;-->
+<!--&lt;!&ndash;        </collection>&ndash;&gt;-->
+<!--    </resultMap>-->
 
-        <collection property="orderProductList" ofType="com.furnycrew.furnidream.order.model.dto.OrderProductDto" resultMap="orderProductResultMap"/>
-    </resultMap>
-
-    <resultMap id="orderProductResultMap" type="com.furnycrew.furnidream.order.model.dto.OrderProductDto">
-        <id column="order_code" property="orderCode"/>
-        <id column="product_id" property="productId"/>
-        <result column="quantity" property="quantity"/>
-        <result column="price" property="price"/>
-
-        <association property="productDto" javaType="com.furnycrew.furnidream.product.model.dto.ProductDto">
-            <id column="product_id" property="productId"/>
-            <result column="product_name" property="productName"/>
-            <result column="product_image" property="productImage"/>
-            <result column="retail_price" property="retailPrice"/>
-            <result column="stock" property="stock"/>
-            <result column="color" property="color"/>
-        </association>
-    </resultMap>
+<!--        <resultMap id="orderProductResultMap" type="com.furnycrew.furnidream.order.model.dto.OrderProductDto">-->
+<!--            <id column="order_code" property="orderCode"/>-->
+<!--            <id column="product_id" property="productId"/>-->
+<!--            <result column="quantity" property="quantity"/>-->
+<!--            <result column="price" property="price"/>-->
+<!--        </resultMap>-->
 
 
-    <select id="findTotalSales" resultMap="salesDtoMap">
+    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
         select
-        date_format(o.created_at, '%Y-%m-%d') 주문일자,
-        sum(op.quantity) 주문건수,
-        sum(op.quantity * op.price) 결제금액,
-        ifnull(sum(oc.refund_amount), 0) 환불합계,
-        sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) 매출합계
+            date_format(o.created_at, '%Y-%m-%d') createdAt,
+            sum(op.quantity) orderAmount,
+            sum(op.quantity * op.price) totalPrice,
+            ifnull(sum(oc.refund_amount), 0) refundAmount,
+            sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) totalSales
         from
-        tbl_order o
-        left join tbl_order_product op using (order_code)
-        left join tbl_order_canceled oc using (order_code)
+            tbl_order o left join tbl_order_product op
+                on o.order_code = op.order_code
+            left join tbl_order_canceled oc
+                on op.order_code = oc.order_code
         group by
-        date_format(o.created_at, '%Y-%m-%d')
-        order by 주문일자;
+            date_format(o.created_at, '%Y-%m-%d')
+        order by
+            createdAt;
+    </select>
+
+    <select id="findMonthlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
+        select
+            date_format(o.created_at, '%Y-%m') createdAt,
+            sum(op.quantity) orderAmount,
+            sum(op.quantity * op.price) totalPrice,
+            ifnull(sum(oc.refund_amount), 0) refundAmount,
+            sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) totalSales
+        from
+            tbl_order
+                left join tbl_order_product op
+                    on o.order_code = op.order_code
+                left join tbl_order_canceled oc
+                    on op.order_code = oc.order_code
+        group by
+            date_format(o.created_at, '%Y-%m')
+        order by
+            createdAt;
     </select>
 
 
-    <select id="findTotalSales" resultMap="salesDtoMap">
-        select
-        date_format(o.created_at, '%Y-%m-%d') 주문일자,
-        sum(op.quantity) 주문건수,
-        sum(op.quantity * op.price) 결제금액,
-        ifnull(sum(oc.refund_amount), 0) 환불합계,
-        sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) 매출합계
-        from
-        tbl_order o
-        left join tbl_order_product op
-        using (order_code)
-        left join tbl_order_canceled oc using (order_code)
-        group by
-        date_format(o.created_at, '%Y-%m-%d')
-        order by 주문일자;
-    </select>
+
 </mapper>
-
-
-
-
-    <!--    <select id="calculateOrderCountRankingByCategoryAndQuarterPeriod" resultMap="OrderCountRankingMap">-->
-    <!--        select product_code, product_name, category, SUM(o.quantity) quantity-->
-    <!--        from-->
-    <!--            (select-->
-    <!--                product_id, SUM(quantity) quantity-->
-    <!--            from-->
-    <!--                tbl_order_product-->
-    <!--            where-->
-    <!--                order_code in (select order_code-->
-    <!--                                from tbl_order-->
-    <!--                                where order_status = 5 and YEAR(created_at) = #{year}-->
-    <!--                    and QUARTER(created_at) = #{quarter})-->
-    <!--                            group by product_id) o-->
-    <!--        JOIN (select * from tbl_product where category = #{category}) p on o.product_id = p.product_id-->
-    <!--        group by p.product_code, product_name, category-->
-    <!--        order by quantity desc;-->
-    <!--    </select>-->
-<!--</mapper>-->
