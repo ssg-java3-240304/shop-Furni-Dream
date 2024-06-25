@@ -80,6 +80,16 @@
             product_id = #{productId}
     </update>
 
+    <select id="findByProductCode" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+        where
+            product_code = #{productCode}
+        limit 1
+    </select>
+
     <select id="searchProduct" resultMap="productDtoMap">
         select
             *

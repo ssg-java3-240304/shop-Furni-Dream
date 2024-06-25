@@ -45,4 +45,8 @@ public class ProductQueryService {
     public List<ProductDto> findAllCategory() {
         return productMapper.findAllCategory();
     }
+
+    public ProductDto findByProductCode(String productCode) {
+        return productMapper.findByProductCode(productCode);
+    }
 }

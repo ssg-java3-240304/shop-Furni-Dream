@@ -26,8 +26,12 @@
         </thead>
         <tbody>
             <tr th:each="product, stat : ${products}" th:object="${product}">
-                <td th:text="*{productCode}"></td>
-                <td th:text="*{productName}"></td>
+                <td>
+                    <a th:href="@{|/product/update/*{productCode}|}" th:text="*{productCode}"></a>
+                </td>
+                <td>
+                    <a th:href="@{|/product/detail/*{productId}|}" th:text="*{productName}"></a>
+                </td>
                 <td th:text="*{category}"></td>
                 <td th:text="*{#numbers.formatInteger(retailPrice, 3, 'COMMA')}"></td>
                 <td th:text="*{stock}"></td>
