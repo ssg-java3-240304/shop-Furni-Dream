@@ -1,18 +1,13 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
-<<<<<<< Updated upstream
-import com.furnycrew.furnidream.salesmanagement.model.dto.ProductSalesDto;
-import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto;
-=======
-
 import com.furnycrew.furnidream.salesmanagement.model.dto.*;
 import org.junit.jupiter.api.Disabled;
->>>>>>> Stashed changes
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,25 +24,28 @@ class SalesMngMapperTest {
         // given
         // when
         List<SalesMngDto> salesMngDtos = salesMngMapper.findTotalSales();
+
         System.out.println(salesMngDtos);
 
         // then
         assertThat(salesMngDtos)
                 .isNotNull()
-<<<<<<< Updated upstream
-                .isNotEmpty()
-                .allMatch((salesMng) -> salesMng != null);
-=======
                 .isNotEmpty();
->>>>>>> Stashed changes
-    }
+            }
 
     @Test
     @DisplayName("월별 매출 조회")
     void findMonthlySales() {
         // given
         // when
+        List<SalesMngDto> salesMngDtos = salesMngMapper.findMonthlySales();
+
+        System.out.println(salesMngDtos);
+
         // then
+        assertThat(salesMngDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     @Test

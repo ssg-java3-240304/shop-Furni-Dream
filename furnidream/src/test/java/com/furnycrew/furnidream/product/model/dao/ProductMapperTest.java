@@ -1,19 +1,22 @@
 package com.furnycrew.furnidream.product.model.dao;
 
+import com.furnycrew.furnidream.common.search.SearchCriteria;
 import com.furnycrew.furnidream.product.model.dto.ProductDto;
-import com.furnycrew.furnidream.product.model.dto.ProductStatus;
+import com.furnycrew.furnidream.common.enums.ProductStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional // 테스트 후 DB 롤백을 위해 추가
 class ProductMapperTest {
     @Autowired
     private ProductMapper productMapper;
@@ -22,8 +25,10 @@ class ProductMapperTest {
     @DisplayName("상품 전체 조회")
     void findAll() {
         // given
+        int offset = 0;
+        int limit = 10;
         // when
-        List<ProductDto> products = productMapper.findAll();
+        List<ProductDto> products = productMapper.findAll(offset, limit);
         // then
         assertThat(products)
                 .isNotNull()
@@ -151,5 +156,42 @@ class ProductMapperTest {
         assertThat(updatePtoductDto.getProductStatus()).isEqualTo(newProductStatus);
         assertThat(updatePtoductDto.getColor()).isEqualTo(newColor);
         assertThat(updatePtoductDto.getSize()).isEqualTo(newSize);
+    }
+
+//    @Test
+    @ParameterizedTest
+    @DisplayName("상품명으로 검색")
+    @ValueSource(strings = {"럭셔리 가죽 소파"})
+    void searchProduct(String value) {
+        // given
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setName("name");
+        searchCriteria.setValue(value);
+        // when
+        List<ProductDto> products = productMapper.searchProduct(searchCriteria);
+        // then
+        assertThat(products)
+                .isNotNull()
+                .isNotEmpty()
+                .allSatisfy((product) -> {
+                            assertThat(product.getProductId()).isNotNull();
+                            assertThat(product.getProductId()).isGreaterThan(0);
+                            assertThat(product.getProductName()).isNotNull();
+                            assertThat(product.getCategory()).isNotNull();
+                            assertThat(product.getCostPrice()).isNotNull();
+                            assertThat(product.getRetailPrice()).isNotNull();
+                            assertThat(product.getProductCode()).isNotNull();
+                            assertThat(product.getProductStatus()).isNotNull();
+                });
+    }
+
+    @Test
+    @DisplayName("카테고리 전체 조회")
+    void findAllCategory() {
+        // given
+        // when
+        List<ProductDto> categories = productMapper.findAllCategory();
+        // then
+        assertThat(categories).isNotNull();
     }
 }

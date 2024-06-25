@@ -24,7 +24,18 @@
         select
             *
         from
-            product
+            tbl_product
+        WHERE
+            product_status IN ('AVAILABLE', 'UNAVAILABLE')
+        limit
+            #{offset}, #{limit}
+    </select>
+
+    <select id="countProducts" resultType="_int">
+        select
+            count(*)
+        from
+            tbl_product
     </select>
 
     <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId">
@@ -68,4 +79,29 @@
         where
             product_id = #{productId}
     </update>
+
+    <select id="searchProduct" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+        where
+            product_status = 'AVAILABLE'
+        <if test="name == 'name'">
+            and product_name like concat('%', #{value}, '%');
+        </if>
+        <if test="name == 'category'">
+            and category = #{value}
+        </if>
+        <if test="name == 'productCode'">
+            and product_code = #{value}
+        </if>
+    </select>
+
+    <select id="findAllCategory" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+    </select>
 </mapper>

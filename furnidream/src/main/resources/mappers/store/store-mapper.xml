@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.store.model.dao.StoreMapper">
+    <resultMap id="storeDtoMap" type="storeDto">
+        <id column="store_id" property="storeId"/>
+        <result column="business_num" property="businessNum"/>
+        <result column="store_name" property="storeName"/>
+        <result column="ceo_name" property="ceoName"/>
+        <result column="ceo_phone" property="ceoPhone"/>
+        <result column="ceo_email" property="ceoEmail"/>
+        <result column="business_address" property="businessAddress"/>
+        <result column="business_status" property="businessStatus"/>
+        <result column="business_category" property="businessCategory"/>
+        <result column="stamp_image" property="stampImage"/>
+        <result column="mail_order_yn" property="mailOrderYn"/>
+        <result column="mail_order_num" property="mailOrderNum"/>
+    </resultMap>
+
+    <!--  상점 모든 정보 조회  -->
+    <select id="findAll" resultMap="storeDtoMap">
+        select
+            *
+        from
+            tbl_store
+    </select>
+
+    <!--  상점 ID 일치하는 한 건 조회  -->
+    <select id="findByStoreId" resultMap="storeDtoMap">
+        select
+            *
+        from
+            tbl_store
+        where
+            store_id = #{storeId}
+    </select>
+
+    <!--  상점 등록  -->
+    <insert id="insertStore" useGeneratedKeys="true" keyProperty="storeId">
+        insert into
+            tbl_store (business_num, store_name, ceo_name, ceo_phone, ceo_email, business_address, business_status, business_category, stamp_image, mail_order_yn, mail_order_num)
+        values (
+            #{businessNum}, #{storeName}, #{ceoName}, #{ceoPhone}, #{ceoEmail}, #{businessAddress}, #{businessStatus}, #{businessCategory}, #{stampImage}, #{mailOrderYn}, #{mailOrderNum}
+        )
+    </insert>
+
+    <!--  상점 수정  -->
+    <update id="updateStore">
+        update
+            tbl_store
+        set
+            business_num = #{businessNum},
+            store_name = #{storeName},
+            ceo_name = #{ceoName},
+            ceo_phone = #{ceoPhone},
+            ceo_email = #{ceoEmail},
+            business_address = #{businessAddress},
+            business_status = #{businessStatus},
+            business_category = #{businessCategory},
+            stamp_image = #{stampImage},
+            mail_order_yn = #{mailOrderYn},
+            mail_order_num = #{mailOrderNum}
+        where
+            store_id = #{storeId}
+    </update>
+</mapper>
