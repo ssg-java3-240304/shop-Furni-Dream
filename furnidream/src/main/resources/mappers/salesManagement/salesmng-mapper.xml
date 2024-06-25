@@ -65,23 +65,43 @@
             monthly
     </select>
 
-<!--    <select>-->
-<!--        select-->
-<!--        concat(date_format(o.created_at, '%Y'), '-',quarter(o.created_at), '분기') dateQuater,-->
-<!--        sum(op.quantity) 주문건수,-->
-<!--        sum(op.quantity * op.price) 결제금액,-->
-<!--        ifnull(sum(oc.refund_amount), 0) 환불합계,-->
-<!--        sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) 매출합계-->
+    <select id = "findQuarterlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngQuarterDto">
+        select
+            concat(date_format(o.created_at, '%Y'), '-',quarter(o.created_at), '분기') dateQuarter,
+            sum(op.quantity) orderAmount,
+            sum(op.quantity * op.price) totalPrice,
+            ifnull(sum(oc.refund_amount), 0) refundAmount,
+            sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) totalSales
+        from tbl_order o
+            left join tbl_order_product op
+            using (order_code)
+            left join tbl_order_canceled oc using (order_code)
+        group by
+            dateQuarter
+        order by
+            dateQuarter;
+    </select>
 
-<!--        from tbl_order o-->
-<!--        left join tbl_order_product op-->
-<!--        using (order_code)-->
-<!--        left join tbl_order_canceled oc using (order_code)-->
-<!--        group by-->
-<!--        dateQuater-->
-<!--        order by-->
-<!--        dateQuater;-->
-<!--    </select>-->
-
+    <select id = "findSalesByAgeGroup" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesStatisticsByAgeDto">
+        <![CDATA[
+        SELECT
+            p.product_name productName,
+            format(SUM(CASE WHEN c.age >= 20 AND c.age < 25 THEN o.total_price ELSE 0 END), 0) AS teenager,
+            format(SUM(CASE WHEN c.age >= 25 AND c.age < 30 THEN o.total_price ELSE 0 END), 0) AS twenties,
+            format(SUM(CASE WHEN c.age >= 30 AND c.age < 35 THEN o.total_price ELSE 0 END), 0) AS thirties,
+            format(SUM(CASE WHEN c.age >= 35 AND c.age < 40 THEN o.total_price ELSE 0 END), 0) AS forties,
+            format(SUM(CASE WHEN c.age >= 40 AND c.age < 45 THEN o.total_price ELSE 0 END), 0) AS fifties,
+            SUM(o.total_price) AS totalSales
+        FROM
+            tbl_order o
+            left join tbl_customer c ON o.customer_id = c.customer_id
+            right join tbl_order_product op ON o.order_code = op.order_code
+            left join tbl_product p ON op.product_id = p.product_id
+        GROUP BY
+            p.product_name
+        ORDER BY
+            p.product_name
+        ]]>
+    </select>
 
 </mapper>

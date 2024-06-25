@@ -3,6 +3,8 @@ package com.furnycrew.furnidream.salesmanagement.model.dao;
 
 import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto;
 import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngMonthlyDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngQuarterDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesStatisticsByAgeDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +52,15 @@ class SalesMngMapperTest {
     @DisplayName("분기별 매출 조회")
     void findQuarterlySales() {
         // given
+
         // when
+        List<SalesMngQuarterDto> salesMngQuarterDtos = salesMngMapper.findQuarterlySales();
+        System.out.println(salesMngQuarterDtos);
 
         // then
+        assertThat(salesMngQuarterDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     @Test
@@ -60,7 +68,14 @@ class SalesMngMapperTest {
     void findSalesByAgeGroup() {
         // given
         // when
+        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngMapper.findSalesByAgeGroup();
+        System.out.println(salesStatisticsByAgeDtos);
+
         // then
+        assertThat(salesStatisticsByAgeDtos)
+                .isNotNull()
+                .isNotEmpty();
+
     }
 
     @Test

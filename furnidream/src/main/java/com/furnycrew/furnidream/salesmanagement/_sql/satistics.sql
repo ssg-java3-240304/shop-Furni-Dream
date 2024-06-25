@@ -1,9 +1,47 @@
 select * from tbl_order order by created_at;
 
+select * from tbl_order order by order_code;
 select * from tbl_order;
 select * from tbl_order_product;
 select * from tbl_order_canceled;
 select * from tbl_product;
+select * from tbl_customer;
+
+
+select p.product_name,
+       (select sum(op.quantity * op.price)
+        from tbl_product p
+                 left join tbl_order_product op
+                           on p.product_id = op.product_id
+                 left join tbl_order o
+                           on op.order_code = o.order_code
+                 left join tbl_customer c
+                           on o.customer_id = c.customer_id
+        where c.age >=10 and c.age<20
+        group by p.product_name, c.age)
+
+from tbl_product p
+         left join tbl_order_product op on p.product_id = op.product_id
+         left join tbl_order o on op.order_code = o.order_code
+         left join tbl_customer c on o.customer_id = c.customer_id
+group by p.product_name
+order by p.product_name;
+
+# select sum(op.quantity * op.price)
+# from tbl_product p
+#          left join tbl_order_product op
+#                    on p.product_id = op.product_id
+#          left join tbl_order o
+#                    on op.order_code = o.order_code
+#          left join tbl_customer c
+#                    on o.customer_id = c.customer_id
+# where c.age >=10 and c.age<20
+# group by p.product_name, c.age;
+
+
+select * from tbl_customer;
+select * from tbl_order left join tbl_customer on tbl_order.customer_id = tbl_customer.customer_id
+where age >= 10 and age <20;
 
 select
     *
@@ -60,6 +98,84 @@ group by
 order by
     dateQuater;
 
+-- 연령대별
+# SELECT
+#     p.product_name AS productName,
+#     (select format(sum(op.price * op.quantity), 0)
+#      from tbl_order_product op
+#             left join tbl_order o
+#                     on op.order_code = o.order_code
+#             left join tbl_customer c
+#                     on o.customer_id = c.customer_id
+#      where
+#          c.age >= 10 and c.age < 20),
+# #      group by
+# #         op.product_id )AS  teenager,
+#     (select sum(op.price * op.quantity)
+#      from tbl_order_product op
+#               left join tbl_order o
+#                         on op.order_code = o.order_code
+#               left join tbl_customer c
+#                         on o.customer_id = c.customer_id
+#      where
+#          c.age >= 20 and c.age < 30) AS twenties,
+#     (select sum(op.price * op.quantity)
+#      from tbl_order_product op
+#               left join tbl_order o
+#                         on op.order_code = o.order_code
+#               left join tbl_customer c
+#                         on o.customer_id = c.customer_id
+#      where
+#          c.age >= 30 and c.age < 40) AS thirties,
+#     (select sum(op.price * op.quantity)
+#      from tbl_order_product op
+#               left join tbl_order o
+#                         on op.order_code = o.order_code
+#               left join tbl_customer c
+#                         on o.customer_id = c.customer_id
+#      where
+#          c.age >= 40 and c.age < 50) AS forties,
+#     (select sum(op.price * op.quantity)
+#      from tbl_order_product op
+#               left join tbl_order o
+#                         on op.order_code = o.order_code
+#               left join tbl_customer c
+#                         on o.customer_id = c.customer_id
+#      where
+#          c.age >= 50) AS fifties,
+#     SUM(op.quantity * op.price) AS totalSales
+# FROM
+#     tbl_order o
+#         LEFT JOIN tbl_order_product op ON o.order_code = op.order_code
+#         LEFT JOIN tbl_customer c ON o.customer_id = c.customer_id
+#         LEFT JOIN tbl_product p
+#                 ON op.product_id = p.product_id
+# GROUP BY
+#     p.product_name,
+#     c.
+# ORDER BY
+#     productName DESC;
+
+-- 연령별 매출 조회 / 합계
+SELECT
+    p.product_name,
+    format(SUM(CASE WHEN c.age >= 20 AND c.age < 25 THEN o.total_price ELSE 0 END), 0) AS '20-24세',
+    format(SUM(CASE WHEN c.age >= 25 AND c.age < 30 THEN o.total_price ELSE 0 END), 0) AS '25-29세',
+    format(SUM(CASE WHEN c.age >= 30 AND c.age < 35 THEN o.total_price ELSE 0 END), 0) AS '30-34세',
+    format(SUM(CASE WHEN c.age >= 35 AND c.age < 40 THEN o.total_price ELSE 0 END), 0) AS '35-39세',
+    format(SUM(CASE WHEN c.age >= 40 AND c.age < 45 THEN o.total_price ELSE 0 END), 0) AS '40-44세',
+    SUM(o.total_price) AS 매출합계
+FROM
+tbl_order o
+    left join tbl_customer c ON o.customer_id = c.customer_id
+    right join tbl_order_product op ON o.order_code = op.order_code
+    left join tbl_product p ON op.product_id = p.product_id
+GROUP BY
+    p.product_name
+ORDER BY
+    p.product_name;
+
+
 
 -- 상품별 매출 내역
 select
@@ -79,12 +195,6 @@ group by
 order by
     판매수량 desc ;
 
--- 연령대별
-select
-
-from tbl_order o
-    left join  tbl_customer c
-        on o.customer_id = c.customer_id
 -- 성별
 
 select
