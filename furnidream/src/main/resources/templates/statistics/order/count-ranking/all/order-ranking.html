@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title >Order Count Ranking</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="|Order Count Ranking - ${#strings.replace(period, '-', ' ')}|">Order Count Ranking</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Ranking</th>
+        <th>Product Code</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Use Thymeleaf's #numbers.sequence to iterate over the list with an index -->
+    <tr th:each="ranking, index : ${orderCountRankingList}">
+        <td th:text="${index.index + 1}">1</td>
+        <td th:text="${ranking.productCode}">Product Code</td>
+        <td th:text="${ranking.name}">Name</td>
+        <td th:text="${ranking.category}">Category</td>
+        <td th:text="${ranking.quantity}">Quantity</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
