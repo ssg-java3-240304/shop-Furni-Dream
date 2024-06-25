@@ -1,17 +1,16 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
 
-import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngMonthlyDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SalesMngMapperTest {
@@ -23,12 +22,11 @@ class SalesMngMapperTest {
     void findTotalSales() {
         // given
         // when
-        List<SalesMngDto> salesMngDtos = salesMngMapper.findTotalSales();
-
-        System.out.println(salesMngDtos);
+        List<SalesMngDailyDto> salesMngDailyDtos = salesMngMapper.findTotalSales();
+//        System.out.println(salesMngDailyDtos);
 
         // then
-        assertThat(salesMngDtos)
+        assertThat(salesMngDailyDtos)
                 .isNotNull()
                 .isNotEmpty();
         
@@ -39,8 +37,7 @@ class SalesMngMapperTest {
     void findMonthlySales() {
         // given
         // when
-        List<SalesMngDto> salesMngDtos = salesMngMapper.findMonthlySales();
-
+        List<SalesMngMonthlyDto> salesMngDtos = salesMngMapper.findMonthlySales();
         System.out.println(salesMngDtos);
 
         // then

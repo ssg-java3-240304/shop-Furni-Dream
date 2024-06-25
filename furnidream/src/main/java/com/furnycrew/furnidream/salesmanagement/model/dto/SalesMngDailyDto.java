@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SalesMngDto {
+public class SalesMngDailyDto {
     private LocalDate createdAt;
     private int orderAmount;
     private int totalPrice;

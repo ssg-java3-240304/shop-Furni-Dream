@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper">
-<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">-->
+<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDtolyDto">-->
 <!--        <id column="order_code" property="orderCode"/>-->
 <!--        <result column="created_at" property="createdAt"/>-->
 <!--        <result column="total_price" property="totalPrice"/>-->
@@ -29,7 +29,7 @@
 <!--        </resultMap>-->
 
 
-    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
+    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto">
         select
             date_format(o.created_at, '%Y-%m-%d') createdAt,
             sum(op.quantity) orderAmount,
@@ -38,34 +38,50 @@
             sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) totalSales
         from
             tbl_order o left join tbl_order_product op
-                on o.order_code = op.order_code
+            on o.order_code = op.order_code
             left join tbl_order_canceled oc
-                on op.order_code = oc.order_code
+            on op.order_code = oc.order_code
         group by
             date_format(o.created_at, '%Y-%m-%d')
         order by
-            createdAt;
+            createdAt
     </select>
 
-    <select id="findMonthlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
+    <select id="findMonthlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngMonthlyDto">
         select
-            date_format(o.created_at, '%Y-%m') createdAt,
+            date_format(o.created_at, '%Y-%m') monthly,
             sum(op.quantity) orderAmount,
             sum(op.quantity * op.price) totalPrice,
             ifnull(sum(oc.refund_amount), 0) refundAmount,
             sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) totalSales
         from
-            tbl_order
-                left join tbl_order_product op
-                    on o.order_code = op.order_code
-                left join tbl_order_canceled oc
-                    on op.order_code = oc.order_code
+            tbl_order o left join tbl_order_product op
+            on o.order_code = op.order_code
+            left join tbl_order_canceled oc
+            on op.order_code = oc.order_code
         group by
             date_format(o.created_at, '%Y-%m')
         order by
-            createdAt;
+            monthly
     </select>
 
+<!--    <select>-->
+<!--        select-->
+<!--        concat(date_format(o.created_at, '%Y'), '-',quarter(o.created_at), '분기') dateQuater,-->
+<!--        sum(op.quantity) 주문건수,-->
+<!--        sum(op.quantity * op.price) 결제금액,-->
+<!--        ifnull(sum(oc.refund_amount), 0) 환불합계,-->
+<!--        sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) 매출합계-->
+
+<!--        from tbl_order o-->
+<!--        left join tbl_order_product op-->
+<!--        using (order_code)-->
+<!--        left join tbl_order_canceled oc using (order_code)-->
+<!--        group by-->
+<!--        dateQuater-->
+<!--        order by-->
+<!--        dateQuater;-->
+<!--    </select>-->
 
 
 </mapper>

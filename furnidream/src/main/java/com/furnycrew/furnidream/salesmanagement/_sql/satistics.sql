@@ -45,7 +45,7 @@ order by 주문일자;
 
 -- 분기별
 select
-    quarter(o.created_at) 주문일자,
+    concat(date_format(o.created_at, '%Y'), '-',quarter(o.created_at), '분기') dateQuater,
     sum(op.quantity) 주문건수,
     sum(op.quantity * op.price) 결제금액,
     ifnull(sum(oc.refund_amount), 0) 환불합계,
@@ -56,8 +56,9 @@ from tbl_order o
                    using (order_code)
          left join tbl_order_canceled oc using (order_code)
 group by
-    quarter(created_at)
-order by 주문일자;
+    dateQuater
+order by
+    dateQuater;
 
 
 -- 상품별 매출 내역
