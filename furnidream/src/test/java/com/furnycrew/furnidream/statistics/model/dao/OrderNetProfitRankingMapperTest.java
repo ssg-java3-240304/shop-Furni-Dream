@@ -114,4 +114,21 @@ public class OrderNetProfitRankingMapperTest {
         assertThat(result).isNotNull().isEqualTo(sortedResult);
         assertThat(result).extracting(OrderNetProfitRankingDto::getCategory).containsOnly(category);
     }
+
+    @DisplayName("[분기별/카테고리] 상품별 순수익 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value= {"소파, 2023, 4", "침대, 2024, 1","의자, 2024, 2"})
+    void calculateOrderNetProfitRankingByCategoryAndQuarterPeriod(String category, int year, int quarter) {
+        // given
+        // when
+        List<OrderNetProfitRankingDto> result
+                = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByCategoryAndQuarterPeriod(category, year, quarter);
+
+        List<OrderNetProfitRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getNetProfit() - o1.getNetProfit());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+        assertThat(result).extracting(OrderNetProfitRankingDto::getCategory).containsOnly(category);
+    }
 }
