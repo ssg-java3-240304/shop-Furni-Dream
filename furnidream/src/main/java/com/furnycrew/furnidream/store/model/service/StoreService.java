@@ -23,4 +23,9 @@ public class StoreService {
     public int insertStore(StoreDto storeDto) {
         return storeMapper.insertStore(storeDto);
     }
+
+    // 상점 수정
+    public int updateStore(StoreDto storeDto) {
+        return storeMapper.updateStore(storeDto);
+    }
 }

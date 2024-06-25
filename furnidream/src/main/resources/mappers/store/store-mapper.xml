@@ -26,6 +26,16 @@
             tbl_store
     </select>
 
+    <!--  상점 ID 일치하는 한 건 조회  -->
+    <select id="findByStoreId" resultMap="storeDtoMap">
+        select
+            *
+        from
+            tbl_store
+        where
+            store_id = #{storeId}
+    </select>
+
     <!--  상점 등록  -->
     <insert id="insertStore" useGeneratedKeys="true" keyProperty="storeId">
         insert into
@@ -34,4 +44,24 @@
             #{businessNum}, #{storeName}, #{ceoName}, #{ceoPhone}, #{ceoEmail}, #{businessAddress}, #{businessStatus}, #{businessCategory}, #{stampImage}, #{mailOrderYn}, #{mailOrderNum}
         )
     </insert>
+
+    <!--  상점 수정  -->
+    <update id="updateStore">
+        update
+            tbl_store
+        set
+            business_num = #{businessNum},
+            store_name = #{storeName},
+            ceo_name = #{ceoName},
+            ceo_phone = #{ceoPhone},
+            ceo_email = #{ceoEmail},
+            business_address = #{businessAddress},
+            business_status = #{businessStatus},
+            business_category = #{businessCategory},
+            stamp_image = #{stampImage},
+            mail_order_yn = #{mailOrderYn},
+            mail_order_num = #{mailOrderNum}
+        where
+            store_id = #{storeId}
+    </update>
 </mapper>
