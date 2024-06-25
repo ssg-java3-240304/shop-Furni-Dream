@@ -123,4 +123,14 @@ class OrderMapperTest {
                 });
     }
 
+    @DisplayName("전체 주문 갯수 조회")
+    @Test
+    public void test5() {
+        //given
+        //when
+//        List<OrderDto> orders = orderMapper.findAllOrder();
+        int numOfOrder = orderMapper.countOrderByDateTime(new SearchCriteria());
+        //then
+//        assertThat(numOfOrder);
+    }
 }

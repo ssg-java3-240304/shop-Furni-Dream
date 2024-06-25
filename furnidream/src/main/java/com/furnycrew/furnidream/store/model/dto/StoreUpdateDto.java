@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreRegistDto {
+public class StoreUpdateDto {
     private String businessNum;
     private String storeName;
     private String ceoName;
