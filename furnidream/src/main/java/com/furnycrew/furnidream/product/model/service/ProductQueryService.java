@@ -41,4 +41,8 @@ public class ProductQueryService {
     public int countProducts() {
         return productMapper.countProducts();
     }
+
+    public List<ProductDto> findAllCategory() {
+        return productMapper.findAllCategory();
+    }
 }
