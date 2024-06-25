@@ -58,8 +58,8 @@ public class OrderNetProfitRankingMapperTest {
 
     @DisplayName("[분기별/전체] 잘못된 기간의 상품별 순수익 내림차순 정렬로 가져오기")
     @ParameterizedTest
-    @CsvSource(value = {"2025,1","2025,2", "2026,1"})
-    void calculateOrderNetProfitRankingByQuarterPeriodNotPeriod(int year, int quarter) {
+    @CsvSource(value = {"2025,1", "2025,2", "2026,1"})
+    void calculateOrderNetProfitRankingByQuarterPeriodAndNotPeriod(int year, int quarter) {
         // given
         // when
         List<OrderNetProfitRankingDto> result
@@ -69,4 +69,33 @@ public class OrderNetProfitRankingMapperTest {
         assertThat(result).isEmpty();
     }
 
+    @DisplayName("[월별/전체] 상품별 순수익 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value = {"2023,4", "2024,1", "2024,2"})
+    void calculateOrderNetProfitRankingByMonthPeriod(int year, int month) {
+        // given
+        // when
+        List<OrderNetProfitRankingDto> result
+                = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByMonthPeriod(year, month);
+
+        List<OrderNetProfitRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getNetProfit() - o1.getNetProfit());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+
+    }
+
+    @DisplayName("[월별/전체] 잘못된 기간의 상품별 순수익 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @CsvSource(value = {"2025,1", "2025,2", "2026,1"})
+    void calculateOrderNetProfitRankingByMonthPeriodAndNotPeriod(int year, int month) {
+        // given
+        // when
+        List<OrderNetProfitRankingDto> result
+                = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByMonthPeriod(year, month);
+
+        // then
+        assertThat(result).isEmpty();
+    }
 }
