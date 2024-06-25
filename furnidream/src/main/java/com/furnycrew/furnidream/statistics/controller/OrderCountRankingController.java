@@ -16,9 +16,17 @@ import java.util.List;
 public class OrderCountRankingController {
     private final OrderCountRankingService orderCountRankingService;
 
+    @GetMapping({"/all", "/category"})
+    public String orderCountRankingMain() {
+        return "statistics/order/count/main";
+    }
+
+
     @GetMapping("/all/{period}")
-    public String calculateOrderCountRankingByAll(@PathVariable String period, Integer year, Integer quarter,Integer month, Model model) {
+    public String calculateOrderCountRankingByAll(@PathVariable String period, Integer year, Integer quarter, Integer month, Model model) {
+
         List<OrderCountRankingDto> orderCountRankingList = null;
+
 
         if ("all-period".equals(period)) {
             orderCountRankingList = orderCountRankingService.calculateOrderCountRankingByAllPeriod();
@@ -27,14 +35,14 @@ public class OrderCountRankingController {
         } else if ("month-period".equals(period)) {
             orderCountRankingList = orderCountRankingService.calculateOrderCountRankingByMonthPeriod(year, month);
 
-        }else{
+        } else {
             //오류처리
         }
 
         model.addAttribute("orderCountRankingList", orderCountRankingList);
         model.addAttribute("period", period); // period 정보를 모델에 추가
 
-        return "statistics/order/count-ranking/ranking";
+        return "statistics/order/count/ranking";
     }
 
     @GetMapping("/category/{period}")
