@@ -13,6 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -53,7 +54,6 @@ public class OrderNetProfitRankingMapperTest {
 
         // then
         assertThat(result).isNotNull().isEqualTo(sortedResult);
-
     }
 
     @DisplayName("[분기별/전체] 잘못된 기간의 상품별 순수익 내림차순 정렬로 가져오기")
@@ -83,7 +83,6 @@ public class OrderNetProfitRankingMapperTest {
 
         // then
         assertThat(result).isNotNull().isEqualTo(sortedResult);
-
     }
 
     @DisplayName("[월별/전체] 잘못된 기간의 상품별 순수익 내림차순 정렬로 가져오기")
@@ -97,5 +96,22 @@ public class OrderNetProfitRankingMapperTest {
 
         // then
         assertThat(result).isEmpty();
+    }
+
+    @DisplayName("[모든기간/카테고리] 상품별 순수익 내림차순 정렬로 가져오기")
+    @ParameterizedTest
+    @ValueSource(strings = {"소파", "침대","의자"})
+    void calculateOrderNetProfitRankingByCategoryAndAllPeriod(String category) {
+        // given
+        // when
+        List<OrderNetProfitRankingDto> result
+                = orderNetProfitRankingMapper.calculateOrderNetProfitRankingByCategoryAndAllPeriod(category);
+
+        List<OrderNetProfitRankingDto> sortedResult = new ArrayList<>(result);
+        Collections.sort(sortedResult, (o1, o2) -> o2.getNetProfit() - o1.getNetProfit());
+
+        // then
+        assertThat(result).isNotNull().isEqualTo(sortedResult);
+        assertThat(result).extracting(OrderNetProfitRankingDto::getCategory).containsOnly(category);
     }
 }
