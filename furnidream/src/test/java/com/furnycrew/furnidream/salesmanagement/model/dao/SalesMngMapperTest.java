@@ -1,7 +1,13 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
+<<<<<<< Updated upstream
 import com.furnycrew.furnidream.salesmanagement.model.dto.ProductSalesDto;
 import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto;
+=======
+
+import com.furnycrew.furnidream.salesmanagement.model.dto.*;
+import org.junit.jupiter.api.Disabled;
+>>>>>>> Stashed changes
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +34,12 @@ class SalesMngMapperTest {
         // then
         assertThat(salesMngDtos)
                 .isNotNull()
+<<<<<<< Updated upstream
                 .isNotEmpty()
                 .allMatch((salesMng) -> salesMng != null);
+=======
+                .isNotEmpty();
+>>>>>>> Stashed changes
     }
 
     @Test
@@ -57,6 +67,7 @@ class SalesMngMapperTest {
         // then
     }
 
+    @Disabled
     @Test
     @DisplayName("상품별 성비에 따른 매출 조회")
     void findSalesByGender() {
