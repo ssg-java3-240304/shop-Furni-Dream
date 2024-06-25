@@ -93,7 +93,7 @@
         from tbl_order
         where order_status = 5
         and YEAR(created_at) = #{year}
-        and MONTH(created_at) = #{month)
+        and MONTH(created_at) = #{month})
         group by product_id) o
         JOIN (select * from tbl_product where category = #{category}) p on o.product_id = p.product_id
         group by p.product_code, product_name, category
