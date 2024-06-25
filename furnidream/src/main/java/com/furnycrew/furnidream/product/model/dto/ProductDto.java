@@ -13,14 +13,14 @@ public class ProductDto {
     private String productName;
     private String productImage;
     private String category;
-    private int costPrice;
-    private int retailPrice;
-    private int stock;
+    private Integer costPrice;
+    private Integer retailPrice;
+    private Integer stock;
     private String description;
     private String productCode;
-    private int discountRate;
-    private int shippingFee;
+    private Integer discountRate;
+    private Integer shippingFee;
     private ProductStatus productStatus;
     private String color;
-    private int size;
+    private Integer size;
 }

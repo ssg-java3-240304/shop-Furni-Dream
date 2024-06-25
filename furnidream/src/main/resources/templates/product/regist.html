@@ -22,8 +22,11 @@
             vertical-align: top;
             margin-bottom: 10px;
         }
+        .container{
+            border: 1px black;
+        }
     </style>
-    <form name="productRegistFrm" th:action="@{/product/regist}" method="post">
+    <form name="productRegistFrm" class="container" th:action="@{/product/regist}" method="post">
 
         <div class="form-group row">
             <label class="col-sm-2" for="productName">상품명</label>
@@ -31,7 +34,7 @@
                 <input type="text" id="productName" name="productName" required>
             </div>
 
-            <label class="col-sm-2" for="productStatus">상품명</label>
+            <label class="col-sm-2" for="productStatus">상품상태로!</label>
             <div class="col-sm-3">
                 <select name="productStatus" id="productStatus" required>
                     <option value="AVAILABLE">AVAILABLE</option>
@@ -104,6 +107,11 @@
             <div class="col-sm-3">
                 <textarea name="description" id="description" cols="40" rows="10"></textarea>
             </div>
+        </div>
+
+        <label class="col-sm-2" for="productImage">이미지</label>
+        <div class="col-sm-3">
+            <input type="number" id="productImage" name="productImage">
         </div>
 
         <button type="submit">등록</button>
