@@ -28,7 +28,7 @@ public class StoreService {
         return storeMapper.insertStore(storeDto);
     }
 
-    // 상점 수정
+    // 최신 상점 수정
     @Transactional
     public int updateStore(StoreDto storeDto) {
         return storeMapper.updateStore(storeDto);

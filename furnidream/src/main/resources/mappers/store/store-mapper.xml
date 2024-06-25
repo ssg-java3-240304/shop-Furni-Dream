@@ -49,7 +49,7 @@
         )
     </insert>
 
-    <!--  상점 수정  -->
+    <!--  최신 상점 수정  -->
     <update id="updateStore">
         update
             tbl_store
@@ -66,6 +66,13 @@
             mail_order_yn = #{mailOrderYn},
             mail_order_num = #{mailOrderNum}
         where
-            store_id = #{storeId}
+            store_id = (
+                select
+                    store_id
+                from
+                    (select
+                        max(store_id) as store_id
+                    from
+                        tbl_store) as temp);
     </update>
 </mapper>
