@@ -42,6 +42,13 @@ public class ProductController {
         model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
     }
 
+    @GetMapping("/regist")
+    public void regist(Model model){
+        log.info("GET /product/regist");
+        List<ProductDto> categories = productQueryService.findAllCategory();
+        model.addAttribute("categories", categories);
+    }
+
     @PostMapping("/regist")
     public String regist(@ModelAttribute ProductRegistDto productRegistDto, RedirectAttributes redirectAttributes){
         log.info("POST /product/regist");
