@@ -38,10 +38,11 @@ create
 BEGIN
     DECLARE my_order_code INT DEFAULT 1;
     DECLARE my_product_id INT DEFAULT 0;
+    DECLARE my_year_interval INT DEFAULT 6;
 
     START TRANSACTION;
 
-    WHILE my_order_code <= 3000 DO
+    WHILE my_order_code <= 9000 DO
             -- 랜덤 고객 선택
             SET @customer_id = FLOOR(101 + (RAND() * 80));
 
@@ -60,7 +61,7 @@ BEGIN
             INSERT INTO tbl_order (customer_id, created_at, phone, shipping_address, order_status, tracking_number, total_price)
             VALUES (@customer_id,
                     DATE_ADD(
-                        DATE_ADD('2023-05-01', INTERVAL FLOOR(RAND() * 365) DAY),
+                        DATE_SUB('2024-06-25', INTERVAL FLOOR(RAND() * 365 * my_year_interval) DAY),
                             INTERVAL FLOOR(RAND() * 86400) SECOND), -- 랜덤 날짜 생성
                     @phone,
                     @shipping_address,
@@ -80,7 +81,7 @@ BEGIN
                                @last_order_code,
                                @random_product_id,
                                FLOOR(1 + RAND() * 3), -- 랜덤 수량 생성
-                               (SELECT retail_price FROM tbl_product WHERE product_id = @random_product_id) -- 상품의 소매 가격 사용
+                               (SELECT (retail_price - retail_price * (discount_rate / 100)) as price FROM tbl_product WHERE product_id = @random_product_id) -- 상품의 소매 가격 사용
                            );
 
                     SET @num_products := @num_products - 1;

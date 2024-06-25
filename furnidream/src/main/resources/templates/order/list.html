@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <meta charset="UTF-8">
+    <title>주문 조회</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+</head>
+<body>
+<main layout:fragment="main">
+    <h1>주문 조회</h1>
+    <ul>
+        <li th:each="order, stat : ${orders}" th:object="${order}">
+            <p th:text="|주문번호 : *{orderCode}|"></p>
+            <p th:text="|주문자 : *{customerDto.name}|"></p>
+            <p th:text="|주문시각 : *{createdAt}|"></p>
+            <p th:text="|전화번호 : *{phone}|"></p>
+        </li>
+    </ul>
+</main>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
