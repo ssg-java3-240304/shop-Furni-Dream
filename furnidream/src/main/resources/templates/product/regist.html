@@ -11,19 +11,16 @@
 <main layout:fragment="main" class="ms-5 mt-5">
     <h1>상품 신규 등록</h1><br>
     <style>
-        .form-group{
+        .form-group {
             margin-bottom: 15px;
         }
         .form-group label {
             margin-right: 10px;
         }
-        .col-sm-2, .col-sm-3, .col-sm-8 {
+        .col-sm-2, .col-sm-3 {
             display: inline-block;
             vertical-align: top;
             margin-bottom: 10px;
-        }
-        .container{
-            border: 1px black;
         }
     </style>
     <form name="productRegistFrm" class="container" th:action="@{/product/regist}" method="post">
@@ -34,7 +31,7 @@
                 <input type="text" id="productName" name="productName" required>
             </div>
 
-            <label class="col-sm-2" for="productStatus">상품상태로!</label>
+            <label class="col-sm-2" for="productStatus">상품상태</label>
             <div class="col-sm-3">
                 <select name="productStatus" id="productStatus" required>
                     <option value="AVAILABLE">AVAILABLE</option>
@@ -111,7 +108,11 @@
 
         <label class="col-sm-2" for="productImage">이미지</label>
         <div class="col-sm-3">
-            <input type="number" id="productImage" name="productImage">
+            <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
+                파일 : <input type="file" name="productImage" id="productImage"><br>
+                파일 설명 : <input type="text" name="singleFileDescription"><br>
+                <input type="submit">
+            </form>
         </div>
 
         <button type="submit">등록</button>
