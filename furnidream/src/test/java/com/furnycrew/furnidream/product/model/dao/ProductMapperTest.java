@@ -182,4 +182,14 @@ class ProductMapperTest {
                             assertThat(product.getProductStatus()).isNotNull();
                 });
     }
+
+    @Test
+    @DisplayName("카테고리 전체 조회")
+    void findAllCategory() {
+        // given
+        // when
+        List<ProductDto> categories = productMapper.findAllCategory();
+        // then
+        assertThat(categories).isNotNull();
+    }
 }

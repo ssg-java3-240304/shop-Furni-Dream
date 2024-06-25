@@ -86,4 +86,11 @@
             and product_code = #{value}
         </if>
     </select>
+
+    <select id="findAllCategory" resultMap="productDtoMap">
+        select
+            *
+        from
+            tbl_product
+    </select>
 </mapper>
