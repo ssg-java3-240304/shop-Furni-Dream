@@ -12,6 +12,7 @@ public interface OrderNetProfitRankingMapper {
 
     List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndAllPeriod(String category);
     List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndQuarterPeriod(String category, int year, int quarter);
+    List<OrderNetProfitRankingDto> calculateOrderNetProfitRankingByCategoryAndMonthPeriod(String category, int year, int month);
 
 
 }
