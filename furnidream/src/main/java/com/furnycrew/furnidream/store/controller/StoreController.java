@@ -20,16 +20,24 @@ import java.util.List;
 public class StoreController {
     private final StoreService storeService;
 
-    // 상점 모든 정보 조회
+    // 한 상점의 모든 정보 조회
     @GetMapping("/list")
     public void list(Model model) {
         log.info("GET /store/list");
-        List<StoreDto> stores = storeService.findAll();
-        log.debug("stores : {}", stores);
-        model.addAttribute("stores", stores);
+        StoreDto store = storeService.findAll();
+        log.debug("store : {}", store);
+        model.addAttribute("store", store);
     }
 
-    // 상점 등록
+    // /store/regist 페이지 불러오기 요청
+    @GetMapping("/regist")
+    public void regist(Model model){
+        log.info("GET /store/regist");
+        StoreDto store = storeService.findAll();
+        model.addAttribute("store", store);
+    }
+
+    // 상점 등록 폼 제출
     @PostMapping("/regist")
     public String regist(@ModelAttribute StoreRegistDto storeRegistDto, RedirectAttributes redirectAttributes) {
         log.info("POST /store/regist");
@@ -42,8 +50,7 @@ public class StoreController {
     }
 
     // 상품 수정
-    @RequestMapping(path="/modify", method = RequestMethod.POST)
-    @PostMapping("/store/modify")
+    @PostMapping("/modify")
     public String modify(@ModelAttribute StoreUpdateDto storeUpdateDto, RedirectAttributes redirectAttributes) {
         log.info("POST /store/modify");
         StoreDto storeDto = storeUpdateDto.toStoreDto();
