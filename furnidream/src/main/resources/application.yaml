@@ -2,7 +2,7 @@ spring:
   application:
     name: furnidream
   datasource:
-    url: jdbc:mysql://ssg-java3.iptime.org:3306
+    url: jdbc:mysql://ssg-java3.iptime.org:3306/furnidb
     username: furni
     password: furni
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,7 +22,7 @@ logging:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  type-aliases-package: com.sh
+  type-aliases-package: com.furnycrew.furnidream
   mapper-locations: classpath*:mappers/**/*-mapper.xml
 
 server:

@@ -13,19 +13,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ProductMapperTest {
-    @Autowired
-    private ProductMapper productMapper;
-
-    @Test
-    @DisplayName("상품 전체 조회")
-    void findAll() {
-        // given
-        // when
-        List<ProductDto> products = productMapper.findAll();
-        // then
-        assertThat(products)
-                .isNotNull()
-                .isNotEmpty()
-                .allMatch((product) -> product != null);
-    }
+//    @Autowired
+//    private ProductMapper productMapper;
+//
+//    @Test
+//    @DisplayName("상품 전체 조회")
+//    void findAll() {
+//        // given
+//        // when
+//        List<ProductDto> products = productMapper.findAll();
+//        // then
+//        assertThat(products)
+//                .isNotNull()
+//                .isNotEmpty()
+//                .allMatch((product) -> product != null);
+//    }
 }

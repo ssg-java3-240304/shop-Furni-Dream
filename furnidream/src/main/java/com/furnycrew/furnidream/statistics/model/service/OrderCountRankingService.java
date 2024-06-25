@@ -2,7 +2,9 @@ package com.furnycrew.furnidream.statistics.model.service;
 
 import com.furnycrew.furnidream.statistics.model.dao.OrderCountRankingMapper;
 import com.furnycrew.furnidream.statistics.model.dto.OrderCountRankingDto;
+
 import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,12 @@ public class OrderCountRankingService {
     }
 
     public List<OrderCountRankingDto> calculateOrderCountRankingByCategoryAndQuarterPeriod(String category, int year,
-                                                                                        int quarter) {
+                                                                                           int quarter) {
         return orderCountRankingMapper.calculateOrderCountRankingByCategoryAndQuarterPeriod(category, year, quarter);
     }
-    public     List<OrderCountRankingDto> calculateOrderCountRankingByCategoryAndMonthPeriod(String category, int year,
-                                                                                          int month){
+
+    public List<OrderCountRankingDto> calculateOrderCountRankingByCategoryAndMonthPeriod(String category, int year,
+                                                                                         int month) {
         return orderCountRankingMapper.calculateOrderCountRankingByCategoryAndMonthPeriod(category, year, month);
     }
 
