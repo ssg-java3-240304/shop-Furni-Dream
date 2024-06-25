@@ -42,7 +42,7 @@ public class StoreController {
     }
 
     // 상품 수정
-    @RequestMapping(path="/store/modify", method = RequestMethod.POST)
+    @RequestMapping(path="/modify", method = RequestMethod.POST)
     @PostMapping("/store/modify")
     public String modify(@ModelAttribute StoreUpdateDto storeUpdateDto, RedirectAttributes redirectAttributes) {
         log.info("POST /store/modify");
