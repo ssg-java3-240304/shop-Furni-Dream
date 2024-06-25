@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">상품 신규 등록</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+</head>
+<body>
+    <main layout:fragment="main" class="container">
+        <h2 class="m-3">상품 등록</h2>
+
+<!--        <form name="productRegistFrm" action="" method="post">-->
+<!--            <tr>-->
+<!--                <th>상품명</th>-->
+<!--                <td colspan="2"><input type="text" name="productName" class="width_250" value=''></td>-->
+<!--                <th>상품상태</th>-->
+<!--                <td>-->
+<!--                    <select name="productStatus" id="productStatus" required>-->
+<!--                        <option value="AVAILABLE">AVAILABLE</option>-->
+<!--                        <option value="UNAVAILABLE">UNAVAILABLE</option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>상품코드</th>-->
+<!--                <td colspan="2"><input type="text" name="productCode" class="width_250" value=''></td>-->
+<!--                <th>카테고리</th>-->
+<!--                <td><input type="text" name="category" class="" value=""></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>재고</th>-->
+<!--                <td colspan="2"><input type="text" name="stock" class="width_250" value=''></td>-->
+<!--&lt;!&ndash;                <th>옵션</th>&ndash;&gt;-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>원가</th>-->
+<!--                <td colspan="2"><input type="text" name="costPrice" class="width_250" value=''></td>-->
+<!--                <th>판매가</th>-->
+<!--                <td><input type="text" name="retailPrice" class="" value=""></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th>할인율</th>-->
+<!--                <td colspan="2"><input type="text" name="discountRate" class="width_250" value=""></td>-->
+<!--                <th>배송비</th>-->
+<!--                <td><input type="text" name="shippingFee" class="" value=""></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <th><label for="description">상품 정보</label></th>-->
+<!--                <td><textarea name="description" id="description" cols="50" rows="20"></textarea></td>-->
+<!--            </tr>-->
+        </form>
+
+    </main>
+<!--    <script layout:fragment="js" th:src="@{/js/product/regist.js}"></script>-->
+</body>
+</html>
