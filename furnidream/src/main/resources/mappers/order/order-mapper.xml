@@ -9,6 +9,8 @@
         <result column="phone" property="phone"/>
         <result column="shipping_address" property="shippingAddress"/>
         <result column="order_status" property="orderStatus"/>
+        <result column="tracking_number" property="trackingNumber"/>
+        <result column="total_price" property="totalPrice"/>
         <association property="customerDto" javaType="customerDto">
             <id column="customer_id" property="customerId"/>
             <result column="name" property="name"/>
@@ -74,6 +76,16 @@
                 year(created_at) = year(#{searchCriteria.value})
             </if>
         </where>
+    </select>
+
+    <select id="getOrderDetail" resultMap="orderDtoMap">
+        select
+        *
+        from
+        tbl_order o join tbl_customer c on o.customer_id = c.customer_id
+            join tbl_order_product op on o.order_code = op.order_code
+        where
+            o.order_code = #{value};
     </select>
 
 </mapper>

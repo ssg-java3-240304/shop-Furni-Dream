@@ -95,7 +95,7 @@ BEGIN
 
             UPDATE tbl_order
             SET
-                total_price = (SELECT SUM(op.quantity * p.retail_price) FROM tbl_order_product op JOIN tbl_product p ON op.product_id = p.product_id WHERE op.order_code = @last_order_code)
+                total_price = (select sum(price*quantity) from tbl_order_product where tbl_order_product.order_code = @last_order_code)
             WHERE
                 order_code = @last_order_code;
 
