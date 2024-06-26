@@ -1,0 +1,51 @@
+package com.furnycrew.furnidream.inquiry.controller;
+
+import com.furnycrew.furnidream.common.paging.PageCriteria;
+import com.furnycrew.furnidream.common.search.SearchCriteria;
+import com.furnycrew.furnidream.inquiry.model.dto.InquiryDto;
+import com.furnycrew.furnidream.inquiry.model.service.InquiryCommandService;
+import com.furnycrew.furnidream.inquiry.model.service.InquiryQueryService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+
+@Controller
+@Slf4j
+@RequestMapping("/inquiry")
+public class InquiryController {
+    private final InquiryCommandService inquiryCommandService;
+    private final InquiryQueryService inquiryQueryService;
+
+    public InquiryController(InquiryCommandService inquiryCommandService, InquiryQueryService inquiryQueryService) {
+        this.inquiryCommandService = inquiryCommandService;
+        this.inquiryQueryService = inquiryQueryService;
+    }
+
+    @GetMapping("/list")
+    public void list(@RequestParam(defaultValue = "") String viewType,
+                    @RequestParam(defaultValue = "1") int page,
+                    @RequestParam(defaultValue = "10") int limit,
+                    Model model){
+
+        log.info("GET /menu/list?page={}&limit={}", page, limit);
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setName(viewType);
+        // 1. 컨텐츠 영역 (limit쿼리)
+        int offset = (page - 1) * limit; // 1페이지 - 0, 2페이지 - 10, 3페이지 - 20, ...
+        List<InquiryDto> inquiries = inquiryQueryService.getInquiries(searchCriteria, offset, limit);
+        log.debug("inquirys = {}", inquiries);
+        model.addAttribute("inquiries", inquiries);
+
+        // 2. 페이지바 영역 (html)
+        int totalCount = inquiryQueryService.countInquiry(searchCriteria); // 전체 주문가능한 메뉴수
+        log.debug("totalCount = {}", totalCount);
+        String url = "list"; // 간단히 상대경로 사용
+        model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
+    }
+
+}

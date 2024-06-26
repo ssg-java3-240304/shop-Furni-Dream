@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Inquiry Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Inquiry Details</h2>
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 th:text="${inquiry.title}">Inquiry Title</h5>
+            <small class="text-muted" th:text="${inquiry.createdAt}">Created At</small>
+        </div>
+        <div class="card-body">
+            <p class="card-text" th:text="${inquiry.content}">Inquiry Content</p>
+        </div>
+        <div class="card-footer">
+            <span class="badge badge-primary" th:text="${inquiry.status}">Status</span>
+        </div>
+    </div>
+
+    <div th:if="${inquiry.response}">
+        <h3 class="mb-3">Administrator Response</h3>
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="card-text" th:text="${inquiry.response}">Administrator's response will be shown here</p>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${!inquiry.response}">
+        <h3 class="mb-3">Leave a Response</h3>
+        <form th:action="@{/inquiries/respond}" method="post">
+            <input type="hidden" name="inquiryId" th:value="${inquiry.inquiryId}" />
+            <div class="form-group">
+                <label for="response">Response</label>
+                <textarea class="form-control" id="response" name="response" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Response</button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
