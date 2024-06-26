@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:fragment="styles" th:href="@{/css/styles.css}" type="text/css"/>
+    <title>주문상세</title>
+    <script>
+        console.log(1234);
+    </script>
+</head>
+<body>
+<main class="container mt-5 ms-5" layout:fragment="main">
+    <h1 class="text-center mb-4">주문 상세</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            주문서 정보
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>주문 번호</h5>
+                    <p id="orderCode">[[${order.orderCode}]]</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>주문 상태</h5>
+                    <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
+                    <label class="btn btn-outline-primary" for="option1">결제 완료</label>
+
+                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" >
+                    <label class="btn btn-outline-primary" for="option2">배송 준비</label>
+
+                    <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" >
+                    <label class="btn btn-outline-primary" for="option3">배송 중</label>
+
+                    <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
+                    <label class="btn btn-outline-primary" for="option4">배송 완료</label>
+                    <p id="orderStatus">[[${order.orderStatus}]]</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>송장 번호</h5>
+                    <p id="trackingNumber">[[${order.trackingNumber}]]</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>총 결제금액</h5>
+                    <p id="totalPrice">[[${order.totalPrice}]]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            구매자 정보
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>고객 번호</h5>
+                    <p id="customerId">[[${order.customerDto.customerId}]]</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>이름</h5>
+                    <p id="customerName">[[${order.customerDto.name}]]</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>연령</h5>
+                    <p id="customerAge">[[${order.customerDto.age}]]</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>성별</h5>
+                    <p id="customerGender">[[${order.customerDto.gender}]]</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <h5>전화 번호</h5>
+                    <p id="customerPhone">[[${order.customerDto.phone}]]</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>주소</h5>
+                    <p id="customerAddress">[[${order.customerDto.address}]]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            주문 상품
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>상품 번호</th>
+                        <th>수량</th>
+                        <th>판매가</th>
+                    </tr>
+                    </thead>
+                    <tbody id="productList">
+                    <!-- Example row, replace with dynamic content -->
+                    <tr th:each="product : ${order.orderProductList}">
+                        <td>[[${product.productId}]]</td>
+                        <td>[[${product.quantity}]]</td>
+                        <td>[[${product.price}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:src="@{/js/script.js}">
+
+</script>
+</body>
+</html>
