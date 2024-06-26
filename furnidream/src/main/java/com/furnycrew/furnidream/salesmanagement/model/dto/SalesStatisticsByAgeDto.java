@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SalesStatisticsByAgeDto {
     private String productName;
-    private String teenager;
-    private String twenties;
-    private String thirties;
-    private String forties;
-    private String fifties;
+    private String earlyToMid20s;
+    private String midToLate20s;
+    private String earlyToMid30s;
+    private String midToLate30s;
+    private String earlyToMid40s;
     private String totalSales;
 }

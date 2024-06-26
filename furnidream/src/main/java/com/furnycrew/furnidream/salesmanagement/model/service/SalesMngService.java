@@ -31,16 +31,17 @@ public class SalesMngService {
     }
 
     // 상품 당 연령층에 따른 매출 조회
-    public List<SalesStatisticsByAgeDto> findSalesByAgeGroup(){
-        return salesMngMapper.findSalesByAgeGroup();
+    public List<SalesStatisticsByAgeDto> findSalesByAgeGroup(int offset, int limit){
+        return salesMngMapper.findSalesByAgeGroup(offset, limit);
+    }
+
+    public List<SalesStatisticsByProductDto> findSalesByProduct(int offset, int limit) {
+        return salesMngMapper.findSalesByProduct(offset, limit);
     }
 
     public int count() {
         return salesMngMapper.count();
     }
 
-    public List<SalesStatisticsByProductDto> findSalesByProduct() {
-        return salesMngMapper.findSalesByProduct();
-    }
 
 }
