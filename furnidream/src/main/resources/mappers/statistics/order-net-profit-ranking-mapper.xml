@@ -25,5 +25,78 @@
         order by net_profit desc;
     </select>
 
+    <select id="calculateOrderNetProfitRankingByQuarterPeriod" resultMap="OrderNetProfitRankingMap" >
+        select product_code, product_name, category, SUM(o.net_profit) net_profit
+        from (select product_id, SUM((price-cost_price)*quantity) net_profit
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5
+        and YEAR(created_at) = #{year}
+        and QUARTER(created_at)= #{quarter})
+        group by product_id) o
+        JOIN tbl_product p on o.product_id = p.product_id
+        group by p.product_code, product_name, category
+        order by net_profit desc;
+    </select>
 
+    <select id="calculateOrderNetProfitRankingByMonthPeriod" resultMap="OrderNetProfitRankingMap">
+        select product_code, product_name, category, SUM(o.net_profit) net_profit
+        from (select product_id, SUM((price-cost_price)*quantity) net_profit
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5
+        and YEAR(created_at) = #{year}
+        and MONTH(created_at)= #{month})
+        group by product_id) o
+        JOIN tbl_product p on o.product_id = p.product_id
+        group by p.product_code, product_name, category
+        order by net_profit desc;
+    </select>
+
+    <select id="calculateOrderNetProfitRankingByCategoryAndAllPeriod" resultMap="OrderNetProfitRankingMap">
+        select product_code, product_name, category, SUM(o.net_profit) net_profit
+        from (select product_id, SUM((price - cost_price) * quantity) net_profit
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5)
+        group by product_id) o
+        JOIN (select * from tbl_product where category = #{category}) p on o.product_id = p.product_id
+        group by p.product_code, product_name, category
+        order by net_profit desc;
+
+    </select>
+
+    <select id="calculateOrderNetProfitRankingByCategoryAndQuarterPeriod" resultMap="OrderNetProfitRankingMap">
+        select product_code, product_name, category, SUM(o.net_profit) net_profit
+        from (select product_id, SUM((price - cost_price) * quantity) net_profit
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5
+        and YEAR(created_at)=#{year}
+        and QUARTER(created_at)=#{quarter}
+        )
+        group by product_id) o
+        JOIN (select * from tbl_product where category = #{category}) p on o.product_id = p.product_id
+        group by p.product_code, product_name, category
+        order by net_profit desc;
+    </select>
+
+    <select id="calculateOrderNetProfitRankingByCategoryAndMonthPeriod" resultMap="OrderNetProfitRankingMap" >
+        select product_code, product_name, category, SUM(o.net_profit) net_profit
+        from (select product_id, SUM((price - cost_price) * quantity) net_profit
+        from tbl_order_product
+        where order_code in (select order_code
+        from tbl_order
+        where order_status = 5
+        and YEAR(created_at) = #{year}
+        and MONTH(created_at) = #{month})
+        group by product_id) o
+        JOIN (select * from tbl_product where category = #{category}) p on o.product_id = p.product_id
+        group by p.product_code, product_name, category
+        order by net_profit desc;
+    </select>
 </mapper>

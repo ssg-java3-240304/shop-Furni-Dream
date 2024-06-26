@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 @Transactional // 테스트 후 DB 롤백을 위해 추가
 class ProductMapperTest {
+
     @Autowired
     private ProductMapper productMapper;
 

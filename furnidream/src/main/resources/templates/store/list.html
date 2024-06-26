@@ -10,13 +10,21 @@
 </head>
 <body>
     <main layout:fragment="main" class="container">
+        <style>
+            th {
+                width: 300px;
+            }
+            td {
+                text-align: left;
+            }
+        </style>
         <h2 class="m-3">상점 조회</h2>
 
         <table class="table">
-            <tbody th:each="store, stat : ${stores}" th:object="${store}">
+            <tbody th:if="${store != null}" th:object="${store}">
                 <tr>
                     <th>사업자 등록번호</th>
-                    <td th:text="*{storeId}"></td>
+                    <td th:text="*{businessNum}"></td>
                 </tr>
                 <tr>
                     <th>상점명</th>
@@ -59,6 +67,7 @@
                     <td th:text="*{mailOrderNum}"></td>
                 </tr>
             </tbody>
+            <p th:if="${store == null}" style="font-size: large; text-align: center; margin-top: 240px;">No store data available.</p>
         </table>
     </main>
     <script th:src="@{/js/script.js}"></script>

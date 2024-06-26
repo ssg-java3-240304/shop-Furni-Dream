@@ -26,4 +26,8 @@ public class OrderQueryService {
     public int countOrderByDateTime(SearchCriteria searchCriteria) {
         return orderMapper.countOrderByDateTime(searchCriteria);
     }
+
+    public OrderDto getOrderDetail(SearchCriteria searchCriteria) {
+        return orderMapper.getOrderDetail(searchCriteria);
+    }
 }
