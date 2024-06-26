@@ -16,8 +16,8 @@ public class SalesMngService {
     private final SalesMngMapper salesMngMapper;
 
     // 전체 매출 조회
-    public List<SalesMngDailyDto> findTotalSales(){
-        return salesMngMapper.findTotalSales();
+    public List<SalesMngDailyDto> findTotalSales(int offset, int limit){
+        return salesMngMapper.findTotalSales(offset, limit);
     }
 
     // 월별 매출 조회
@@ -35,8 +35,12 @@ public class SalesMngService {
         return salesMngMapper.findSalesByAgeGroup();
     }
 
-    //    // 상품 당 성비에 따른 매출 조회
-//    public List<SalsesStatisticsByGenderDto> findSalesByGender(){
-//        return salesMngMapper.findSalesByGender();
-//    }
+    public int count() {
+        return salesMngMapper.count();
+    }
+
+    public List<SalesStatisticsByProductDto> findSalesByProduct() {
+        return salesMngMapper.findSalesByProduct();
+    }
+
 }
