@@ -2,15 +2,16 @@ package com.furnycrew.furnidream.inquiry.controller;
 
 import com.furnycrew.furnidream.common.paging.PageCriteria;
 import com.furnycrew.furnidream.common.search.SearchCriteria;
+import com.furnycrew.furnidream.common.search.UpdateCriteria;
 import com.furnycrew.furnidream.inquiry.model.dto.InquiryDto;
 import com.furnycrew.furnidream.inquiry.model.service.InquiryCommandService;
 import com.furnycrew.furnidream.inquiry.model.service.InquiryQueryService;
+import com.furnycrew.furnidream.order.model.dto.OrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -46,6 +47,26 @@ public class InquiryController {
         log.debug("totalCount = {}", totalCount);
         String url = "list"; // 간단히 상대경로 사용
         model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
+    }
+
+    @GetMapping("/detail/{inquiryId}")
+    public String detail(@PathVariable Long inquiryId, Model model){
+        log.debug("Get inquiry/detail/{}", inquiryId);
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setName("inquiryId");
+        searchCriteria.setValue(inquiryId);
+        InquiryDto inquiry = inquiryQueryService.getInquiryDetail(searchCriteria);
+        log.debug("inquiry = {}", inquiry);
+        model.addAttribute("inquiry", inquiry);
+        return "inquiry/detail";
+    }
+
+    @PostMapping("/addResponse")
+    public String addResponse(@ModelAttribute UpdateCriteria updateCriteria, RedirectAttributes redirectAttributes){
+        log.debug("Get inquiry/addResponse/{}", updateCriteria);
+        updateCriteria.setName("Response");
+        int result = inquiryCommandService.addResponse(updateCriteria);
+        return "redirect:/inquiry/detail/"+updateCriteria.getId();
     }
 
 }

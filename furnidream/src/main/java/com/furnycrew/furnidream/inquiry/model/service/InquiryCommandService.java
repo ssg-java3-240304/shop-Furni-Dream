@@ -1,6 +1,8 @@
 package com.furnycrew.furnidream.inquiry.model.service;
 
 
+import com.furnycrew.furnidream.common.enums.InquiryStat;
+import com.furnycrew.furnidream.common.search.UpdateCriteria;
 import com.furnycrew.furnidream.inquiry.model.dao.InquiryMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,10 @@ public class InquiryCommandService {
 
     public InquiryCommandService(InquiryMapper inquiryMapper) {
         this.inquiryMapper = inquiryMapper;
+    }
+
+    public int addResponse(UpdateCriteria updateCriteria) {
+
+        return inquiryMapper.addResponse(updateCriteria, InquiryStat.Answered);
     }
 }

@@ -25,4 +25,8 @@ public class InquiryQueryService {
     public int countInquiry(SearchCriteria searchCriteria) {
         return inquiryMapper.countInquiry(searchCriteria);
     }
+
+    public InquiryDto getInquiryDetail(SearchCriteria searchCriteria) {
+        return inquiryMapper.getInquiryDetail(searchCriteria);
+    }
 }

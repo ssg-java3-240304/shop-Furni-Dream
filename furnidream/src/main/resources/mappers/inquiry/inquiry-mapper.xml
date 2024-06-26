@@ -31,4 +31,24 @@
         </where>
     </select>
 
+    <select id="getInquiryDetail" resultType="InquiryDto">
+        select
+            *,
+            (select name from tbl_customer where customer_id = ci.customer_id) as name
+        from
+            tbl_customer_inquiry ci
+        where
+            inquiry_id = #{value}
+    </select>
+
+    <update id="addResponse">
+        update
+            tbl_customer_inquiry
+        set
+            response = #{searchCriteria.value},
+            status = #{stat}
+        where
+            inquiry_id = #{searchCriteria.id}
+    </update>
+
 </mapper>
