@@ -15,6 +15,22 @@
         main.container {
             margin: 20px;
         }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body class="sb-nav-fixed">
@@ -57,31 +73,41 @@
             window.location.href = url;
         }
     </script>
-    <select id="select-box" onchange="saveSelectedOption()">
-        <option value="">옵션 선택</option>
-        <option value="/all">전체</option>
-        <option value="/category">카테고리</option>
-    </select>
 
-    <select id="select-box2" onchange="saveSelectedOption2()">
-        <option value="">옵션 선택</option>
-        <option value="/all-period">모든 기간</option>
-        <option value="/quarter-period">분기</option>
-        <option value="/month-period">월</option>
-    </select>
+    <div>
+        <select id="select-box" onchange="saveSelectedOption()">
+            <option value="">옵션 선택</option>
+            <option value="/all">전체</option>
+            <option value="/category">카테고리</option>
+        </select>
 
-    <form id="data-form" action="" method="get" onsubmit="submitForm(event)">
-        <label for="category">category</label>
-        <input type="text" id="category" name="category"><br><br>
-        <label for="year">Year:</label>
-        <input type="text" id="year" name="year"><br><br>
-        <label for="quarter">Quarter:</label>
-        <input type="text" id="quarter" name="quarter"><br><br>
-        <label for="month">Month:</label>
-        <input type="text" id="month" name="month"><br><br>
-        <input type="submit" value="제출">
-    </form>
+        <select id="select-box2" onchange="saveSelectedOption2()">
+            <option value="">옵션 선택</option>
+            <option value="/all-period">모든 기간</option>
+            <option value="/quarter-period">분기</option>
+            <option value="/month-period">월</option>
+        </select>
 
+        <form id="data-form" action="" method="get" onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label for="category">Category:e</label>
+                <input type="text" id="category" name="category"><br><br>
+            </div>
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year"><br><br>
+            </div>
+            <div class="form-group">
+                <label for="quarter">Quarter:</label>
+                <input type="text" id="quarter" name="quarter"><br><br>
+            </div>
+            <div class="form-group">
+                <label for="month">Month:</label>
+                <input type="text" id="month" name="month"><br><br>
+            </div>
+            <input type="submit" value="제출">
+        </form>
+    </div>
 
     <div id="layoutSidenav_content">
         <main>
@@ -94,7 +120,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple" class="table">
+                    <table id="datatablesSimple">
                         <thead>
                         <tr>
                             <th>Ranking</th>
