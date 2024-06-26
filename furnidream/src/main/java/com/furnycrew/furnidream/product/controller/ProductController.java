@@ -58,40 +58,41 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
-    @GetMapping("/update/{productCode}")
-    public String update(
-            @PathVariable("productCode") String productCode,
-            Model model){
-        log.info("GET /product/update/{}", productCode);
-     ProductDto productDto = productQueryService.findByProductCode(productCode);
+    @GetMapping("/update/{productId}")
+    public String update(@PathVariable("productId") Long productId, Model model){
+        log.info("GET /product/update/{}", productId);
+     ProductDto productDto = productQueryService.findByProductId(productId);
         model.addAttribute("productDto", productDto);
         return "product/update";
     }
 
+
+
     @PostMapping("/update")
-    public String update(@ModelAttribute ProductUpdateDto productUpdateDto, RedirectAttributes redirectAttributes){
+    public String update(@ModelAttribute ProductDto productDto, RedirectAttributes redirectAttributes){
         log.info("POST /product/update");
-        ProductDto productDto = productUpdateDto.toProductDto();
         int result = productCommandService.updateProduct(productDto);
+
         redirectAttributes.addFlashAttribute("message", "🔄️상품이 성공적으로 수정되었습니다.");
+        log.info("result = {}", result);
         return "redirect:/product/list";
     }
 
-    @GetMapping("/datail/{productId}")
+    @GetMapping("/detail/{productId}")
     public String detail(Model model, @PathVariable("productId") Long productId){
-        log.info("GET /product/deatail/{}", productId);
+        log.info("GET /product/detail/{}", productId);
         ProductDto product = productQueryService.findByProductId(productId);
         model.addAttribute("product", product);
         return "product/detail";
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "productName", required = false) String productName,
-                         @RequestParam(value = "category", required = false) String category,
-                         @RequestParam(value = "productCode", required = false) String productCode,
+    public String search(@RequestParam String searchType,
+                         @RequestParam String keyword,
                          Model model) {
-        log.info("GET /product/search?productName={}&category={}&productCode={}", productName, category, productCode);
-        List<ProductDto> products = productQueryService.searchProduct(productName, category, productCode);
+        log.info("GET search?searchType={}&keyword={}", searchType, keyword);
+        log.debug("searchType/keyword = {}/{}", searchType, keyword);
+        List<ProductDto> products = productQueryService.searchProduct(searchType, keyword);
         model.addAttribute("products", products);
         return "product/search";
     }

@@ -4,8 +4,10 @@ import com.furnycrew.furnidream.common.enums.ProductStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
