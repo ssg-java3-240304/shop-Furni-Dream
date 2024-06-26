@@ -65,13 +65,11 @@
                 <input type="number" id="stock" name="stock" required>
             </div>
 
-            <label class="col-sm-2" for="option">옵션</label>
             <div class="col-sm-3">
-                <select name="option" id="option">
-                    <option value="color">Color</option>
-                    <option value="size">Size</option>
-                </select>
-                <input type="text" name="optionDetail" placeholder="옵션 상세" style="display: inline-block; width: 50%">
+                <label class="col-sm-2">color</label>
+                <input type="text" id="color" name="color">
+                <label class="col-sm-2">size</label>
+                <input type="text" id="size" name="size">
             </div>
         </div>
 
@@ -105,18 +103,18 @@
                 <textarea name="description" id="description" cols="40" rows="10"></textarea>
             </div>
         </div>
+    </form>
 
         <label class="col-sm-2" for="productImage">이미지</label>
         <div class="col-sm-3">
             <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
                 파일 : <input type="file" name="productImage" id="productImage"><br>
                 파일 설명 : <input type="text" name="singleFileDescription"><br>
-                <input type="submit">
+                <button type="submit" class="btn btn-primary">등록</button>
             </form>
         </div>
 
-        <button type="submit">등록</button>
-    </form>
+
 </main>
 
 <script th:src="@{/js/script.js}"></script>
