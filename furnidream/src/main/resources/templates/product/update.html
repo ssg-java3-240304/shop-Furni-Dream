@@ -25,12 +25,16 @@
             margin-bottom: 10px;
         }
     </style>
-    <form name="productUpdateFrm" class="container" th:action="@{/product/update}" method="post">
+    <form name="productUpdateFrm" class="container" th:action="@{/product/update}" method="post" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label class="col-sm-2" for="productName">상품명</label>
             <div class="col-sm-3">
                 <input type="text" id="productName" name="productName" th:value="${productDto.productName}" required>
+            </div>
+            <label class="col-sm-2" for="productId">아이디</label>
+            <div class="col-sm-3">
+                <input type="text" id="productId" name="productId" th:value="${productDto.productId}" required>
             </div>
 
             <label class="col-sm-2" for="productStatus">상품상태</label>
@@ -110,14 +114,14 @@
         </div>
 
         <label>이미지</label>
-        <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
-            파일 : <input type="file" name="productImage" id="productImage"><br>
-            파일 설명 : <input type="text" name="singleFileDescription"><br>
-            <input type="submit">
-        </form>
 
-        <br><br><br>
         <button type="submit">수정</button>
+    </form>
+    <br>
+    <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
+        파일 : <input type="file" name="productImage" id="productImage"><br>
+        파일 설명 : <input type="text" name="singleFileDescription"><br>
+        <input type="submit">
     </form>
 </main>
 
