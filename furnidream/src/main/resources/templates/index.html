@@ -5,15 +5,11 @@
 
 <head>
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
-    <title>Index</title>
+    <title>Home</title>
 </head>
 <body >
 <main layout:fragment="main">
-    <form th:action="@{/admin/login}" method="post">
-        ID : <input type="text" name="adminId"><br>
-        PW : <input type="password" name="adminPw"><br>
-        <input type="submit" value="로그인">
-    </form>
+    <h1 th:text="${message}">안녕하세요</h1>
 </main>
 
 <script th:src="@{/js/script.js}">
