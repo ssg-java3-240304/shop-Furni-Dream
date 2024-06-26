@@ -28,15 +28,14 @@
     <form name="productUpdateFrm" class="container" th:action="@{/product/update}" method="post" enctype="multipart/form-data">
 
         <div class="form-group row">
-            <label class="col-sm-2" for="productName">상품명</label>
-            <div class="col-sm-3">
-                <input type="text" id="productName" name="productName" th:value="${productDto.productName}" required>
-            </div>
             <label class="col-sm-2" for="productId">아이디</label>
             <div class="col-sm-3">
                 <input type="text" id="productId" name="productId" th:value="${productDto.productId}" required>
             </div>
-
+            <label class="col-sm-2" for="productName">상품명</label>
+            <div class="col-sm-3">
+                <input type="text" id="productName" name="productName" th:value="${productDto.productName}" required>
+            </div>
             <label class="col-sm-2" for="productStatus">상품상태</label>
             <div class="col-sm-3">
                 <select name="productStatus" id="productStatus" th:value="${productDto.productStatus}" required>
@@ -74,8 +73,10 @@
             </div>
 
             <div class="col-sm-3">
-            <label class="col-sm-2">color</label> <input type="text" id="color" name="color">
-            <label class="col-sm-2">size</label> <input type="text" id="size" name="size">
+                <label class="col-sm-2">color</label>
+                <input type="text" id="color" name="color">
+                <label class="col-sm-2">size</label>
+                <input type="text" id="size" name="size">
             </div>
         </div>
 
@@ -113,16 +114,22 @@
             </div>
         </div>
 
-        <label>이미지</label>
+        <div class="form-group row">
+            <label class="col-sm-2" for="productImage">상품 이미지</label>
+            <div class="col-sm-3">
+<!--                <input type="file" id="productImage" name="productImage" style="max-width: 100%; height: auto;">-->
+                <img th:unless="${productDto.productImage}" th:src="${productDto.productImage}" alt="" style="max-width: 100%; height: auto;">
+            </div>
+        </div>
 
-        <button type="submit">수정</button>
+        <button onclick="window.location.href='/product/update'" class="btn btn-primary">수정</button>
     </form>
     <br>
-    <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
-        파일 : <input type="file" name="productImage" id="productImage"><br>
-        파일 설명 : <input type="text" name="singleFileDescription"><br>
-        <input type="submit">
-    </form>
+<!--    <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">-->
+<!--        파일 : <input type="file" name="productImage" id="productImage"><br>-->
+<!--        파일 설명 : <input type="text" name="singleFileDescription"><br>-->
+<!--        <input type="submit">-->
+<!--    </form>-->
 </main>
 
 <script th:src="@{/js/script.js}"></script>
