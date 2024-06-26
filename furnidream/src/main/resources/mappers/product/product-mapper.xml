@@ -97,14 +97,14 @@
             tbl_product
         where
             product_status = 'AVAILABLE'
-        <if test="name == 'name'">
-            and product_name like concat('%', #{value}, '%');
+        <if test="searchType == 'productName'">
+            and product_name like concat('%', #{keyword}, '%')
         </if>
-        <if test="name == 'category'">
-            and category = #{value}
+        <if test="searchType == 'category'">
+            and category = #{keyword}
         </if>
-        <if test="name == 'productCode'">
-            and product_code = #{value}
+        <if test="searchType == 'productCode'">
+            and product_code = #{keyword}
         </if>
     </select>
 

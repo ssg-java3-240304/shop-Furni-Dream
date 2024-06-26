@@ -159,17 +159,13 @@ class ProductMapperTest {
         assertThat(updatePtoductDto.getSize()).isEqualTo(newSize);
     }
 
-//    @Test
-    @ParameterizedTest
+    @Test
     @DisplayName("상품명으로 검색")
-    @ValueSource(strings = {"럭셔리 가죽 소파"})
-    void searchProduct(String value) {
+    void searchProduct() {
         // given
-        SearchCriteria searchCriteria = new SearchCriteria();
-        searchCriteria.setName("name");
-        searchCriteria.setValue(value);
+
         // when
-        List<ProductDto> products = productMapper.searchProduct(searchCriteria);
+        List<ProductDto> products = productMapper.searchProduct("category","소파");
         // then
         assertThat(products)
                 .isNotNull()
@@ -184,6 +180,7 @@ class ProductMapperTest {
                             assertThat(product.getProductCode()).isNotNull();
                             assertThat(product.getProductStatus()).isNotNull();
                 });
+        assertThat(products).extracting(ProductDto::getCategory).containsOnly("소파");
     }
 
     @Test
