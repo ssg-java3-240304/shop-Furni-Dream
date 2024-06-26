@@ -18,11 +18,12 @@ public interface SalesMngMapper {
     // 상품 당 연령층에 따른 매출 조회
     List<SalesStatisticsByAgeDto> findSalesByAgeGroup();
 
+
 //    // 상품 당 성비에 따른 매출 조회
 //    List<SalsesStatisticsByGenderDto> findSalesByGender();
 
 
-    // 상품 당 성비에 따른 매출 조회
-//    ProductSalesDto findSalesByGender();
+//    // 상품 당 성비에 따른 매출 조회
+//    List<SalsesStatisticsByGenderDto> findSalesByGender();
 
 }
