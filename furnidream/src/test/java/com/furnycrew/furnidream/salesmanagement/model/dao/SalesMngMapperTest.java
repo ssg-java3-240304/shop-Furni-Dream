@@ -1,7 +1,7 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
-
-import com.furnycrew.furnidream.salesmanagement.model.dto.*;
+import com.furnycrew.furnidream.salesmanagement.model.dto.ProductSalesDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SalesMngMapperTest {
@@ -27,8 +28,8 @@ class SalesMngMapperTest {
         // then
         assertThat(salesMngDailyDtos)
                 .isNotNull()
-                .isNotEmpty();
-        
+                .isNotEmpty()
+                .allMatch((salesMng) -> salesMng != null);
     }
 
     @Test
