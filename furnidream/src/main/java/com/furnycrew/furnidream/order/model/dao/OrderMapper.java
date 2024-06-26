@@ -1,6 +1,7 @@
 package com.furnycrew.furnidream.order.model.dao;
 
 import com.furnycrew.furnidream.common.search.SearchCriteria;
+import com.furnycrew.furnidream.common.search.UpdateCriteria;
 import com.furnycrew.furnidream.order.model.dto.OrderDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,10 @@ public interface OrderMapper {
     int countOrderByDateTime(SearchCriteria searchCriteria);
 
     OrderDto getOrderDetail(SearchCriteria searchCriteria);
+
+    int updateOrderStatus(UpdateCriteria updateCriteria);
+
+    int cancelOrder(UpdateCriteria updateCriteria);
+
+    int createCancelOrder(UpdateCriteria tmpCriteria);
 }

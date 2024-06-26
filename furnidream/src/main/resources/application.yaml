@@ -23,7 +23,7 @@ spring:
 logging:
   level:
     root: info
-    com.sh: debug
+    com.furnycrew: debug
 
 mybatis:
   configuration:
