@@ -106,6 +106,7 @@
         ]]>
     </select>
 
+    <!-- 구매자가 남자밖에 없어서 통계하기가,,, 시간 남으면 데이터 바꾸고 구현해보기-->
 <!--    <select id = "findSalesByGender" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalsesStatisticsByGenderDto">-->
 
 <!--    </select>-->
