@@ -131,6 +131,16 @@ class OrderMapperTest {
 //        List<OrderDto> orders = orderMapper.findAllOrder();
         int numOfOrder = orderMapper.countOrderByDateTime(new SearchCriteria());
         //then
-//        assertThat(numOfOrder);
+        assertThat(numOfOrder).isNotZero();
+    }
+
+    @DisplayName("주문 상세조회")
+    @Test
+    public void test6() {
+        //given
+        //when
+        OrderDto orderDto = orderMapper.getOrderDetail(new SearchCriteria("orderCode", 5, null, null));
+        //then
+        assertThat(orderDto).isNotNull();
     }
 }

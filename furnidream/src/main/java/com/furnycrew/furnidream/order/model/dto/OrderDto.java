@@ -19,5 +19,7 @@ public class OrderDto {
     private String phone;
     private String shippingAddress;
     private int orderStatus;
+    private String trackingNumber;
+    private int totalPrice;
     private List<OrderProductDto> orderProductList;
 }
