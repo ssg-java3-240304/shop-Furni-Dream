@@ -22,11 +22,11 @@ public class FileUploadController {
 
     @PostMapping("/singleFile")
     public String singleFile(
-            @RequestParam MultipartFile singleFile,
-            @RequestParam String singleFileDescription,
+            @RequestParam("singleFile") MultipartFile singleFile,
+            @RequestParam("singleFileDescription") String singleFileDescription,
             Model model) throws IOException {
         // 1. 저장할 경로 가져오기 : Resource
-        Resource resource = resourceLoader.getResource("classpath:static/upload/single");
+        Resource resource = resourceLoader.getResource("classpath:static/images/");
         log.debug("resource = {}", resource);
         String dir = resource.getFile().getAbsolutePath();
         log.debug("dir = {}", dir);
@@ -40,6 +40,6 @@ public class FileUploadController {
         model.addAttribute("message", "이미지 업로드 성공");
         model.addAttribute("img", "upload/single/" + savedName);
 
-        return "/product/result";
+        return "redirect:/product/list";
     }
 }
