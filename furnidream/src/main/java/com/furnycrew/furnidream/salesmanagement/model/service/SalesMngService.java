@@ -1,5 +1,7 @@
 package com.furnycrew.furnidream.salesmanagement.model.service;
 
+public class SalesMngService {
+
 import com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper;
 import com.furnycrew.furnidream.salesmanagement.model.dto.*;
 import lombok.RequiredArgsConstructor;

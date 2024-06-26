@@ -1,5 +1,7 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
+
+import com.furnycrew.furnidream.salesmanagement.model.dto.*;
 import com.furnycrew.furnidream.salesmanagement.model.dto.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -7,11 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SalesMngMapperTest {
@@ -23,12 +23,11 @@ class SalesMngMapperTest {
     void findTotalSales() {
         // given
         // when
-        List<SalesMngDto> salesMngDtos = salesMngMapper.findTotalSales();
-
-        System.out.println(salesMngDtos);
+        List<SalesMngDailyDto> salesMngDailyDtos = salesMngMapper.findTotalSales();
+//        System.out.println(salesMngDailyDtos);
 
         // then
-        assertThat(salesMngDtos)
+        assertThat(salesMngDailyDtos)
                 .isNotNull()
                 .isNotEmpty();
             }
@@ -38,8 +37,7 @@ class SalesMngMapperTest {
     void findMonthlySales() {
         // given
         // when
-        List<SalesMngDto> salesMngDtos = salesMngMapper.findMonthlySales();
-
+        List<SalesMngMonthlyDto> salesMngDtos = salesMngMapper.findMonthlySales();
         System.out.println(salesMngDtos);
 
         // then
@@ -52,9 +50,15 @@ class SalesMngMapperTest {
     @DisplayName("분기별 매출 조회")
     void findQuarterlySales() {
         // given
+
         // when
+        List<SalesMngQuarterDto> salesMngQuarterDtos = salesMngMapper.findQuarterlySales();
+        System.out.println(salesMngQuarterDtos);
 
         // then
+        assertThat(salesMngQuarterDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 
     @Test
@@ -62,7 +66,14 @@ class SalesMngMapperTest {
     void findSalesByAgeGroup() {
         // given
         // when
+        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngMapper.findSalesByAgeGroup();
+        System.out.println(salesStatisticsByAgeDtos);
+
         // then
+        assertThat(salesStatisticsByAgeDtos)
+                .isNotNull()
+                .isNotEmpty();
+
     }
 
     @Disabled
@@ -71,6 +82,12 @@ class SalesMngMapperTest {
     void findSalesByGender() {
         // given
         // when
+        List<SalsesStatisticsByGenderDto> salsesStatisticsByGenderDtos = salesMngMapper.findSalesByGender();
+        System.out.println(salsesStatisticsByGenderDtos);
+
         // then
+        assertThat(salsesStatisticsByGenderDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 }

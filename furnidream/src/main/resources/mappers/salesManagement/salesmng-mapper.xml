@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper">
+<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDtolyDto">-->
     <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto">
-<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">-->
 <!--        <id column="order_code" property="orderCode"/>-->
 <!--        <result column="created_at" property="createdAt"/>-->
 <!--        <result column="total_price" property="totalPrice"/>-->
@@ -30,7 +30,7 @@
 <!--        </resultMap>-->
 
 
-    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
+    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto">
         select
             date_format(o.created_at, '%Y-%m-%d') createdAt,
             sum(op.quantity) orderAmount,
@@ -40,6 +40,7 @@
         from
             tbl_order o left join tbl_order_product op
             on o.order_code = op.order_code
+
             left join tbl_order_canceled oc
             on op.order_code = oc.order_code
         group by
@@ -51,18 +52,6 @@
     <select id="findMonthlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngMonthlyDto">
         select
             date_format(o.created_at, '%Y-%m') monthly,
-                on o.order_code = op.order_code
-            left join tbl_order_canceled oc
-                on op.order_code = oc.order_code
-        group by
-            date_format(o.created_at, '%Y-%m-%d')
-        order by
-            createdAt;
-    </select>
-
-    <select id="findMonthlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto">
-        select
-            date_format(o.created_at, '%Y-%m') createdAt,
             sum(op.quantity) orderAmount,
             sum(op.quantity * op.price) totalPrice,
             ifnull(sum(oc.refund_amount), 0) refundAmount,
@@ -120,17 +109,26 @@
 <!--    <select id = "findSalesByGender" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalsesStatisticsByGenderDto">-->
 
 <!--    </select>-->
-
-            tbl_order
-                left join tbl_order_product op
-                    on o.order_code = op.order_code
-                left join tbl_order_canceled oc
-                    on op.order_code = oc.order_code
+<!-- 
+    <select id = "findQuarterlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngQuarterDto">
+        select
+            concat(date_format(o.created_at, '%Y'), '-',quarter(o.created_at), '분기') dateQuarter,
+            sum(op.quantity) orderAmount,
+            sum(op.quantity * op.price) totalPrice,
+            ifnull(sum(oc.refund_amount), 0) refundAmount,
+            sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0) totalSales
+        from tbl_order o
+            left join tbl_order_product op
+            using (order_code)
+            left join tbl_order_canceled oc using (order_code)
         group by
-            date_format(o.created_at, '%Y-%m')
+            dateQuarter
         order by
-            createdAt;
-    </select>
+            dateQuarter;
+    </select> -->
 
+<!--    <select id = "findSalesByGender" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalsesStatisticsByGenderDto">-->
+
+<!--    </select>-->
 
 </mapper>
