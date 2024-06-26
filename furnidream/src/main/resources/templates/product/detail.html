@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<head>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+    <title>Index</title>
+    <script>
+        console.log(1234);
+    </script>
+</head>
+<body >
+<main layout:fragment="main" class="container">
+    <div class="card mt-5"> <!--/* mt = margin top */-->
+        <div class="card-header">
+            상품 상세보기
+        </div>
+        <div class="card-body" th:object="${product}">
+            <h5 class="card-title" th:text="'메뉴명 ' + *{productName}">메뉴명</h5>
+            <p class="card-title" th:text="'상품코드 ' + *{productCode}">상품코드</p>
+            <p class="card-text" th:text="'메뉴가격 ' + *{#numbers.formatInteger(menuPrice, 3, 'COMMA')}">메뉴가격</p>
+            <p class="card-title" th:text="'상품상태 ' + *{productStatus}">상품상태</p>
+            <p class="card-title" th:text="'카테고리 ' + *{category}">카테고리</p>
+            <p class="card-text" th:text="'재고 ' + *{stock}">재고</p>
+            <p class="card-text">
+                <span th:text="'색상' + *{color}"></span>
+                <span th:text="'크기' + *{size}"></span>
+            </p>
+            <p class="card-text" th:text="'원가 ' + *{#numbers.formatInteger(costPrice, 3, 'COMMA')}">원가</p>
+            <p class="card-text" th:text="'판매가 ' + *{#numbers.formatInteger(retailPrice, 3, 'COMMA')}">판매가</p>
+            <p class="card-text" th:text="'할인율 ' + *{#numbers.formatInteger(discountRate, 3, 'COMMA')}">할인율</p>
+            <p class="card-text" th:text="'배송비 ' + *{shippingFee}">배송비</p>
+            <p class="card-text">
+                <img src="@{/images/luxury_sofa.png}" alt="상품이미지" style="max-width: 100%; height: auto;">
+            </p>
+            <p class="card-text" th:text="'상품상세 ' + *{description}">상품상세</p>
+
+            <a th:href="@{/product/list}" class="btn btn-primary">목록보기</a>
+        </div>
+    </div>
+</main>
+
+<script th:src="@{/js/script.js}">
+
+</script>
+</body>
+</html>

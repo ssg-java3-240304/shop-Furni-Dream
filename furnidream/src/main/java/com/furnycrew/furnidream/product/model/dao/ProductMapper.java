@@ -17,6 +17,7 @@ public interface ProductMapper {
 
     // 상품 수정
     int updateProduct(ProductDto productDto);
+    ProductDto findByProductCode(@Param("productCode") String productCode);
 
     ProductDto findByProductId(Long productId);
 

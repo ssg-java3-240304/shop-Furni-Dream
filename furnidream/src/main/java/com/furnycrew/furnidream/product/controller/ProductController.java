@@ -58,13 +58,23 @@ public class ProductController {
         return "redirect:/product/list";
     }
 
+    @GetMapping("/update/{productCode}")
+    public String update(
+            @PathVariable("productCode") String productCode,
+            Model model){
+        log.info("GET /product/update/{}", productCode);
+     ProductDto productDto = productQueryService.findByProductCode(productCode);
+        model.addAttribute("productDto", productDto);
+        return "product/update";
+    }
+
     @PostMapping("/update")
     public String update(@ModelAttribute ProductUpdateDto productUpdateDto, RedirectAttributes redirectAttributes){
         log.info("POST /product/update");
         ProductDto productDto = productUpdateDto.toProductDto();
         int result = productCommandService.updateProduct(productDto);
         redirectAttributes.addFlashAttribute("message", "🔄️상품이 성공적으로 수정되었습니다.");
-        return "redirect/product/update";
+        return "redirect:/product/list";
     }
 
     @GetMapping("/datail/{productId}")

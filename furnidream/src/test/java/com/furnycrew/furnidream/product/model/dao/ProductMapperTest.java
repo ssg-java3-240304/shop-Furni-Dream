@@ -194,4 +194,15 @@ class ProductMapperTest {
         // then
         assertThat(categories).isNotNull();
     }
+
+    @Test
+    @DisplayName("상품코드로 조회")
+    void findByProductCode() {
+        // given
+        String productCode = "SOFA001";
+        // when
+        ProductDto products = productMapper.findByProductCode(productCode);
+        // then
+        assertThat(products).isNotNull();
+    }
 }
