@@ -10,12 +10,13 @@
         <result column="created_at" property="createdAt"/>
     </resultMap>
 
-    <select id="findByAdminId" resultMap="adminDtoMap">
+    <select id="findAdminByIdAndPassword" resultMap="adminDtoMap">
         select
             *
         from
             tbl_admin
         where
             admin_id = #{adminId}
+            and admin_pw = #{adminPw}
     </select>
 </mapper>
