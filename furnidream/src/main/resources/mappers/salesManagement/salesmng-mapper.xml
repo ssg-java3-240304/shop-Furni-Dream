@@ -3,32 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper">
-<!--    <resultMap id="salesDtoMap" type="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDtolyDto">-->
-    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto">
-<!--        <id column="order_code" property="orderCode"/>-->
-<!--        <result column="created_at" property="createdAt"/>-->
-<!--        <result column="total_price" property="totalPrice"/>-->
-
-<!--                <association property="orderDto" javaType="com.furnycrew.furnidream.order.model.dto.OrderDto">-->
-<!--                    <id column="order_code" property="orderCode"/>-->
-<!--                    <result column="created_at" property="createdAt"/>-->
-<!--                    <result column="total_price" property="totalPrice"/>-->
-<!--                </association>-->
-<!--        <collection property="orderProductList" ofType="orderProductDto" resultMap="orderProductResultMap"/>-->
-<!--&lt;!&ndash;            <id column="order_code" property="orderCode"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <id column="product_id" property="productId"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <result column="quantity" property="quantity"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <result column="price" property="price"/>&ndash;&gt;-->
-<!--&lt;!&ndash;        </collection>&ndash;&gt;-->
-<!--    </resultMap>-->
-
-<!--        <resultMap id="orderProductResultMap" type="com.furnycrew.furnidream.order.model.dto.OrderProductDto">-->
-<!--            <id column="order_code" property="orderCode"/>-->
-<!--            <id column="product_id" property="productId"/>-->
-<!--            <result column="quantity" property="quantity"/>-->
-<!--            <result column="price" property="price"/>-->
-<!--        </resultMap>-->
-
 
     <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto">
         select
