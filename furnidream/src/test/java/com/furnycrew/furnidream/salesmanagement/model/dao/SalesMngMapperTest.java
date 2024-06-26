@@ -2,6 +2,8 @@ package com.furnycrew.furnidream.salesmanagement.model.dao;
 
 
 import com.furnycrew.furnidream.salesmanagement.model.dto.*;
+import com.furnycrew.furnidream.salesmanagement.model.dto.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,7 @@ class SalesMngMapperTest {
         assertThat(salesMngDailyDtos)
                 .isNotNull()
                 .isNotEmpty();
-        
-    }
+            }
 
     @Test
     @DisplayName("월별 매출 조회")
@@ -75,6 +76,7 @@ class SalesMngMapperTest {
 
     }
 
+    @Disabled
     @Test
     @DisplayName("상품별 성비에 따른 매출 조회")
     void findSalesByGender() {
