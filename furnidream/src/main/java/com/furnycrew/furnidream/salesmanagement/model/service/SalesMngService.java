@@ -1,7 +1,5 @@
 package com.furnycrew.furnidream.salesmanagement.model.service;
 
-public class SalesMngService {
-
 import com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper;
 import com.furnycrew.furnidream.salesmanagement.model.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -37,7 +36,7 @@ public class SalesMngService {
     }
 
     //    // 상품 당 성비에 따른 매출 조회
-    public List<SalsesStatisticsByGenderDto> findSalesByGender(){
-        return salesMngMapper.findSalesByGender();
-    }
+//    public List<SalsesStatisticsByGenderDto> findSalesByGender(){
+//        return salesMngMapper.findSalesByGender();
+//    }
 }
