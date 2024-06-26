@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class ProductQueryService {
     private final ProductMapper productMapper;
 
@@ -24,18 +24,18 @@ public class ProductQueryService {
         return productMapper.findByProductId(productId);
     }
 
-    public List<ProductDto> searchProduct(String productName, String category, String productCode) {
-        List<SearchCriteria> searchCriteriaList = new ArrayList<>();
-        if (productName != null  && !productName.isEmpty()){
-            searchCriteriaList.add(new SearchCriteria("product_name", productName, null, null));
-        }
-        if (category != null && !category.isEmpty()) {
-            searchCriteriaList.add(new SearchCriteria("category", category, null, null));
-        }
-        if (productCode != null && !productCode.isEmpty()){
-            searchCriteriaList.add(new SearchCriteria("product_code", productCode, null, null));
-        }
-        return productMapper.searchProduct((SearchCriteria) searchCriteriaList);
+    public List<ProductDto> searchProduct(String searchType, String keyword) {
+//        SearchCriteria searchCriteriaList = new SearchCriteria();
+//        if (searchType != null  && !searchType.isEmpty()){
+//            new SearchCriteria("product_name", productName, null, null);
+//        }
+//        if (keyword != null && !keyword.isEmpty()) {
+//            new SearchCriteria("category", category, null, null);
+//        }
+//        if (productCode != null && !productCode.isEmpty()){
+//            new SearchCriteria("product_code", productCode, null, null);
+//        }
+        return productMapper.searchProduct(searchType, keyword);
     }
 
     public int countProducts() {
