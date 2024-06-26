@@ -16,41 +16,31 @@
 <main layout:fragment="main" class="container">
     <div style="padding-top: 100px">
         <nav class="nav nav-pills flex-column flex-sm-row">
-            <a class="flex-sm-fill text-sm-center nav-link active " aria-current="page" th:href="@{/salesStatistics/totalSalesList}">연령 매출 통계</a><!-- ✨active 추가하면 파래짐 -->
+            <a class="flex-sm-fill text-sm-center nav-link active " aria-current="page" th:href="@{/salesStatistics/totalSalesList}">연령별 매출 통계</a><!-- ✨active 추가하면 파래짐 -->
         </nav>
 
-<!--        <nav class="nav nav-pills flex-column flex-sm-row">-->
-<!--            <a class="flex-sm-fill text-sm-center nav-link" aria-current="page"-->
-<!--               th:href="@{/salesStatistics/totalSalesList}">일별 매출 통계</a>&lt;!&ndash; ✨active 추가하면 파래짐 &ndash;&gt;-->
-<!--            <a class="flex-sm-fill text-sm-center nav-link active" aria-current="page"-->
-<!--               th:href="@{/salesStatistics/totalMonthlySales}">월별 매출 통계</a>-->
-<!--            <a class="flex-sm-fill text-sm-center nav-link" th:href="@{/salesStatistics/totalQuarterSales}">분기별 매출-->
-<!--                통계</a>-->
-<!--        </nav>-->
-
-        <table class="table"> <!--/* 표형식으로 구조화되어 보여준다. */-->
-            <thead>
+        <table class="table table-hover"> <!--/* 표형식으로 구조화되어 보여준다. */-->
+            <thead class="table-primary">
             <tr>
-                <th>상품 명</th>
+                <th>상품명</th>
                 <th>20 ~ 25세</th>
                 <th>25 ~ 30세</th>
-                <th>20 ~ 35세</th>
-                <th>35 ~ 35세</th>
+                <th>30 ~ 35세</th>
+                <th>35 ~ 40세</th>
                 <th>40 ~ 45세</th>
-                <th>40 ~ 45세</th>
+                <th>총 매출 합계</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="salesByAgeDto : ${salesByAge}">
+            <tr th:each="salesStatisticsByAgeDtos : ${salesByAge}">
                 <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
-                <td th:text="${salesByAgeDto.productName}"></td>
-                <td th:text="${salesByAgeDto.earlyToMid20s}"></td>
-                <td th:text="${salesByAgeDto.midToLate20s}"></td>
-                <td th:text="${salesByAgeDto.earlyToMid30s}"></td>
-                <td th:text="${salesByAgeDto.midToLate30s}"></td>
-                <td th:text="${salesByAgeDto.earlyToMid40s}"></td>
-                <td th:text="${salesByAgeDto.totalSales}"></td>
-
+                <td th:text="${salesStatisticsByAgeDtos.productName}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.earlyToMid20s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.midToLate20s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.earlyToMid30s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.midToLate30s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.earlyToMid40s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.totalSales}"></td>
             </tr>
             </tbody>
         </table>

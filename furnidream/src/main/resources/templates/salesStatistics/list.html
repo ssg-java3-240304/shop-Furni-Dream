@@ -1,48 +1,86 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout/default}">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org"-->
+<!--	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"-->
+<!--	  layout:decorate="~{layout/default}">-->
 
+<!--<head>-->
+<!--	<meta charset="UTF-8">-->
+<!--	<title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">매출 관리</title>-->
+<!--	<title>전체 매출 조회</title>-->
+<!--	<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />-->
+<!--</head>-->
+<!--<body>-->
+<!--	<main layout:fragment="main" class="container">-->
+
+<!--		<table class="table">-->
+<!--			<thead>-->
+<!--			<tr>-->
+<!--				<th scope="col">#</th>-->
+<!--				<th scope="col">First</th>-->
+<!--				<th scope="col">Last</th>-->
+<!--				<th scope="col">Handle</th>-->
+<!--			</tr>-->
+<!--			</thead>-->
+<!--			<tbody>-->
+<!--			<tr>-->
+<!--				<th scope="row">1</th>-->
+<!--				<td>Mark</td>-->
+<!--				<td>Otto</td>-->
+<!--				<td>@mdo</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<th scope="row">2</th>-->
+<!--				<td>Jacob</td>-->
+<!--				<td>Thornton</td>-->
+<!--				<td>@fat</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<th scope="row">3</th>-->
+<!--				<td colspan="2">Larry the Bird</td>-->
+<!--				<td>@twitter</td>-->
+<!--			</tr>-->
+<!--			</tbody>-->
+<!--		</table>-->
+<!--	</main>-->
+
+<!--	<script th:src="@{/js/script.js}"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">매출 관리</title>
-	<title>전체 매출 조회</title>
-	<link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Line Chart Example</title>
+
+	<!-- Chart.js CDN -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-	<main layout:fragment="main" class="container">
+<div style="width: 50%; margin: auto;">
+	<!-- 라인 차트 -->
+	<canvas id="lineChart"></canvas>
+</div>
 
-		<table class="table">
-			<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">First</th>
-				<th scope="col">Last</th>
-				<th scope="col">Handle</th>
-			</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>Otto</td>
-				<td>@mdo</td>
-			</tr>
-			<tr>
-				<th scope="row">2</th>
-				<td>Jacob</td>
-				<td>Thornton</td>
-				<td>@fat</td>
-			</tr>
-			<tr>
-				<th scope="row">3</th>
-				<td colspan="2">Larry the Bird</td>
-				<td>@twitter</td>
-			</tr>
-			</tbody>
-		</table>
-	</main>
+<script>
+	var lineChartData = {
+		labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+		datasets: [{
+			label: 'Monthly Sales',
+			borderColor: 'rgb(75, 192, 192)',
+			data: [65, 59, 80, 81, 56, 55, 40],
+			fill: false
+		}]
+	};
 
-	<script th:src="@{/js/script.js}"></script>
+	var lineCtx = document.getElementById('lineChart').getContext('2d');
+	new Chart(lineCtx, {
+		type: 'line',
+		data: lineChartData,
+		options: {}
+	});
+</script>
 </body>
 </html>

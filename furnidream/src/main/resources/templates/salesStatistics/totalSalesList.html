@@ -15,9 +15,49 @@
 </head>
 <body>
 
+
+
+
+<script th:inline="javascript">
+    // Thymeleaf에서 서버에서 전달받은 데이터를 JavaScript 변수로 변환
+    var salesMonthlyDtoLists = /*[[ ${salesMonthlyDtoLists} ]]*/ [];
+
+    // 데이터 변환을 통해 Chart.js의 데이터 형식에 맞게 준비
+    var labels = salesMonthlyDtoLists.map(function(item) {
+        return item.month; // 월 정보 필드를 사용했다고 가정
+    });
+
+    var salesData = salesMonthlyDtoLists.map(function(item) {
+        return item.totalSales; // 월별 매출 필드를 사용했다고 가정
+    });
+
+    // Chart.js를 이용하여 그래프 생성
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Monthly Sales',
+                data: salesData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)', // 바의 배경색
+                borderColor: 'rgba(54, 162, 235, 1)', // 바의 테두리 색
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
+
+
 <main layout:fragment="main" class="container">
-
-
     <div style="padding-top: 100px">
 
         <nav class="nav nav-pills flex-column flex-sm-row">
@@ -30,7 +70,7 @@
         </nav>
 
 
-        <table class="table"> <!--/* 표형식으로 구조화되어 보여준다. */-->
+        <table class="table table table-hover"> <!--/* 표형식으로 구조화되어 보여준다. */-->
             <thead class="table-primary">
             <tr>
                 <th>주문 일자</th>
@@ -60,31 +100,17 @@
             integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
             crossorigin="anonymous"></script>
 
+<script layout:fragment="script">
+    $(document).ready(function () {
+        $('#datepicker').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: true,
+            autoclose: true
+        });
+    });
+</script>
 
 
-<!--<script>-->
-<!--    const ctx = document.getElementById('myChart');-->
-
-<!--    new Chart(ctx, {-->
-<!--        type: 'bar',-->
-<!--        data: {-->
-<!--            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],-->
-<!--            datasets: [{-->
-<!--                label: '# of Votes',-->
-<!--                data: [12, 19, 3, 5, 2, 3],-->
-<!--                borderWidth: 1-->
-<!--            }]-->
-<!--        },-->
-<!--        options: {-->
-<!--            scales: {-->
-<!--                y: {-->
-<!--                    beginAtZero: true-->
-<!--                }-->
-<!--            }-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
-<script src="/templates/salesStatistics/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
