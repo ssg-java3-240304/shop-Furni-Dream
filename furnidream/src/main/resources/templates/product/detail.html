@@ -17,7 +17,16 @@
         <div class="card-body" th:object="${product}">
             <h5 class="card-title" th:text="'상품명 ' + *{productName}">메뉴명</h5>
             <p class="card-text">
-                <img th:src="@{/images/luxury_sofa.png}" alt="상품이미지" style="max-width: 100%; height: auto;">
+<!--                <img th:src="@{/images/luxury_sofa.png}" alt="상품이미지" style="max-width: 100%; height: auto;">-->
+<!--                <img th:if="${product.productImage != null}" src="@{'/singleFile/' + ${product.productImage}}" alt="상품이미지" style="max-width: 100%; height: auto;">-->
+                <img th:src="@{/images/furniture.png}" alt="상품이미지"
+                     style="max-width: 100%; height: auto;"
+                     th:if="${product.productImage == null}"
+                />
+                <img th:src="@{|/upload/single/${product.productImage.savedFilename}|}" alt="상품이미지"
+                     style="max-width: 100%; height: auto;"
+                     th:if="${product.productImage != null}"
+                />
             </p>
             <p class="card-title" th:text="'상품코드 ' + *{productCode}">상품코드</p>
             <p class="card-title" th:text="'상품상태 ' + *{productStatus}">상품상태</p>
