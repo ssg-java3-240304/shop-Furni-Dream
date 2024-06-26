@@ -17,13 +17,11 @@ spring:
     multipart:
       max-request-size: 50MB
       max-file-size: 10MB
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
+
 logging:
   level:
     root: info
-    com.sh: debug
+    com.furnycrew: debug
 
 mybatis:
   configuration:

@@ -6,89 +6,20 @@
     <meta charset="UTF-8">
     <title>주문 조회</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
-    <style>
-        .table tbody tr {
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-
 <main layout:fragment="main">
-<div class="container ms-5 mt-5">
-    <h1>주문 조회</h1><br>
-        <div class="container text-center row">
-            <div class="col">
-                <form class="d-flex justify-content-start">
-                    <div class="form-group d-flex justify-content-start align-items-center">
-                        <label for="datepicker" class="w-50" th:text="날짜"></label>
-                        <input type="text" class="form-control ms-3" id="datepicker" name="date">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
-
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" id="viewType">기본</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/order/list?viewType=daily">일간</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/order/list/?viewType=monthly">월간</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/order/list/?viewType=yearly">연간</a>
-            </li>
-        </ul>
-        <table class="table table-hover">
-            <thead>
-            <tr class="table-primary">
-                <th scope="col">#</th>
-                <th scope="col">주문번호</th>
-                <th scope="col">주문자</th>
-                <th scope="col">배송지</th>
-                <th scope="col">전화번호</th>
-                <th scope="col">주문시각</th>
-                <th scope="col">총 결제금액</th>
-            </tr>
-            </thead>
-            <tbody th:each="order, stat : ${orders}" th:object="${order}">
-<!--/*            <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">*/-->
-            <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">
-                <th scope="row" th:text="${stat.index+1}"></th>
-                <td><a th:text="*{orderCode}"></a></td>
-                <td><a th:text="*{customerDto.name}"></a></td>
-                <td><a th:text="*{shippingAddress}"></a></td>
-                <td><a th:text="*{phone}"></a></td>
-                <td><a th:text="*{createdAt}"></a></td>
-                <td><a th:text="*{totalPrice}"></a></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <h1>주문 조회</h1>
+    <ul>
+        <li th:each="order, stat : ${orders}" th:object="${order}">
+            <p th:text="|주문번호 : *{orderCode}|"></p>
+            <p th:text="|주문자 : *{customerDto.name}|"></p>
+            <p th:text="|주문시각 : *{createdAt}|"></p>
+            <p th:text="|전화번호 : *{phone}|"></p>
+        </li>
+    </ul>
 </main>
 
-<script layout:fragment="script">
-    $(document).ready(function () {
-        $('#datepicker').datepicker({
-            format: 'mm/dd/yyyy',
-            todayHighlight: true,
-            autoclose: true
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const $rows = document.querySelectorAll('table tbody tr');
-        $rows.forEach(function(row) {
-            row.addEventListener('click', function() {
-                console.log(row.getAttribute('tbl_href'));
-                window.location.href = row.getAttribute('tbl_href');
-            });
-        });
-    });
-</script>
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>

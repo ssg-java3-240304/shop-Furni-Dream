@@ -4,26 +4,19 @@
       layout:decorate="~{layout/default}">
 <head>
     <meta charset="UTF-8">
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">상점 조회</title>
     <title>상점 조회</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
 </head>
 <body>
     <main layout:fragment="main" class="container">
-        <style>
-            th {
-                width: 300px;
-            }
-            td {
-                text-align: left;
-            }
-        </style>
         <h2 class="m-3">상점 조회</h2>
 
         <table class="table">
-            <tbody th:if="${store != null}" th:object="${store}">
+            <tbody th:each="store, stat : ${stores}" th:object="${store}">
                 <tr>
                     <th>사업자 등록번호</th>
-                    <td th:text="*{businessNum}"></td>
+                    <td th:text="*{storeId}"></td>
                 </tr>
                 <tr>
                     <th>상점명</th>
@@ -66,7 +59,6 @@
                     <td th:text="*{mailOrderNum}"></td>
                 </tr>
             </tbody>
-            <p th:if="${store == null}" style="font-size: large; text-align: center; margin-top: 240px;">No store data available.</p>
         </table>
     </main>
     <script th:src="@{/js/script.js}"></script>

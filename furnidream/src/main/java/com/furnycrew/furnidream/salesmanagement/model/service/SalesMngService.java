@@ -35,7 +35,7 @@ public class SalesMngService {
         return salesMngMapper.findSalesByAgeGroup();
     }
 
-    //    // 상품 당 성비에 따른 매출 조회
+
 //    public List<SalsesStatisticsByGenderDto> findSalesByGender(){
 //        return salesMngMapper.findSalesByGender();
 //    }
