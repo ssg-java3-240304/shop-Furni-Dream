@@ -52,7 +52,7 @@ BEGIN
             WHERE customer_id = @customer_id;
 
             -- 주문 취소율 1%로 설정
-            SET @order_status = 6;
+            SET @order_status = 1;
             IF 10 < (1 + RAND() * 999) THEN
                     SET @order_status = FLOOR(1 + RAND() * 5);
             END IF;
