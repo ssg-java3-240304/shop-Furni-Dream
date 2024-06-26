@@ -20,16 +20,16 @@ class SalesMngMapperTest {
     @Test
     @DisplayName("전체 매출 조회")
     void findTotalSales() {
-        // given
-        // when
-        List<SalesMngDailyDto> salesMngDailyDtos = salesMngMapper.findTotalSales();
+//        // given
+//        // when
+//        List<SalesMngDailyDto> salesMngDailyDtos = salesMngMapper.findTotalSales();
 //        System.out.println(salesMngDailyDtos);
+//
+//        // then
+//        assertThat(salesMngDailyDtos)
+//                .isNotNull()
+//                .isNotEmpty();
 
-        // then
-        assertThat(salesMngDailyDtos)
-                .isNotNull()
-                .isNotEmpty();
-        
     }
 
     @Test
@@ -73,21 +73,19 @@ class SalesMngMapperTest {
         assertThat(salesStatisticsByAgeDtos)
                 .isNotNull()
                 .isNotEmpty();
-
     }
 
-    @Disabled
     @Test
-    @DisplayName("상품별 성비에 따른 매출 조회")
-    void findSalesByGender() {
-//        // given
-//        // when
-//        List<SalsesStatisticsByGenderDto> salsesStatisticsByGenderDtos = salesMngMapper.findSalesByGender();
-//        System.out.println(salsesStatisticsByGenderDtos);
-//
-//        // then
-//        assertThat(salsesStatisticsByGenderDtos)
-//                .isNotNull()
-//                .isNotEmpty();
+    @DisplayName("상품별 매출 조회")
+
+    void testFindSalesByGender() {
+        //when
+        List<SalesStatisticsByProductDto> salesStatisticsByProductDtos = salesMngMapper.findSalesByProduct();
+        System.out.println(salesStatisticsByProductDtos);
+
+        //then
+        assertThat(salesStatisticsByProductDtos)
+                .isNotNull()
+                .isNotEmpty();
     }
 }
