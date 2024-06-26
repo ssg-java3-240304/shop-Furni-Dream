@@ -21,5 +21,5 @@ public interface SalesMngMapper {
 
 //    // 상품 당 성비에 따른 매출 조회
 //    List<SalsesStatisticsByGenderDto> findSalesByGender();
-
+//
 }
