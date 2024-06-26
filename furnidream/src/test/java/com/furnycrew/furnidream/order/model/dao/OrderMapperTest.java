@@ -24,12 +24,11 @@ class OrderMapperTest {
         //given
         //when
 //        List<OrderDto> orders = orderMapper.findAllOrder();
-        List<OrderDto> orders = orderMapper.findOrdersByDateTime(new SearchCriteria(), 0, 10);
+        List<OrderDto> orders = orderMapper.findOrdersByDateTime(new SearchCriteria());
         //then
         assertThat(orders)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(10)
                 .allSatisfy((order)->{
                     assertThat(order.getOrderCode()).isNotZero();
                     assertThat(order.getCustomerDto()).isNotNull();
@@ -50,13 +49,12 @@ class OrderMapperTest {
         LocalDateTime localDateTime =  LocalDateTime.of(2023,6, 13, 0, 0);
         searchCriteria.setValue(localDateTime);
         //when
-        List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria, 1, 10);
+        List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria);
         //then
 
         assertThat(orders)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(10)
                 .allSatisfy((order)->{
                     assertThat(order.getOrderCode()).isNotZero();
                     assertThat(order.getCustomerDto()).isNotNull();
@@ -77,13 +75,12 @@ class OrderMapperTest {
         LocalDateTime localDateTime =  LocalDateTime.of(2023,6, 13, 0, 0);
         searchCriteria.setValue(localDateTime);
         //when
-        List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria, 1, 10);
+        List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria);
         //then
 
         assertThat(orders)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(10)
                 .allSatisfy((order)->{
                     assertThat(order.getOrderCode()).isNotZero();
                     assertThat(order.getCustomerDto()).isNotNull();
@@ -105,13 +102,12 @@ class OrderMapperTest {
         LocalDateTime localDateTime =  LocalDateTime.of(2024,6, 13, 0, 0);
         searchCriteria.setValue(localDateTime);
         //when
-        List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria , 1, 10);
+        List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria);
         //then
-        System.out.println(orders);
+
         assertThat(orders)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(10)
                 .allSatisfy((order)->{
                     assertThat(order.getOrderCode()).isNotZero();
                     assertThat(order.getCustomerDto()).isNotNull();
@@ -123,24 +119,4 @@ class OrderMapperTest {
                 });
     }
 
-    @DisplayName("전체 주문 갯수 조회")
-    @Test
-    public void test5() {
-        //given
-        //when
-//        List<OrderDto> orders = orderMapper.findAllOrder();
-        int numOfOrder = orderMapper.countOrderByDateTime(new SearchCriteria());
-        //then
-        assertThat(numOfOrder).isNotZero();
-    }
-
-    @DisplayName("주문 상세조회")
-    @Test
-    public void test6() {
-        //given
-        //when
-        OrderDto orderDto = orderMapper.getOrderDetail(new SearchCriteria("orderCode", 5, null, null));
-        //then
-        assertThat(orderDto).isNotNull();
-    }
 }

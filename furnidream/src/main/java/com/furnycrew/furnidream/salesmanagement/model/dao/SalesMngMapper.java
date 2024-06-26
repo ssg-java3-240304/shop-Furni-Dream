@@ -1,25 +1,26 @@
 package com.furnycrew.furnidream.salesmanagement.model.dao;
 
-import com.furnycrew.furnidream.salesmanagement.model.dto.*;
+import com.furnycrew.furnidream.salesmanagement.model.dto.ProductSalesDto;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDto;
 import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 
 @Mapper
 public interface SalesMngMapper {
     // 전체 매출 조회
-    List<SalesMngDailyDto> findTotalSales();
+    List<SalesMngDto> findTotalSales();
 
     // 월별 매출 조회
-    List<SalesMngMonthlyDto> findMonthlySales();
+    List<SalesMngDto> findMonthlySales();
 
     // 분기별 매출 조회
-    List<SalesMngQuarterDto> findQuarterlySales();
+    List<SalesMngDto> findQuarterlySales();
 
     // 상품 당 연령층에 따른 매출 조회
-    List<SalesStatisticsByAgeDto> findSalesByAgeGroup();
+    ProductSalesDto findSalesByAgeGroup();
 
+    // 상품 당 성비에 따른 매출 조회
+    ProductSalesDto findSalesByGender();
 
-//    // 상품 당 성비에 따른 매출 조회
-//    List<SalsesStatisticsByGenderDto> findSalesByGender();
-//
 }

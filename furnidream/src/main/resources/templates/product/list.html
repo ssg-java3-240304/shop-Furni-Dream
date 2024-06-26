@@ -15,31 +15,24 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">상품코드</th>
-            <th scope="col">상품명</th>
-            <th scope="col">카테고리</th>
-            <th scope="col">판매가</th>
-            <th scope="col">재고</th>
-            <th scope="col">상품상태</th>
-            <th scope="col">옵션(color/size)</th>
+            <th>상품코드</th>
+            <th>상품이미지</th>
+            <th>상품명</th>
+            <th>카테고리</th>
+            <th>판매가</th>
+            <th>재고</th>
+            <th>상품상태</th>
+            <th>할인율</th>
+            <th>옵션</th>
         </tr>
         </thead>
         <tbody>
-            <tr th:each="product, stat : ${products}" th:object="${product}">
-                <td th:text="*{productCode}"></td>
-                <td th:text="*{productName}"></td>
-                <td th:text="*{category}"></td>
-                <td th:text="*{#numbers.formatInteger(retailPrice, 3, 'COMMA')}"></td>
-                <td th:text="*{stock}"></td>
-                <td th:text="*{productStatus}"></td>
-                <td>
-                    <span th:text="*{color}"></span>
-                    <span th:text="*{size}"></span>
-                </td>
-            </tr>
+
         </tbody>
     </table>
 </main>
-    <script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/script.js}">
+
+</script>
 </body>
 </html>
