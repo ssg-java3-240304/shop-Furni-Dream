@@ -9,6 +9,15 @@
     <script>
         console.log(1234);
     </script>
+
+    <style>
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+        .btn-group .btn:last-child {
+            margin-right: 0;
+        }
+    </style>
 </head>
 <body>
 <main class="container mt-5 ms-5" layout:fragment="main">
@@ -18,35 +27,42 @@
             주문서 정보
         </div>
         <div class="card-body">
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <h5>주문 번호</h5>
-                    <p id="orderCode">[[${order.orderCode}]]</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>주문 상태</h5>
-                    <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
-                    <label class="btn btn-outline-primary" for="option1">결제 완료</label>
-
-                    <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off" >
-                    <label class="btn btn-outline-primary" for="option2">배송 준비</label>
-
-                    <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off" >
-                    <label class="btn btn-outline-primary" for="option3">배송 중</label>
-
-                    <input type="radio" class="btn-check" name="options" id="option4" autocomplete="off" >
-                    <label class="btn btn-outline-primary" for="option4">배송 완료</label>
-                    <p id="orderStatus">[[${order.orderStatus}]]</p>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <h5>송장 번호</h5>
-                    <p id="trackingNumber">[[${order.trackingNumber}]]</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>총 결제금액</h5>
-                    <p id="totalPrice">[[${order.totalPrice}]]</p>
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-bordered" style="width: 150%">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">주문 번호</th>
+                                <th scope="col">송장번호</th>
+                                <th scope="col">총 결제금액</th>
+                                <th scope="col">주문 상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <th scope="row" id="orderCode">[[${order.orderCode}]]</th>
+                                <td id="trackingNumber">[[${order.trackingNumber}]]</td>
+                                <td id="totalPrice">[[${order.totalPrice}]]</td>
+                                <td>
+                                    <form th:action="@{/order/updateOrderStatus}" method="post">
+                                    <div class="container">
+                                        <div class="btn-group" role="group" aria-label="Order Status">
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 1} ? 'btn-primary active' : 'btn-outline-primary disabled'">결제 완료</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 2} ? 'btn-primary active' : 'btn-outline-primary disabled'">배송 준비</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 3} ? 'btn-primary active' : 'btn-outline-primary disabled'">배송 중</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 4} ? 'btn-primary active' : 'btn-outline-primary disabled'">배송 완료</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 5} ? 'btn-primary active' : 'btn-outline-primary disabled'">판매 완료</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 6} ? 'btn-danger active' : 'btn-outline-danger disabled'">취소</button>
+                                            <input type="hidden" name="name" th:value="UpdateOrderStatus">
+                                            <input type="hidden" name="id" th:value="${order.orderCode}">
+                                            <input type="hidden" name="value" th:value="${order.orderStatus}">
+                                        </div>
+                                    </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -58,34 +74,42 @@
         </div>
         <div class="card-body">
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <h5>고객 번호</h5>
-                    <p id="customerId">[[${order.customerDto.customerId}]]</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>이름</h5>
-                    <p id="customerName">[[${order.customerDto.name}]]</p>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <h5>연령</h5>
-                    <p id="customerAge">[[${order.customerDto.age}]]</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>성별</h5>
-                    <p id="customerGender">[[${order.customerDto.gender}]]</p>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-md-6">
-                    <h5>전화 번호</h5>
-                    <p id="customerPhone">[[${order.customerDto.phone}]]</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>주소</h5>
-                    <p id="customerAddress">[[${order.customerDto.address}]]</p>
-                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>고객 번호</th>
+                            <th>이름</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                [[${order.customerDto.customerId}]]
+                            </td>
+                            <td>
+                                [[${order.customerDto.name}]]
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                    <tr>
+                        <th>전화 번호</th>
+                        <th>주소</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            [[${order.customerDto.phone}]]
+                        </td>
+                        <td>
+                            [[${order.customerDto.address}]]
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
             </div>
         </div>
     </div>
@@ -116,9 +140,43 @@
             </div>
         </div>
     </div>
+
+    <div class="container align-items-md-end">
+        <form th:action="@{/order/cancel}" method="post">
+            <button type="submit" class="btn btn-danger">주문 취소</button>
+            <input type="hidden" >
+            <input type="hidden" name="name" th:value="cancelOrderStatus">
+            <input type="hidden" name="id" th:value="${order.orderCode}">
+            <input type="hidden" name="value" th:value="${order.orderStatus}">
+        </form>
+    </div>
+
+<!--    라이브 토스트 팝업-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+<!--                <img src="..." class="rounded me-2" alt="...">-->
+                <strong class="me-auto">주문 상태 업데이트</strong>
+                <small>성공</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <p th:text="${message}"/>
+            </div>
+        </div>
+    </div>
+
 </main>
 
-<script th:src="@{/js/script.js}">
+<script layout:fragment="script">
+
+    const message = `[[${message}]]`;
+    // message && toastBootstrap.show()
+    const toastLiveExample = document.getElementById('liveToast')
+    if (message) {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+    }
 
 </script>
 </body>

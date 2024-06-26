@@ -88,4 +88,28 @@
             o.order_code = #{value};
     </select>
 
+    <update id="updateOrderStatus">
+        update
+            tbl_order
+        set
+            order_status = #{value}
+        where
+            order_code = #{id}
+    </update>
+
+    <delete id="cancelOrder" parameterType="long">
+        delete from tbl_order
+        where order_code = #{id}
+    </delete>
+
+    <insert id="createCancelOrder" keyProperty="id">
+        insert into
+            tbl_order_canceled
+        values(#{id},
+                now(),
+                (select total_price
+                    from tbl_order
+                    where order_code = #{id}))
+    </insert>
+
 </mapper>

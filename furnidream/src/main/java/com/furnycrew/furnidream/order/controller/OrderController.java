@@ -1,16 +1,18 @@
 package com.furnycrew.furnidream.order.controller;
 
+import com.furnycrew.furnidream.common.enums.OrderStatus;
 import com.furnycrew.furnidream.common.paging.PageCriteria;
 import com.furnycrew.furnidream.common.search.SearchCriteria;
+import com.furnycrew.furnidream.common.search.UpdateCriteria;
 import com.furnycrew.furnidream.order.model.dto.OrderDto;
+import com.furnycrew.furnidream.order.model.service.OrderCommandService;
 import com.furnycrew.furnidream.order.model.service.OrderQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -19,10 +21,12 @@ import java.util.List;
 @RequestMapping("/order")
 public class OrderController {
     private final OrderQueryService orderQueryService;
+    private final OrderCommandService orderCommandService;
 
 
-    public OrderController(OrderQueryService orderQueryService) {
+    public OrderController(OrderQueryService orderQueryService, OrderCommandService orderCommandService) {
         this.orderQueryService = orderQueryService;
+        this.orderCommandService = orderCommandService;
     }
 
     @GetMapping("/list")
@@ -57,4 +61,38 @@ public class OrderController {
         model.addAttribute("order", orderDto);
         return "order/detail";
     }
+
+    @Transactional
+    @PostMapping("/updateOrderStatus")
+    public String updateOrderStatus(@ModelAttribute UpdateCriteria updateCriteria, RedirectAttributes redirectAttributes){
+        log.debug("Post updateOrderStatus/{}", updateCriteria);
+        log.info("Post /updateOrderStatus");
+
+        int value = Integer.valueOf((String)updateCriteria.getValue());
+        int result = orderCommandService.updateOrderStatus(updateCriteria);
+        if (result == -1) {
+            redirectAttributes.addFlashAttribute("message", "주문상태 변경에 실패했습니다");
+        }else{
+            redirectAttributes.addFlashAttribute("message", "성공적으로 주문상태를"+ OrderStatus.CANCELLED +"(으)로 변경했습니다");
+        }
+        return "redirect:/order/detail/"+updateCriteria.getId();
+    }
+
+    @PostMapping("/cancel")
+    public String cancelOrder(@ModelAttribute UpdateCriteria updateCriteria, RedirectAttributes redirectAttributes){
+        log.debug("Post cancelOrder/{}", updateCriteria);
+        log.info("Post /cancelOrder");
+        int value = Integer.valueOf((String)updateCriteria.getValue());
+        int result = orderCommandService.cancelOrder(updateCriteria);
+        if (result == -1) {
+            redirectAttributes.addFlashAttribute("message", "주문상태 변경에 실패했습니다");
+            log.debug("취소 실패");
+        }else{
+            redirectAttributes.addFlashAttribute("message", "성공적으로 주문상태를"+ OrderStatus.CANCELLED +"(으)로 변경했습니다");
+            log.debug("취소 성공");
+        }
+        return "redirect:/order/detail/"+updateCriteria.getId();
+    }
+
+
 }
