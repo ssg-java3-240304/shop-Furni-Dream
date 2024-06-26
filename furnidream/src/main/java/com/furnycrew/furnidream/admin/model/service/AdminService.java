@@ -11,8 +11,7 @@ public class AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-    @Transactional
-    public AdminDto findByAdminId(String adminId) {
-        return adminMapper.findByAdminId(adminId);
+    public AdminDto login(String adminId, String adminPw) {
+        return adminMapper.findAdminByIdAndPassword(adminId, adminPw);
     }
 }
