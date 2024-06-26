@@ -46,5 +46,16 @@
     </table>
     <button onclick="window.location.href='/product/register'" class="btn btn-primary">상품 등록</button>
 </main>
+    <script layout:fragment="script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const $rows = document.querySelectorAll('table tbody tr');
+            $rows.forEach(function(row) {
+                row.addEventListener('click', function() {
+                    console.log(row.getAttribute('tbl_href'));
+                    window.location.href = row.getAttribute('tbl_href');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
