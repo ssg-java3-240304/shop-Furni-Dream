@@ -18,15 +18,12 @@ class StoreMapperTest {
     private StoreMapper storeMapper;
 
     @Test
-    @DisplayName("상점 모든 정보 조회")
+    @DisplayName("한 상점의 모든 정보 조회")
     void test1() {
         // given
-        List<StoreDto> stores = storeMapper.findAll();
+        StoreDto store = storeMapper.findAll();
         // then
-        assertThat(stores)
-                .isNotNull()
-                .isNotEmpty()
-                .allMatch((store) -> store != null);
+        assertThat(store).isNotNull();
     }
 
     @Test
@@ -77,7 +74,7 @@ class StoreMapperTest {
     }
 
     @Test
-    @DisplayName("상품 정보 수정")
+    @DisplayName("최신 상점 수정")
     void test4() {
         // given
         String businessNum = "100-01-00002";
