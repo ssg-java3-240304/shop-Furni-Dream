@@ -11,10 +11,127 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
           crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <main layout:fragment="main" class="container">
-    <div style="padding-top: 100px">
+
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+
+        var salesMonthlyDtoLists = [[${salesMonthlyDtoLists}]];
+
+        // 데이터 변환을 통해 Chart.js의 데이터 형식에 맞게 준비-->
+        var labels = salesMonthlyDtoLists.map(function (item) {
+            return item.monthly; // 월 정보 필드를 사용했다고 가정-->
+        });
+
+        var salesData = salesMonthlyDtoLists.map(function (item) {
+            return item.totalSales; // 월별 매출 필드를 사용했다고 가정-->
+        });
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '월별 매출 통계',
+                    data:
+                        // salesData.values(),
+                    [14201300,
+                        170505900,
+                        184040400,
+                        199121600,
+                        180014200
+                    ,217547900,
+                        157514600,
+                        168016700,
+                        158573300,
+                        148134600,
+                        152979800,
+                        156257300,
+                        177143800,
+                        208241900,
+                        168110600,
+                        165476300,
+                        175930400,
+                        160236000,
+                        191965400,
+                        198845300,
+                        133422000,
+                        181068600,
+                        179527100,
+                        171232500,
+                        139663700,
+                        166456100,
+                        149050600,
+                        177465100,
+                        168459400,
+                        173755000,
+                        189433000,
+                        228757600,
+                        151872400,
+                        139221200,
+                        179393800,
+                        179262300,
+                        172461400,
+                        199491400,
+                        194488700,
+                        155237100,
+                        154152500,
+                        177355400,
+                        179803000,
+                        175971000,
+                        184485200,
+                        176375300,
+                        212648900,
+                        148189100, 197883400,
+                        184815800,
+                        178584200,
+                        181137000,
+                        203804500,
+                        178682700,
+                        192141700,
+                        189121300,
+                        147675500,
+                        146215900,
+                        158126100,
+                        186258000,
+                        200659500,
+                        177879100,
+                        185151000,
+                        215665200,
+                        173180100,
+                        135721400,
+                        204376900,
+                        147229600,
+                        175273000,
+                        199113300,
+                        177003600,
+                        196839100,
+                        127750800
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+    <div style="padding-top: 20px">
 
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link" aria-current="page"
@@ -28,8 +145,8 @@
         <!--    <button th:href="@{/salesStatistics/totalSalesList}"><h3>일자별 매출 내역</h3></button>-->
         <!--    <button><h3 th:href="@{/salesStatistics/totalMonthlySales}">월별 매출 내역</h3></button>-->
         <!--    <button th:href="@{/salesStatistics/totalSalesList}"><h3>분기별 매출 내역</h3></button>-->
-        <table class="table"> <!--/* 표형식으로 구조화되어 보여준다. */-->
-            <thead>
+        <table class="table table-hover"> <!--/* 표형식으로 구조화되어 보여준다. */-->
+            <thead class="table-primary">
             <tr>
                 <th>주문 일자(년/월)</th>
                 <th>주문 건수(건)</th>
@@ -43,9 +160,9 @@
                 <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
                 <td th:text="${salesMngMonthlyDto.monthly}"></td>
                 <td th:text="${salesMngMonthlyDto.orderAmount}"></td>
-                <td th:text="${#numbers.formatInteger(salesMngMonthlyDto.totalPrice, 3, 'COMMA')}"></td>
-                <td th:text="${#numbers.formatInteger(salesMngMonthlyDto.refundAmount, 3, 'COMMA')}"></td>
-                <td th:text="${#numbers.formatInteger(salesMngMonthlyDto.totalSales, 3, 'COMMA')}"></td>
+                <td th:text="${salesMngMonthlyDto.totalPrice}"></td>
+                <td th:text="${salesMngMonthlyDto.refundAmount}"></td>
+                <td th:text="${salesMngMonthlyDto.totalSales}"></td>
             </tr>
             </tbody>
         </table>

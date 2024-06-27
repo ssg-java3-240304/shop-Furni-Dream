@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.offset;
+import static org.assertj.core.api.InstanceOfAssertFactories.list;
 
 @SpringBootTest
 class SalesMngMapperTest {
@@ -20,15 +22,18 @@ class SalesMngMapperTest {
     @Test
     @DisplayName("전체 매출 조회")
     void findTotalSales() {
-//        // given
-//        // when
-//        List<SalesMngDailyDto> salesMngDailyDtos = salesMngMapper.findTotalSales();
-//        System.out.println(salesMngDailyDtos);
-//
-//        // then
-//        assertThat(salesMngDailyDtos)
-//                .isNotNull()
-//                .isNotEmpty();
+        // given
+        int offset = 1;
+        int limit = 10;
+
+        // when
+        List<SalesMngDailyDto> salesMngDailyDtos = salesMngMapper.findTotalSales(offset, limit);
+        System.out.println(salesMngDailyDtos);
+
+        // then
+        assertThat(salesMngDailyDtos)
+                .isNotNull()
+                .isNotEmpty();
 
     }
 
@@ -65,8 +70,11 @@ class SalesMngMapperTest {
     @DisplayName("상품별 연령층에 따른 매출 조회")
     void findSalesByAgeGroup() {
         // given
+        int offset = 1;
+        int limit = 10;
+
         // when
-        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngMapper.findSalesByAgeGroup();
+        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngMapper.findSalesByAgeGroup(offset, limit);
         System.out.println(salesStatisticsByAgeDtos);
 
         // then
@@ -77,10 +85,13 @@ class SalesMngMapperTest {
 
     @Test
     @DisplayName("상품별 매출 조회")
-
     void testFindSalesByGender() {
+        //given
+        int offset = 1;
+        int limit = 10;
+
         //when
-        List<SalesStatisticsByProductDto> salesStatisticsByProductDtos = salesMngMapper.findSalesByProduct();
+        List<SalesStatisticsByProductDto> salesStatisticsByProductDtos = salesMngMapper.findSalesByProduct(offset, limit);
         System.out.println(salesStatisticsByProductDtos);
 
         //then

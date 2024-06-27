@@ -18,10 +18,10 @@ public interface SalesMngMapper {
     List<SalesMngQuarterDto> findQuarterlySales();
 
     // 상품 당 연령층에 따른 매출 조회
-    List<SalesStatisticsByAgeDto> findSalesByAgeGroup();
+    List<SalesStatisticsByAgeDto> findSalesByAgeGroup(@Param("offset") int offset, @Param("limit") int limit);
 
     //  상품 당 매출 조회
-    List<SalesStatisticsByProductDto> findSalesByProduct();
+    List<SalesStatisticsByProductDto> findSalesByProduct(@Param("offset") int offset, @Param("limit") int limit);
 
     int count();
 }
