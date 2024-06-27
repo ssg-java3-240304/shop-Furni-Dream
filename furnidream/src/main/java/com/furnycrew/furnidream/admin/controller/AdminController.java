@@ -2,11 +2,16 @@ package com.furnycrew.furnidream.admin.controller;
 
 import com.furnycrew.furnidream.admin.model.dto.AdminDto;
 import com.furnycrew.furnidream.admin.model.service.AdminService;
+import com.furnycrew.furnidream.statistics.model.dao.OrderSalesStatisticsMapper;
+import com.furnycrew.furnidream.statistics.model.dao.OrderStatusStatisticsMapper;
+import com.furnycrew.furnidream.statistics.model.dto.OrderSalesStatisticsDto;
+import com.furnycrew.furnidream.statistics.model.dto.OrderStatusStatisticsDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Slf4j
 @RequiredArgsConstructor
 public class AdminController {
-    @Autowired
     private final AdminService adminService;
+    private final OrderSalesStatisticsMapper orderSalesStatisticsMapper;
+    private final OrderStatusStatisticsMapper orderStatusStatisticsMapper;
+
+
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model) {
@@ -27,8 +35,26 @@ public class AdminController {
             return "redirect:/admin/login";
         }
         String adminId = (String) session.getAttribute("adminId");
+
+        showStatistics(model);
         model.addAttribute("message", "🦄Welcome, " + adminId + "🦄");
         return "index";
+    }
+
+    private void findAllOrderStatus(Model model) {
+        List<OrderStatusStatisticsDto> result = orderStatusStatisticsMapper.findAllOrderStatus();
+        model.addAttribute("orderStatus", result);
+    }
+
+    private void calculateSalesStatistics(Model model) {
+        List<OrderSalesStatisticsDto> result = orderSalesStatisticsMapper.calculateSalesStatistics(
+                LocalDate.now().getYear());
+        model.addAttribute("orderSales", result);
+    }
+
+    private void showStatistics(Model model) {
+        findAllOrderStatus(model);
+        calculateSalesStatistics(model);
     }
 
     @GetMapping("/admin/login")
@@ -37,7 +63,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin/login")
-    public String login(@RequestParam("adminId") String adminId, @RequestParam("adminPw") String adminPw, HttpServletRequest request, Model model) {
+    public String login(@RequestParam("adminId") String adminId, @RequestParam("adminPw") String adminPw,
+                        HttpServletRequest request, Model model) {
         AdminDto admin = adminService.login(adminId, adminPw);
         if (admin != null) { // 로그인 성공
             HttpSession session = request.getSession();
