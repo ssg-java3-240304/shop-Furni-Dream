@@ -11,10 +11,139 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
           crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <main layout:fragment="main" class="container">
-    <div style="padding-top: 100px">
+
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+
+        // var salesDailyDtos = [[${salesByAge}]];
+        //
+        // // 데이터 변환을 통해 Chart.js의 데이터 형식에 맞게 준비-->
+        // var labels = salesDailyDtos.map(function (item) {
+        //     return item.productName; // 월 정보 필드를 사용했다고 가정-->
+        // });
+        //
+        // var salesData1 = salesDailyDtos.map(function (item) {
+        //     return item.earlyToMid20s; // 월별 매출 필드를 사용했다고 가정-->
+        // });
+        // var salesData2 = salesDailyDtos.map(function (item) {
+        //     return item.midToLate20s; // 월별 매출 필드를 사용했다고 가정-->
+        // });
+        // var salesData3 = salesDailyDtos.map(function (item) {
+        //     return item.earlyToMid30s; // 월별 매출 필드를 사용했다고 가정-->
+        // });
+        // var salesData4 = salesDailyDtos.map(function (item) {
+        //     return item.midToLate30s; // 월별 매출 필드를 사용했다고 가정-->
+        // });
+        //
+        // const ctx = document.getElementById('myChart').getContext('2d');
+        //
+        // const myChart = new Chart(ctx, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: labels,
+        //         datasets: [{
+        //             label: '일별 매출 통계',
+        //             data:
+        //             salesData1,
+        //             salesData2,
+        //             salesData3,
+        //             salesData4,
+        //             borderWidth: 1
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         // maintainAspectRatio: false,
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+
+
+        /*<![CDATA[*/
+        var salesDailyDtos = /*[[${salesByAge}]]*/ [];
+
+        var labels = salesDailyDtos.map(function (item) {
+            return item.productName;
+        });
+
+        var salesData1 = salesDailyDtos.map(function (item) {
+            return item.earlyToMid20s;
+        });
+
+        var salesData2 = salesDailyDtos.map(function (item) {
+            return item.midToLate20s;
+        });
+
+        var salesData3 = salesDailyDtos.map(function (item) {
+            return item.earlyToMid30s;
+        });
+
+        var salesData4 = salesDailyDtos.map(function (item) {
+            return item.midToLate30s;
+        });
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '20 ~ 25세',
+                        data: salesData1,
+                        backgroundColor: 'rgb(255,94,124)',
+                        borderColor: 'rgb(255,94,124)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '25 ~ 30세',
+                        data: salesData2,
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '30 ~ 35세',
+                        data: salesData3,
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '35 ~ 40세',
+                        data: salesData4,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        /*]]>*/
+    </script>
+
+    <div style="padding-top: 20px">
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link active " aria-current="page" th:href="@{/salesStatistics/totalSalesList}">연령별 매출 통계</a><!-- ✨active 추가하면 파래짐 -->
         </nav>
