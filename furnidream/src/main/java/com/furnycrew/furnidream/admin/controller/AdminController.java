@@ -27,7 +27,7 @@ public class AdminController {
             return "redirect:/admin/login";
         }
         String adminId = (String) session.getAttribute("adminId");
-        model.addAttribute("message", adminId + "님, 안녕하세요🦄");
+        model.addAttribute("message", "🦄Welcome, " + adminId + "🦄");
         return "index";
     }
 

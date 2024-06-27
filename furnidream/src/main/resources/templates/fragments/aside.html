@@ -55,7 +55,7 @@
                         <div class="collapse" id="collapseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="/app/order/list">주문 조회</a>
-                                <a class="nav-link" href="/app">주문 검색</a>
+<!--                                <a class="nav-link" href="/app">주문 검색</a>-->
                             </nav>
                         </div>
 
@@ -70,22 +70,10 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="/app/statistics/order/count-ranking/all">주문량 순위</a>
                                 <a class="nav-link" href="/app/statistics/order/net-profit-ranking/all">순수익 순위</a>
-                                <a class="nav-link" href="/app/statistics/order/sales">연도별 매출액</a>
-                            </nav>
-                        </div>
-
-                        <!-- 매출 메뉴  -->
-                        <div class="sb-sidenav-menu-heading">Sales</div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSales" aria-expanded="false" aria-controls="collapseSales">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            매출 관리
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseSales" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesList}">기간별 매출 통계</a>
-                                <a class="nav-link" th:href="@{/salesStatistics/salesByAge}">연령별 매출 통계</a>
-                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesByProduct}">상품별 매출 통계</a>
+                                <a class="nav-link" href="/app/statistics/order/sales">연도별 매출</a>
+                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesList}">기간별 매출</a>
+                                <a class="nav-link" th:href="@{/salesStatistics/salesByAge}">연령별 매출</a>
+                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesByProduct}">상품별 매출</a>
                             </nav>
                         </div>
 
@@ -106,7 +94,7 @@
 
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    furnnycrew
                 </div>
             </nav>
         </div>

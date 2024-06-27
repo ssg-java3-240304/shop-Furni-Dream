@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS tbl_store (
                                        `business_address` varchar(50) NOT NULL,
                                        `business_status` varchar(20) NOT NULL,
                                        `business_category` varchar(20) NOT NULL,
-                                       `stamp_image` varchar(100) NULL,
                                        `mail_order_yn` char(1) NOT NULL,
                                        `mail_order_num` varchar(20) NULL,
                                        CONSTRAINT pk_store_id PRIMARY KEY (store_id)
@@ -114,7 +113,7 @@ CREATE TABLE IF NOT EXISTS tbl_order_canceled (
 
 
 -- 데이터 삽입
-INSERT INTO tbl_store VALUES (null, '100-01-00001', 'FurniDream', '퍼니크루', '010-0000-0000', 'furnnycrew@gmail.com', '서울특별시 중구 소공로63 (충무로1가)', '소매업', '가구', null, 'Y', '2024-서울-0001');
+INSERT INTO tbl_store VALUES (null, '100-01-00001', 'FurniDream', '퍼니크루', '010-0000-0000', 'furnnycrew@gmail.com', '서울특별시 중구 소공로63 (충무로1가)', '소매업', '가구', 'Y', '2024-서울-0001');
 INSERT INTO tbl_admin VALUES (null, 'furnnycrew', 'furnny5', default);
 INSERT INTO tbl_customer VALUES
                          (101, '홍길동', 'M', 30, '서울특별시 강남구 역삼동 123번지', '010-1234-5678');

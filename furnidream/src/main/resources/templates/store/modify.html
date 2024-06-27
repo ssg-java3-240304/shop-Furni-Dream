@@ -15,7 +15,7 @@
         </style>
         <h2>상점 수정</h2>
 
-        <form name="storeModifyFrm" th:action="@{/store/modify}" method="post" th:object="${store}">
+        <form name="storeModifyFrm" th:if="${store != null}" th:action="@{/store/modify}" method="post" th:object="${store}">
             사업자 등록번호 : <input type="text" name="businessNum" th:value="*{businessNum}" required><br>
             상점명 : <input type="text" name="storeName" th:value="*{storeName}" required><br>
             대표자명 : <input type="text" name="ceoName" th:value="*{ceoName}" required><br>
@@ -24,11 +24,12 @@
             사업장 주소 : <input type="text" name="businessAddress" th:value="*{businessAddress}" required><br>
             업태 : <input type="text" name="businessStatus" th:value="*{businessStatus}" required><br>
             종목 : <input type="text" name="businessCategory" th:value="*{businessCategory}" required><br>
-            도장이미지 : <input type="text" name="stampImage" th:value="*{stampImage}"><br>
+<!--            도장이미지 : <input type="text" name="stampImage" th:value="*{stampImage}"><br>-->
             통신판매업 신고 여부 : <input type="text" name="mailOrderYn" th:value="*{mailOrderYn}" required><br>
             통신판매업 신고 번호 : <input type="text" name="mailOrderNum" th:value="*{mailOrderNum}"><br>
             <button type="submit">수정</button>
         </form>
+        <p th:if="${store == null}" style="font-size: large; text-align: center; margin-top: 240px;">No store data available.</p>
 
     </main>
     <script th:src="@{/js/script.js}"></script>

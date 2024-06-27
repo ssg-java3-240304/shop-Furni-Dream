@@ -60,10 +60,10 @@ class StoreMapperTest {
         String businessAddress = "서울특별시 강남구 삼성로 534 SAC아트홀 6층";
         String businessStatus = "소매업";
         String businessCategory = "가구";
-        String stampImage = null;
+//        String stampImage = null;
         String mailOrderYn = "N";
         String mailOrderNum = null;
-        StoreDto storeDto = new StoreDto(null, businessNum, storeName, ceoName, ceoPhone, ceoEmail, businessAddress, businessStatus, businessCategory, stampImage, mailOrderYn, mailOrderNum);
+        StoreDto storeDto = new StoreDto(null, businessNum, storeName, ceoName, ceoPhone, ceoEmail, businessAddress, businessStatus, businessCategory, mailOrderYn, mailOrderNum);
 
         // when
         int result = storeMapper.insertStore(storeDto);
@@ -85,10 +85,10 @@ class StoreMapperTest {
         String businessAddress = "서울특별시 강남구 삼성로 534 SAC아트홀 6층";
         String businessStatus = "소매업";
         String businessCategory = "가구";
-        String stampImage = null;
+//        String stampImage = null;
         String mailOrderYn = "N";
         String mailOrderNum = null;
-        StoreDto storeDto = new StoreDto(null, businessNum, storeName, ceoName, ceoPhone, ceoEmail, businessAddress, businessStatus, businessCategory, stampImage, mailOrderYn, mailOrderNum);
+        StoreDto storeDto = new StoreDto(null, businessNum, storeName, ceoName, ceoPhone, ceoEmail, businessAddress, businessStatus, businessCategory, mailOrderYn, mailOrderNum);
         // 새 데이터 입력
         storeMapper.insertStore(storeDto);
         Long storeId = storeDto.getStoreId();
