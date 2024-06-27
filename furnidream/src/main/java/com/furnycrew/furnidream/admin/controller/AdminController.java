@@ -2,10 +2,15 @@ package com.furnycrew.furnidream.admin.controller;
 
 import com.furnycrew.furnidream.admin.model.dto.AdminDto;
 import com.furnycrew.furnidream.admin.model.service.AdminService;
+import com.furnycrew.furnidream.common.paging.PageCriteria;
+import com.furnycrew.furnidream.salesmanagement.model.dto.SalesStatisticsByAgeDto;
+import com.furnycrew.furnidream.salesmanagement.model.service.SalesMngService;
 import com.furnycrew.furnidream.statistics.model.dao.OrderSalesStatisticsMapper;
 import com.furnycrew.furnidream.statistics.model.dao.OrderStatusStatisticsMapper;
 import com.furnycrew.furnidream.statistics.model.dto.OrderSalesStatisticsDto;
 import com.furnycrew.furnidream.statistics.model.dto.OrderStatusStatisticsDto;
+import com.furnycrew.furnidream.statistics.model.service.OrderSalesStatisticsService;
+import com.furnycrew.furnidream.statistics.model.service.OrderStatusStatisticsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
@@ -23,8 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-    private final OrderSalesStatisticsMapper orderSalesStatisticsMapper;
-    private final OrderStatusStatisticsMapper orderStatusStatisticsMapper;
+    private final OrderSalesStatisticsService orderSalesStatisticsService;
+    private final OrderStatusStatisticsService orderStatusStatisticsService;
+    private final SalesMngService salesMngService;
 
 
 
@@ -42,19 +48,28 @@ public class AdminController {
     }
 
     private void findAllOrderStatus(Model model) {
-        List<OrderStatusStatisticsDto> result = orderStatusStatisticsMapper.findAllOrderStatus();
+        List<OrderStatusStatisticsDto> result = orderStatusStatisticsService.findAllOrderStatus();
         model.addAttribute("orderStatus", result);
     }
 
     private void calculateSalesStatistics(Model model) {
-        List<OrderSalesStatisticsDto> result = orderSalesStatisticsMapper.calculateSalesStatistics(
+        List<OrderSalesStatisticsDto> result = orderSalesStatisticsService.calculateSalesStatistics(
                 LocalDate.now().getYear());
         model.addAttribute("orderSales", result);
     }
 
+    private void findSalesByAgeGroupAndTotalSales(Model model) {
+        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngService.findSalesByAgeGroupAndTotalSales();
+
+        for (SalesStatisticsByAgeDto salesStatisticsByAgeDto : salesStatisticsByAgeDtos) {
+            System.out.println(salesStatisticsByAgeDto);
+        }
+        model.addAttribute("salesByAgeAndTotalSales", salesStatisticsByAgeDtos);
+    }
     private void showStatistics(Model model) {
         findAllOrderStatus(model);
         calculateSalesStatistics(model);
+        findSalesByAgeGroupAndTotalSales(model);
     }
 
     @GetMapping("/admin/login")
