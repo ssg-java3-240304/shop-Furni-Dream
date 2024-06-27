@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.inquiry.model.dao.InquiryMapper">
+
+    <select id="getInquiries" resultType="InquiryDto">
+        select
+            *,
+            (select name from tbl_customer where customer_id = ci.customer_id) as name
+        from
+            tbl_customer_inquiry ci
+        <where>
+            <if test="searchCriteria.name == 'status'">
+                status = #{searchCriteria.value}
+            </if>
+        </where>
+        limit
+            #{offset}, #{limit}
+    </select>
+
+    <select id="countInquiry" resultType="_int">
+        select
+            count(*)
+        from
+            tbl_customer_inquiry
+        <where>
+            <if test="#{name} == 'status'">
+                status = #{value}
+            </if>
+        </where>
+    </select>
+
+    <select id="getInquiryDetail" resultType="InquiryDto">
+        select
+            *,
+            (select name from tbl_customer where customer_id = ci.customer_id) as name
+        from
+            tbl_customer_inquiry ci
+        where
+            inquiry_id = #{value}
+    </select>
+
+    <update id="addResponse">
+        update
+            tbl_customer_inquiry
+        set
+            response = #{searchCriteria.value},
+            status = #{stat}
+        where
+            inquiry_id = #{searchCriteria.id}
+    </update>
+
+</mapper>

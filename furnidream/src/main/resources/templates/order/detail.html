@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <link rel="stylesheet" th:fragment="styles" th:href="@{/css/styles.css}" type="text/css"/>
+    <title>주문상세</title>
+    <script>
+        console.log(1234);
+    </script>
+
+    <style>
+        .btn-group .btn {
+            margin-right: 5px;
+        }
+        .btn-group .btn:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+<main class="container mt-5 ms-5" layout:fragment="main">
+    <h1 class="text-center mb-4">주문 상세</h1>
+    <div class="card mb-4">
+        <div class="card-header">
+            주문서 정보
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <table class="table table-bordered" style="width: 150%">
+                        <thead>
+                            <tr class="text-center">
+                                <th scope="col">주문 번호</th>
+                                <th scope="col">송장번호</th>
+                                <th scope="col">총 결제금액</th>
+                                <th scope="col">주문 상태</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center">
+                                <th scope="row" id="orderCode">[[${order.orderCode}]]</th>
+                                <td id="trackingNumber">[[${order.trackingNumber}]]</td>
+                                <td id="totalPrice">[[${order.totalPrice}]]</td>
+                                <td>
+                                    <form th:action="@{/order/updateOrderStatus}" method="post">
+                                    <div class="container">
+                                        <div class="btn-group" role="group" aria-label="Order Status">
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 1} ? 'btn-primary active' : 'btn-outline-primary disabled'">결제 완료</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 2} ? 'btn-primary active' : 'btn-outline-primary disabled'">배송 준비</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 3} ? 'btn-primary active' : 'btn-outline-primary disabled'">배송 중</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 4} ? 'btn-primary active' : 'btn-outline-primary disabled'">배송 완료</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 5} ? 'btn-primary active' : 'btn-outline-primary disabled'">판매 완료</button>
+                                            <button type="submit" class="btn " th:classappend="${order.orderStatus == 6} ? 'btn-danger active' : 'btn-outline-danger disabled'">취소</button>
+                                            <input type="hidden" name="name" th:value="UpdateOrderStatus">
+                                            <input type="hidden" name="id" th:value="${order.orderCode}">
+                                            <input type="hidden" name="value" th:value="${order.orderStatus}">
+                                        </div>
+                                    </div>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            구매자 정보
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>고객 번호</th>
+                            <th>이름</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                [[${order.customerDto.customerId}]]
+                            </td>
+                            <td>
+                                [[${order.customerDto.name}]]
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <thead>
+                    <tr>
+                        <th>전화 번호</th>
+                        <th>주소</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            [[${order.customerDto.phone}]]
+                        </td>
+                        <td>
+                            [[${order.customerDto.address}]]
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            주문 상품
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>상품 번호</th>
+                        <th>수량</th>
+                        <th>판매가</th>
+                    </tr>
+                    </thead>
+                    <tbody id="productList">
+                    <!-- Example row, replace with dynamic content -->
+                    <tr th:each="product : ${order.orderProductList}">
+                        <td>[[${product.productId}]]</td>
+                        <td>[[${product.quantity}]]</td>
+                        <td>[[${product.price}]]</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container align-items-md-end">
+        <form th:action="@{/order/cancel}" method="post">
+            <button type="submit" class="btn btn-danger">주문 취소</button>
+            <input type="hidden" >
+            <input type="hidden" name="name" th:value="cancelOrderStatus">
+            <input type="hidden" name="id" th:value="${order.orderCode}">
+            <input type="hidden" name="value" th:value="${order.orderStatus}">
+        </form>
+    </div>
+
+<!--    라이브 토스트 팝업-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+<!--                <img src="..." class="rounded me-2" alt="...">-->
+                <strong class="me-auto">주문 상태 업데이트</strong>
+                <small>성공</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                <p th:text="${message}"/>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<script layout:fragment="script">
+
+    const message = `[[${message}]]`;
+    // message && toastBootstrap.show()
+    const toastLiveExample = document.getElementById('liveToast')
+    if (message) {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+    }
+
+</script>
+</body>
+</html>

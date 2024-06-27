@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.statistics.model.dao.OrderSalesStatisticsMapper">
+
+    <resultMap id="OrderSalesStatisticsMap" type="OrderSalesStatisticsDto" >
+        <result column="month" property="month"/>
+        <result column="total_price" property="totalPrice"/>
+
+    </resultMap>
+
+
+    <select id="calculateSalesStatistics" resultMap="OrderSalesStatisticsMap">
+        select MONTH(created_at) month, SUM(total_price) total_price
+        from tbl_order
+        where order_status = 5
+        and YEAR(created_at) = #{year}
+        group by MONTH(created_at)
+        order by month;
+    </select>
+
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.salesmanagement.model.dao.SalesMngMapper">
+    <select id="findTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngDailyDto">
+        <![CDATA[
+    select
+        date_format(o.created_at, '%Y-%m-%d') as createdAt,
+        format(sum(op.quantity), 0) as orderAmount,
+        format(sum(op.quantity * op.price), 0) as totalPrice,
+        format(ifnull(sum(oc.refund_amount), 0), 0) as refundAmount,
+        format(sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0), 0) as totalSales
+    from
+        tbl_order o
+    left join
+        tbl_order_product op on o.order_code = op.order_code
+    left join
+        tbl_order_canceled oc on op.order_code = oc.order_code
+    group by
+        date_format(o.created_at, '%Y-%m-%d')
+    order by
+        createdAt
+    limit
+        #{offset}, #{limit}
+    ]]>
+    </select>
+
+    <select id="findMonthlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngMonthlyDto">
+        select
+        date_format(o.created_at, '%Y-%m') monthly,
+        format(sum(op.quantity), 0) orderAmount,
+        format(sum(op.quantity * op.price), 0) totalPrice,
+        format(ifnull(sum(oc.refund_amount), 0), 0) refundAmount,
+        format(sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0), 0) totalSales
+        from
+        tbl_order o left join tbl_order_product op
+        on o.order_code = op.order_code
+        left join tbl_order_canceled oc
+        on op.order_code = oc.order_code
+        group by
+        date_format(o.created_at, '%Y-%m')
+        order by
+        monthly
+    </select>
+
+    <select id = "findQuarterlySales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesMngQuarterDto">
+        select
+        concat(date_format(o.created_at, '%Y'), '-',quarter(o.created_at), '분기') dateQuarter,
+        format(sum(op.quantity), 0) orderAmount,
+        format(sum(op.quantity * op.price), 0) totalPrice,
+        format(ifnull(sum(oc.refund_amount), 0), 0) refundAmount,
+        format(sum(op.quantity * op.price) - ifnull(sum(oc.refund_amount), 0), 0) totalSales
+        from tbl_order o
+        left join tbl_order_product op
+        using (order_code)
+        left join tbl_order_canceled oc using (order_code)
+        group by
+        dateQuarter
+        order by
+        dateQuarter;
+    </select>
+
+    <select id = "findSalesByAgeGroup" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesStatisticsByAgeDto">
+        <![CDATA[
+        SELECT
+            p.product_name productName,
+            format(SUM(CASE WHEN c.age >= 20 AND c.age < 25 THEN o.total_price ELSE 0 END), 0) AS earlyToMid20s,
+            format(SUM(CASE WHEN c.age >= 25 AND c.age < 30 THEN o.total_price ELSE 0 END), 0) AS midToLate20s,
+            format(SUM(CASE WHEN c.age >= 30 AND c.age < 35 THEN o.total_price ELSE 0 END), 0) AS earlyToMid30s,
+            format(SUM(CASE WHEN c.age >= 35 AND c.age < 40 THEN o.total_price ELSE 0 END), 0) AS midToLate30s,
+            format(SUM(CASE WHEN c.age >= 40 AND c.age < 45 THEN o.total_price ELSE 0 END), 0) AS earlyToMid40s,
+            SUM(o.total_price) AS totalSales
+        FROM
+            tbl_order o
+            left join tbl_customer c ON o.customer_id = c.customer_id
+            right join tbl_order_product op ON o.order_code = op.order_code
+            left join tbl_product p ON op.product_id = p.product_id
+        GROUP BY
+            p.product_name
+        ORDER BY
+            p.product_name
+        limit
+        #{offset}, #{limit}
+        ]]>
+    </select>
+
+    <select id="count" resultType="_int">
+        select
+        count(*)
+        from tbl_order
+    </select>
+    <select id="findSalesByProduct">
+        SELECT
+        p.product_name AS productName,
+        p.color AS color,
+        FORMAT(COUNT(DISTINCT o.order_code), 0) AS orderAmount,
+        FORMAT(SUM(o.total_price), 0) AS totalPrice,
+        FORMAT(SUM(oc.refund_amount), 0) AS refundAmount,
+        FORMAT(SUM(o.total_price - COALESCE(oc.refund_amount, 0)), 0) AS totalSales
+        FROM
+        tbl_order o
+        LEFT JOIN (
+        SELECT
+        order_code,
+        IFNULL(SUM(refund_amount), 0) AS refund_amount
+        FROM
+        tbl_order_canceled
+        GROUP BY
+        order_code
+        ) oc ON o.order_code = oc.order_code
+        LEFT JOIN
+        tbl_order_product op ON o.order_code = op.order_code
+        LEFT JOIN
+        tbl_product p ON op.product_id = p.product_id
+        GROUP BY
+        productName, color
+        ORDER BY
+        productName, color
+        limit
+        #{offset}, #{limit};
+    </select>
+
+</mapper>

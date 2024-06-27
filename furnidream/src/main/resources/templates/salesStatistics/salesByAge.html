@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles"/>
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">매출 통계</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+          crossorigin="anonymous">
+</head>
+<body>
+<main layout:fragment="main" class="container">
+    <div style="padding-top: 100px">
+        <nav class="nav nav-pills flex-column flex-sm-row">
+            <a class="flex-sm-fill text-sm-center nav-link active " aria-current="page" th:href="@{/salesStatistics/totalSalesList}">연령별 매출 통계</a><!-- ✨active 추가하면 파래짐 -->
+        </nav>
+
+        <table class="table table-hover"> <!--/* 표형식으로 구조화되어 보여준다. */-->
+            <thead class="table-primary">
+            <tr>
+                <th>상품명</th>
+                <th>20 ~ 25세</th>
+                <th>25 ~ 30세</th>
+                <th>30 ~ 35세</th>
+                <th>35 ~ 40세</th>
+                <th>40 ~ 45세</th>
+                <th>총 매출 합계</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="salesStatisticsByAgeDtos : ${salesByAge}">
+                <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
+                <td th:text="${salesStatisticsByAgeDtos.productName}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.earlyToMid20s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.midToLate20s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.earlyToMid30s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.midToLate30s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.earlyToMid40s}"></td>
+                <td th:text="${salesStatisticsByAgeDtos.totalSales}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script th:src="@{/js/script.js}">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+</body>
+</html>

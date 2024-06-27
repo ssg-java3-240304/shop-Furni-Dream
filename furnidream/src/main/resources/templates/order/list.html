@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/default}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>주문 조회</title>
+    <link rel="stylesheet" th:fragment="styles" th:href="@{/css/styles.css}" type="text/css"/>
+    <style>
+        .table tbody tr {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<main layout:fragment="main">
+    <div class="container ms-5 mt-5">
+
+        <h1 class="d-flex justify-content-center">주문 조회</h1><br>
+        <div class="container text-center row">
+            <div class="col">
+                <form class="d-flex justify-content-start" method="GET">
+                    <div class="d-flex flex-row mb-3">
+                        <div class="p-2">
+                            <select name="name" class="form-select" aria-label="Default select example">
+                                <option selected disabled>기능을 선택하세요</option>
+                                <option value="day" th:selected="${param.name ne null && param.name[0] eq 'day'}">일간</option>
+                                <option value="month" th:selected="${param.name ne null && param.name[0] eq 'month'}">월간</option>
+                                <option value="year" th:selected="${param.name ne null && param.name[0] eq 'year'}">연간</option>
+                            </select>
+                        </div>
+                        <div class="p-2">
+                            <label class="w-auto" for="datepicker" th:text="날짜"></label>
+                        </div>
+                        <div class="p-2">
+                            <input class="form-control d-flex justify-content-start" id="datepicker" name="value" th:value="${param.value}" type="text">
+                        </div>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                        <div class="p-2">
+<!--                            <form action="/order/list" method="GET">-->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="이름으로 검색" aria-label="Recipient's username" aria-describedby="button-addon2">
+
+                                    <button class="btn btn-primary" type="submit" id="button-addon2">Button</button>
+                                </div>
+<!--                            </form>-->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">#</th>
+                <th scope="col">주문번호</th>
+                <th scope="col">주문자</th>
+                <th scope="col">배송지</th>
+                <th scope="col">전화번호</th>
+                <th scope="col">주문시각</th>
+                <th scope="col">총 결제금액</th>
+            </tr>
+            </thead>
+            <tbody th:each="order, stat : ${orders}" th:object="${order}">
+            <!--/*            <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">*/-->
+            <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">
+                <th scope="row" th:text="${stat.index+1}"></th>
+                <td><a th:text="*{orderCode}"></a></td>
+                <td><a th:text="*{customerDto.name}"></a></td>
+                <td><a th:text="*{shippingAddress}"></a></td>
+                <td><a th:text="*{phone}"></a></td>
+                <td><a th:text="*{createdAt}"></a></td>
+                <td><a th:text="*{totalPrice}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script layout:fragment="script">
+    $(document).ready(function () {
+        $('#datepicker').datepicker({
+            format: 'mm/dd/yyyy',
+            todayHighlight: true,
+            autoclose: true
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const $rows = document.querySelectorAll('table tbody tr');
+        $rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                console.log(row.getAttribute('tbl_href'));
+                window.location.href = row.getAttribute('tbl_href');
+            });
+        });
+    });
+</script>
+</body>
+</html>

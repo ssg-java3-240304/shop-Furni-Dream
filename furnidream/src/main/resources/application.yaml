@@ -2,7 +2,7 @@ spring:
   application:
     name: furnidream
   datasource:
-    url: jdbc:mysql://ssg-java3.iptime.org:3306
+    url: jdbc:mysql://ssg-java3.iptime.org:3306/furnidb
     username: furni
     password: furni
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,11 +13,17 @@ spring:
       minimum-idle: 5
       idle-timeout: 30000
       auto-commit: false
-
+  servlet:
+    multipart:
+      max-request-size: 50MB
+      max-file-size: 10MB
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 logging:
   level:
     root: info
-    com.sh: debug
+    com.furnycrew: debug
 
 mybatis:
   configuration:
@@ -28,3 +34,10 @@ mybatis:
 server:
   servlet:
     context-path: /app
+
+ftp:
+  server:
+    host: ssg-java3.iptime.org
+    port: 21
+    username: furni
+    password: furni

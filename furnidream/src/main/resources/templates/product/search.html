@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">검색</title>
+    <title>검색</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles"/>
+    <style>
+        .table tbody tr {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<main layout:fragment="main" class="container">
+    <h2 class="m-3">검색 결과</h2>
+
+    <table class="table table-hover" >
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">상품코드</th>
+            <th scope="col">상품명</th>
+            <th scope="col">카테고리</th>
+            <th scope="col">판매가</th>
+            <th scope="col">재고</th>
+            <th scope="col">상품상태</th>
+            <th scope="col">옵션(color/size)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product, stat : ${products}" th:object="${product}" th:tbl_href="@{|/product/detail/*{productId}|}">
+            <td><a th:text="*{productCode}"></a></td>
+            <td><a th:text="*{productName}"></a></td>
+            <td><a th:text="*{category}"></a></td>
+            <td><a th:text="*{#numbers.formatInteger(retailPrice, 3, 'COMMA')}"></a></td>
+            <td><a th:text="*{stock}"></a></td>
+            <td><a th:text="*{productStatus}"></a></td>
+            <td>
+                <span><a th:text="*{color}"></a></span>
+                <span><a th:text="*{size}"></a></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <button onclick="window.location.href='/product/register'" class="btn btn-primary">상품 등록</button>
+</main>
+    <script layout:fragment="script">
+        document.addEventListener('DOMContentLoaded', function() {
+            const $rows = document.querySelectorAll('table tbody tr');
+            $rows.forEach(function(row) {
+                row.addEventListener('click', function() {
+                    console.log(row.getAttribute('tbl_href'));
+                    window.location.href = row.getAttribute('tbl_href');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

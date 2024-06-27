@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<head>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+    <title>1:1문의 상세</title>
+</head>
+<body >
+    <main layout:fragment="main">
+        <div class="container mt-5">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 th:text="${inquiry.title}">Inquiry Title</h5>
+                        <p class="text-muted mb-0" th:text="${inquiry.name}"></p>
+                        <small class="text-muted" th:text="${inquiry.createdAt}">Created At</small>
+                        <span class="badge " th:classappend="${inquiry.status == 'Pending'} ? 'text-bg-warning' : 'text-bg-success' " th:text="${inquiry.status}">Status</span>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" th:text="${inquiry.content}">Inquiry Content</p>
+                </div>
+            </div>
+
+            <div th:if="${inquiry.response}">
+                <h3 class="mb-3">관리자 답변</h3>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <p class="card-text" th:text="${inquiry.response}">Administrator's response will be shown here</p>
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${inquiry.response == null || inquiry.response.isEmpty()}">
+                <h3 class="mb-3">아래에 답글을 작성하세요</h3>
+                <form name="iqResponsefrm" th:action="@{/inquiry/addResponse}" method="post">
+                    <div class="form-group">
+                        <label for="response">답글</label>
+                        <textarea class="form-control" id="response" name="value" rows="5"></textarea>
+                        <input type="hidden" name="id" id="inquiry_id" th:value="${inquiry.inquiryId}"/>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary mt-3">답변 등록</button>
+                        <a href="/app/inquiry/list" class="btn btn-primary ml-3 mt-3">목록으로</a>
+                    </div>
+                </form>
+            </div>
+            <div th:unless="${inquiry.response == null || inquiry.response.isEmpty()}">
+                <a href="/app/inquiry/list" class="btn btn-primary ml-3 mt-3">목록으로</a>
+            </div>
+        </div>
+    </main>
+
+<script layout:fragment="script">
+    document.iqResponsefrm.addEventListener("submit", (e) => {
+        const $response = e.target.response;
+        if ($response.value === "") {
+            alert("답변을 비워둘 수 없습니다.");
+            e.preventDefault(); // 폼제출 방지
+        }
+    });
+</script>
+</body>
+</html>
