@@ -12,7 +12,7 @@
             tbl_customer_inquiry ci
         <where>
             <if test="searchCriteria.name == 'status'">
-                status = #{value}
+                status = #{searchCriteria.value}
             </if>
         </where>
         limit

@@ -30,19 +30,21 @@ public class OrderController {
     }
 
     @GetMapping("/list")
-    public void list(@RequestParam(defaultValue = "") String viewType,
+    public void list(@ModelAttribute SearchCriteria searchCriteria,
                      @RequestParam(defaultValue = "1") int page,
                      @RequestParam(defaultValue = "10") int limit,
                      Model model){
         log.info("GET /menu/list?page={}&limit={}", page, limit);
-        SearchCriteria searchCriteria = new SearchCriteria();
-        searchCriteria.setName(viewType);
+        log.debug("searCriteria = {}", searchCriteria);
+//        SearchCriteria searchCriteria = new SearchCriteria();
+//        searchCriteria.setName(viewType);
+
         // 1. 컨텐츠 영역 (limit쿼리)
         int offset = (page - 1) * limit; // 1페이지 - 0, 2페이지 - 10, 3페이지 - 20, ...
         List<OrderDto> orders = orderQueryService.findOrdersByDateTime(searchCriteria, offset, limit);
         log.debug("orders = {}", orders);
         model.addAttribute("orders", orders);
-
+        log.debug("searCriteria = {}", searchCriteria);
         // 2. 페이지바 영역 (html)
         int totalCount = orderQueryService.countOrderByDateTime(searchCriteria); // 전체 주문가능한 메뉴수
         log.debug("totalCount = {}", totalCount);

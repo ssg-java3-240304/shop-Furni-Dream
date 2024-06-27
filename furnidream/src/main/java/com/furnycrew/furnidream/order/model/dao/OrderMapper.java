@@ -23,4 +23,6 @@ public interface OrderMapper {
     int cancelOrder(UpdateCriteria updateCriteria);
 
     int createCancelOrder(UpdateCriteria tmpCriteria);
+
+    int updateTrackingNum(UpdateCriteria updateCriteria);
 }
