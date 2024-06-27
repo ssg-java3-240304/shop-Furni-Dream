@@ -6,16 +6,10 @@
 </head>
 <body>
     <h1>업로드 결과</h1>
-    <h2 th:text="${message}"></h2>
 
-    <!-- 파일 1개 업로드-->
-    <img th:if="${img != null}" th:src="${img}" width="640px" alt="">
-
-    <!-- 파일 n개 업로드 -->
-    <div th:if="${imgs != null}">
-        <div th:each="img : ${imgs}">
-            <img th:src="|@{/upload/multi/}${img.savedFilename}|" width="320px">
-        </div>
-    </div>
+    <form th:action="@{/upload}" method="post" enctype="multipart/form-data" >
+        <input type="file" name="upFile" multiple>
+        <input type="submit">
+    </form>
 </body>
 </html>

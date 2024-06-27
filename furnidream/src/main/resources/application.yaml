@@ -34,3 +34,10 @@ mybatis:
 server:
   servlet:
     context-path: /app
+
+ftp:
+  server:
+    host: ssg-java3.iptime.org
+    port: 21
+    username: furni
+    password: furni

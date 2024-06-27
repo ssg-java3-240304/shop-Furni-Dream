@@ -23,7 +23,7 @@
                      style="max-width: 100%; height: auto;"
                      th:if="${product.productImage == null}"
                 />
-                <img th:src="@{|/upload/single/${product.productImage.savedFilename}|}" alt="상품이미지"
+                <img th:src="@{|http://ssg-java3.iptime.org/furni/${product.productImage}|}" alt="상품이미지"
                      style="max-width: 100%; height: auto;"
                      th:if="${product.productImage != null}"
                 />
