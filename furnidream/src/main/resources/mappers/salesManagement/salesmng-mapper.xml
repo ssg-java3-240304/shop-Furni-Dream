@@ -132,34 +132,36 @@
         from tbl_order
     </select>
     <select id="findSalesByProduct">
+        <![CDATA[
         SELECT
         p.product_name AS productName,
         p.color AS color,
-        FORMAT(COUNT(DISTINCT o.order_code), 0) AS orderAmount,
-        FORMAT(SUM(o.total_price), 0) AS totalPrice,
-        FORMAT(SUM(oc.refund_amount), 0) AS refundAmount,
-        FORMAT(SUM(o.total_price - COALESCE(oc.refund_amount, 0)), 0) AS totalSales
+        COUNT(DISTINCT o.order_code) AS orderAmount,
+        SUM(o.total_price) AS totalPrice,
+        SUM(oc.refund_amount) AS refundAmount,
+        SUM(o.total_price - IFNULL(oc.refund_amount, 0)) AS totalSales
         FROM
-        tbl_order o
-        LEFT JOIN (
-        SELECT
-        order_code,
-        IFNULL(SUM(refund_amount), 0) AS refund_amount
-        FROM
-        tbl_order_canceled
-        GROUP BY
-        order_code
-        ) oc ON o.order_code = oc.order_code
-        LEFT JOIN
-        tbl_order_product op ON o.order_code = op.order_code
-        LEFT JOIN
-        tbl_product p ON op.product_id = p.product_id
-        GROUP BY
-        productName, color
-        ORDER BY
-        productName, color
-        limit
-        #{offset}, #{limit};
+            tbl_order o LEFT JOIN (
+                        SELECT
+                            order_code,
+                            IFNULL(SUM(refund_amount), 0) AS refund_amount
+                        FROM
+                            tbl_order_canceled
+                        GROUP BY
+                            order_code
+                                )
+                            oc ON o.order_code = oc.order_code
+                        LEFT JOIN
+                            tbl_order_product op ON o.order_code = op.order_code
+                        LEFT JOIN
+                            tbl_product p ON op.product_id = p.product_id
+                        GROUP BY
+                            productName, color
+                        ORDER BY
+                            productName, color
+                        limit
+                            #{offset}, #{limit};
+                            ]]>
     </select>
 
 </mapper>
