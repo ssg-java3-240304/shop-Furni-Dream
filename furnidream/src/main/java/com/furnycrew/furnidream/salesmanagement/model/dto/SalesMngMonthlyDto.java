@@ -13,8 +13,8 @@ import java.time.YearMonth;
 @AllArgsConstructor
 public class SalesMngMonthlyDto{
     private YearMonth monthly;
-    private String orderAmount;
-    private String totalPrice;
-    private String refundAmount;
-    private String totalSales;
+    private int orderAmount;
+    private int totalPrice;
+    private int refundAmount;
+    private int totalSales;
 }

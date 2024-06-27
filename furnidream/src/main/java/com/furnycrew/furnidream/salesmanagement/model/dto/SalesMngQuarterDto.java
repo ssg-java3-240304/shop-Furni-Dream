@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 public class SalesMngQuarterDto {
     private String dateQuarter;
-    private String orderAmount;
-    private String totalPrice;
-    private String refundAmount;
-    private String totalSales;
+    private int orderAmount;
+    private int totalPrice;
+    private int refundAmount;
+    private int totalSales;
 }
