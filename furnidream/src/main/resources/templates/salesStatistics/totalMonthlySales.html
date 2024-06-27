@@ -43,84 +43,12 @@
                 datasets: [{
                     label: '월별 매출 통계',
                     data:
-                        // salesData.values(),
-                    [14201300,
-                        170505900,
-                        184040400,
-                        199121600,
-                        180014200
-                    ,217547900,
-                        157514600,
-                        168016700,
-                        158573300,
-                        148134600,
-                        152979800,
-                        156257300,
-                        177143800,
-                        208241900,
-                        168110600,
-                        165476300,
-                        175930400,
-                        160236000,
-                        191965400,
-                        198845300,
-                        133422000,
-                        181068600,
-                        179527100,
-                        171232500,
-                        139663700,
-                        166456100,
-                        149050600,
-                        177465100,
-                        168459400,
-                        173755000,
-                        189433000,
-                        228757600,
-                        151872400,
-                        139221200,
-                        179393800,
-                        179262300,
-                        172461400,
-                        199491400,
-                        194488700,
-                        155237100,
-                        154152500,
-                        177355400,
-                        179803000,
-                        175971000,
-                        184485200,
-                        176375300,
-                        212648900,
-                        148189100, 197883400,
-                        184815800,
-                        178584200,
-                        181137000,
-                        203804500,
-                        178682700,
-                        192141700,
-                        189121300,
-                        147675500,
-                        146215900,
-                        158126100,
-                        186258000,
-                        200659500,
-                        177879100,
-                        185151000,
-                        215665200,
-                        173180100,
-                        135721400,
-                        204376900,
-                        147229600,
-                        175273000,
-                        199113300,
-                        177003600,
-                        196839100,
-                        127750800
-                    ],
-                    borderWidth: 1
+                        salesData,
+                        borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true
@@ -142,9 +70,7 @@
                 통계</a>
         </nav>
 
-        <!--    <button th:href="@{/salesStatistics/totalSalesList}"><h3>일자별 매출 내역</h3></button>-->
-        <!--    <button><h3 th:href="@{/salesStatistics/totalMonthlySales}">월별 매출 내역</h3></button>-->
-        <!--    <button th:href="@{/salesStatistics/totalSalesList}"><h3>분기별 매출 내역</h3></button>-->
+
         <table class="table table-hover"> <!--/* 표형식으로 구조화되어 보여준다. */-->
             <thead class="table-primary">
             <tr>
@@ -160,9 +86,9 @@
                 <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
                 <td th:text="${salesMngMonthlyDto.monthly}"></td>
                 <td th:text="${salesMngMonthlyDto.orderAmount}"></td>
-                <td th:text="${salesMngMonthlyDto.totalPrice}"></td>
-                <td th:text="${salesMngMonthlyDto.refundAmount}"></td>
-                <td th:text="${salesMngMonthlyDto.totalSales}"></td>
+                <td th:text="${#numbers.formatInteger(salesMngMonthlyDto.totalPrice, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(salesMngMonthlyDto.refundAmount, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(salesMngMonthlyDto.totalSales, 0, 'COMMA')}"></td>
             </tr>
             </tbody>
         </table>
