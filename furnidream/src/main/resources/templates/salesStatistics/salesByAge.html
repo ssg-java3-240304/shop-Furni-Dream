@@ -164,12 +164,12 @@
             <tr th:each="salesStatisticsByAgeDtos : ${salesByAge}">
                 <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
                 <td th:text="${salesStatisticsByAgeDtos.productName}"></td>
-                <td th:text="${salesStatisticsByAgeDtos.earlyToMid20s}"></td>
-                <td th:text="${salesStatisticsByAgeDtos.midToLate20s}"></td>
-                <td th:text="${salesStatisticsByAgeDtos.earlyToMid30s}"></td>
-                <td th:text="${salesStatisticsByAgeDtos.midToLate30s}"></td>
-                <td th:text="${salesStatisticsByAgeDtos.earlyToMid40s}"></td>
-                <td th:text="${salesStatisticsByAgeDtos.totalSales}"></td>
+                <td th:text="${#numbers.formatInteger(earlyToMid20s, 0, 'COMMA') }"></td>
+                <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.midToLate20s, 0 , 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.earlyToMid30s, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.midToLate30s, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.earlyToMid40s, 0, 'COMMA')}"></td>
+                <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.totalSales, 0, 'COMMA')}"></td>
             </tr>
             </tbody>
         </table>
