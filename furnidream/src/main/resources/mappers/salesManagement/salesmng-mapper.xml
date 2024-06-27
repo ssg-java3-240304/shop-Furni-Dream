@@ -103,6 +103,29 @@
         ]]>
     </select>
 
+    <select id="findSalesByAgeGroupAndTotalSales" resultType="com.furnycrew.furnidream.salesmanagement.model.dto.SalesStatisticsByAgeDto">
+        <![CDATA[
+    SELECT
+        p.product_name as productName,
+        SUM(CASE WHEN c.age >= 20 AND c.age < 25 THEN o.total_price ELSE 0 END) AS earlyToMid20s,
+        SUM(CASE WHEN c.age >= 25 AND c.age < 30 THEN o.total_price ELSE 0 END) AS midToLate20s,
+        SUM(CASE WHEN c.age >= 30 AND c.age < 35 THEN o.total_price ELSE 0 END) AS earlyToMid30s,
+        SUM(CASE WHEN c.age >= 35 AND c.age < 40 THEN o.total_price ELSE 0 END) AS midToLate30s,
+        SUM(CASE WHEN c.age >= 40 AND c.age < 45 THEN o.total_price ELSE 0 END) AS earlyToMid40s,
+        SUM(o.total_price) AS totalSales
+    FROM
+        tbl_order o
+        LEFT JOIN tbl_customer c ON o.customer_id = c.customer_id
+        RIGHT JOIN tbl_order_product op ON o.order_code = op.order_code
+        LEFT JOIN tbl_product p ON op.product_id = p.product_id
+    GROUP BY
+        p.product_name
+    ORDER BY
+        totalSales DESC
+    LIMIT 7
+    ]]>
+    </select>
+
     <select id="count" resultType="_int">
         select
         count(*)

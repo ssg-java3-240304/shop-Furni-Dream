@@ -35,6 +35,10 @@ public class SalesMngService {
         return salesMngMapper.findSalesByAgeGroup(offset, limit);
     }
 
+    public  List<SalesStatisticsByAgeDto> findSalesByAgeGroupAndTotalSales(){
+        return salesMngMapper.findSalesByAgeGroupAndTotalSales();
+    }
+
     public List<SalesStatisticsByProductDto> findSalesByProduct(int offset, int limit) {
         return salesMngMapper.findSalesByProduct(offset, limit);
     }
