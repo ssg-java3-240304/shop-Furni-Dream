@@ -73,7 +73,7 @@ public class OrderController {
         if (result == -1) {
             redirectAttributes.addFlashAttribute("message", "주문상태 변경에 실패했습니다");
         }else{
-            redirectAttributes.addFlashAttribute("message", "성공적으로 주문상태를"+ OrderStatus.CANCELLED +"(으)로 변경했습니다");
+            redirectAttributes.addFlashAttribute("message", "성공적으로 주문상태를"+ OrderStatus.of(value) +"(으)로 변경했습니다");
         }
         return "redirect:/order/detail/"+updateCriteria.getId();
     }
@@ -82,7 +82,6 @@ public class OrderController {
     public String cancelOrder(@ModelAttribute UpdateCriteria updateCriteria, RedirectAttributes redirectAttributes){
         log.debug("Post cancelOrder/{}", updateCriteria);
         log.info("Post /cancelOrder");
-        int value = Integer.valueOf((String)updateCriteria.getValue());
         int result = orderCommandService.cancelOrder(updateCriteria);
         if (result == -1) {
             redirectAttributes.addFlashAttribute("message", "주문상태 변경에 실패했습니다");

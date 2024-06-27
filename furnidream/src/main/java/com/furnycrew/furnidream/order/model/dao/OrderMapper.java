@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
     List<OrderDto> findOrdersByDateTime(@Param("searchCriteria")SearchCriteria searchCriteria, @Param("offset") int offset, @Param("limit") int limit);
+
     int countOrderByDateTime(SearchCriteria searchCriteria);
 
     OrderDto getOrderDetail(SearchCriteria searchCriteria);

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
+<html lang="en" layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>주문 조회</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+    <link rel="stylesheet" th:fragment="styles" th:href="@{/css/styles.css}" type="text/css"/>
     <style>
         .table tbody tr {
             cursor: pointer;
@@ -15,23 +15,23 @@
 <body>
 
 <main layout:fragment="main">
-<div class="container ms-5 mt-5">
-    <h1>주문 조회</h1><br>
+    <div class="container ms-5 mt-5">
+        <h1>주문 조회</h1><br>
         <div class="container text-center row">
             <div class="col">
                 <form class="d-flex justify-content-start">
                     <div class="form-group d-flex justify-content-start align-items-center">
-                        <label for="datepicker" class="w-50" th:text="날짜"></label>
-                        <input type="text" class="form-control ms-3" id="datepicker" name="date">
+                        <label class="w-50" for="datepicker" th:text="날짜"></label>
+                        <input class="form-control ms-3" id="datepicker" name="date" type="text">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
         </div>
 
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" id="viewType">기본</a>
+                <a aria-current="page" class="nav-link active" href="#" id="viewType">기본</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/order/list?viewType=daily">일간</a>
@@ -56,7 +56,7 @@
             </tr>
             </thead>
             <tbody th:each="order, stat : ${orders}" th:object="${order}">
-<!--/*            <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">*/-->
+            <!--/*            <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">*/-->
             <tr th:tbl_href="@{|/order/detail/*{orderCode}|}">
                 <th scope="row" th:text="${stat.index+1}"></th>
                 <td><a th:text="*{orderCode}"></a></td>
@@ -80,10 +80,10 @@
         });
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const $rows = document.querySelectorAll('table tbody tr');
-        $rows.forEach(function(row) {
-            row.addEventListener('click', function() {
+        $rows.forEach(function (row) {
+            row.addEventListener('click', function () {
                 console.log(row.getAttribute('tbl_href'));
                 window.location.href = row.getAttribute('tbl_href');
             });

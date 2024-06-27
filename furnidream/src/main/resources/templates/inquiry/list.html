@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+
+<head>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+    <title>1:1문의</title>
+    <style>
+        .table tbody tr {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body >
+<main layout:fragment="main">
+    <div class="container ms-5 mt-5">
+        <h1>1:1 문의</h1><br>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a aria-current="page" class="nav-link active" href="#" id="viewType">기본</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/inquiry/list?viewType=Pending">대기중</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/inquiry/list/?viewType=Completed">완료</a>
+            </li>
+        </ul>
+        <table class="table table-hover">
+            <thead>
+            <tr class="table-primary">
+                <th scope="col">#</th>
+                <th scope="col">주문자 이름</th>
+                <th scope="col">제목</th>
+                <th scope="col">작성시각</th>
+                <th scope="col">상태</th>
+            </tr>
+            </thead>
+            <tbody th:each="inquiry, stat : ${inquiries}" th:object="${inquiry}">
+            <tr th:tbl_href="@{|/inquiry/detail/*{inquiryId}|}">
+                <th scope="row" th:text="${stat.index+1}"></th>
+                <td><a th:text="*{name}"></a></td>
+                <td><a th:text="*{title}"></a></td>
+                <td><a th:text="*{createdAt}"></a></td>
+                <td><a th:text="*{status}"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script layout:fragment="script">
+    document.addEventListener('DOMContentLoaded', function () {
+        const $rows = document.querySelectorAll('table tbody tr');
+        $rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                console.log(row.getAttribute('tbl_href'));
+                window.location.href = row.getAttribute('tbl_href');
+            });
+        });
+    });
+</script>
+</body>
+</html>
