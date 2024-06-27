@@ -12,14 +12,17 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" th:fragment="styles">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-
+    <style>
+        .center {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
 <!--<main layout:fragment="main" style="text-align: center; margin-top: 280px;">-->
 <main layout:fragment="main" class="container">
-    <h1 th:text="${message}"></h1>
-    <h1>Here is FurniDream Admin page!</h1>
+    <h1 th:text="${message}" class="center"></h1>
 
     <div id="layoutSidenav_content">
         <main>
