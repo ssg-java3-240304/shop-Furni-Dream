@@ -49,6 +49,10 @@ public class OrderController {
         int totalCount = orderQueryService.countOrderByDateTime(searchCriteria); // 전체 주문가능한 메뉴수
         log.debug("totalCount = {}", totalCount);
         String url = "list"; // 간단히 상대경로 사용
+        if(searchCriteria.getName() != null && searchCriteria.getValue() != null) {
+            // 검색어가 있는 경우
+            url += "?name=" + searchCriteria.getName() + "&value=" + searchCriteria.getValue();
+        }
         model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
     }
 
