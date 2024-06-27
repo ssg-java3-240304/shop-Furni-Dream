@@ -20,7 +20,7 @@
                         <div class="sb-sidenav-menu-heading">Store</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStore" aria-expanded="false" aria-controls="collapseStore">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            상점관리
+                            상점 관리
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseStore" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -35,7 +35,7 @@
                         <div class="sb-sidenav-menu-heading">Product</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProduct" aria-expanded="false" aria-controls="collapseProduct">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            상품관리
+                            상품 관리
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -49,11 +49,12 @@
                         <div class="sb-sidenav-menu-heading">Order</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrder" aria-expanded="false" aria-controls="collapseOrder">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            주문관리
+                            주문 관리
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="/app/statistics/order/status">주문 상태</a>
                                 <a class="nav-link" href="/app/order/list">주문 조회</a>
 <!--                                <a class="nav-link" href="/app">주문 검색</a>-->
                             </nav>
@@ -68,13 +69,12 @@
                         </a>
                         <div class="collapse" id="collapseStatistics" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesList}">기간별 매출</a>
+                                <a class="nav-link" href="/app/statistics/order/sales">연도별 매출</a>
+                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesByProduct}">상품별 매출</a>
+                                <a class="nav-link" th:href="@{/salesStatistics/salesByAge}">연령별 매출</a>
                                 <a class="nav-link" href="/app/statistics/order/count-ranking/all">주문량 순위</a>
                                 <a class="nav-link" href="/app/statistics/order/net-profit-ranking/all">순수익 순위</a>
-                                <a class="nav-link" href="/app/statistics/order/sales">연도별 매출</a>
-                                <a class="nav-link" href="/app/statistics/order/status">주문 상태</a>
-                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesList}">기간별 매출</a>
-                                <a class="nav-link" th:href="@{/salesStatistics/salesByAge}">연령별 매출</a>
-                                <a class="nav-link" th:href="@{/salesStatistics/totalSalesByProduct}">상품별 매출</a>
                             </nav>
                         </div>
 
