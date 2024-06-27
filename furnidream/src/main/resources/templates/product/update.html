@@ -115,21 +115,17 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2" for="productImage">상품 이미지</label>
+            <label class="col-sm-2" for="productImage">이미지</label>
             <div class="col-sm-3">
-<!--                <input type="file" id="productImage" name="productImage" style="max-width: 100%; height: auto;">-->
-                <img th:unless="${productDto.productImage}" th:src="${productDto.productImage}" alt="" style="max-width: 100%; height: auto;">
+                <input type="file" name="upFile" id="productImage" multiple>
             </div>
         </div>
 
-        <button onclick="window.location.href='/product/update'" class="btn btn-primary">수정</button>
+        <div class="form-group row">
+            <button onclick="window.location.href='/product/update'" class="btn btn-primary">수정</button>
+        </div>
     </form>
     <br>
-<!--    <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">-->
-<!--        파일 : <input type="file" name="productImage" id="productImage"><br>-->
-<!--        파일 설명 : <input type="text" name="singleFileDescription"><br>-->
-<!--        <input type="submit">-->
-<!--    </form>-->
 </main>
 
 <script th:src="@{/js/script.js}"></script>

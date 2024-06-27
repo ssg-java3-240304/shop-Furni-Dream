@@ -1,5 +1,7 @@
 package com.furnycrew.furnidream.product.controller;
 
+import com.furnycrew.furnidream.common.file.FileDto;
+import com.furnycrew.furnidream.common.file.FileUploadService;
 import com.furnycrew.furnidream.common.paging.PageCriteria;
 import com.furnycrew.furnidream.common.search.SearchCriteria;
 import com.furnycrew.furnidream.product.model.dto.ProductDto;
@@ -12,8 +14,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -23,6 +27,7 @@ import java.util.List;
 public class ProductController {
     private final ProductQueryService productQueryService;
     private final ProductCommandService productCommandService;
+    private final FileUploadService fileUploadService;
 
     @GetMapping("/list")
     public void list(
@@ -50,9 +55,18 @@ public class ProductController {
     }
 
     @PostMapping("/regist")
-    public String regist(@ModelAttribute ProductRegistDto productRegistDto, RedirectAttributes redirectAttributes){
+    public String regist(
+            @ModelAttribute ProductRegistDto productRegistDto,
+            MultipartFile upFile,
+            RedirectAttributes redirectAttributes) throws IOException {
         log.info("POST /product/regist");
+        log.debug("POST productRegistDto = {}", productRegistDto);
+        // 1.파일 업로드
+        FileDto fileDto = fileUploadService.upload("product/", upFile);
+        log.debug("fileDto = {}", fileDto);
+        // 2. DB저장
         ProductDto productDto = productRegistDto.toProductDto();
+        productDto.setProductImage(fileDto.getRenamedFilename());
         int result = productCommandService.insertProduct(productDto);
         redirectAttributes.addFlashAttribute("message", "✅상품이 성공적으로 등록되었습니다");
         return "redirect:/product/list";
@@ -81,9 +95,14 @@ public class ProductController {
     @GetMapping("/detail/{productId}")
     public String detail(Model model, @PathVariable("productId") Long productId){
         log.info("GET /product/detail/{}", productId);
-        ProductDto product = productQueryService.findByProductId(productId);
-        model.addAttribute("product", product);
-        return "product/detail";
+        try {
+            ProductDto product = productQueryService.findByProductId(productId);
+            model.addAttribute("product", product);
+            return "product/detail";
+        } catch (Exception e) {
+            log.error("Error fetching product details", e);
+            return "error";
+        }
     }
 
     @GetMapping("/search")

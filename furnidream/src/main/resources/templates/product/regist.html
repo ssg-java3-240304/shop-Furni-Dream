@@ -23,7 +23,7 @@
             margin-bottom: 10px;
         }
     </style>
-    <form name="productRegistFrm" class="container" th:action="@{/product/regist}" method="post">
+    <form name="productRegistFrm" class="container" th:action="@{/product/regist}" method="post" enctype="multipart/form-data">
 
         <div class="form-group row">
             <label class="col-sm-2" for="productName">* 상품명</label>
@@ -103,17 +103,17 @@
                 <textarea name="description" id="description" cols="40" rows="10"></textarea>
             </div>
         </div>
-    </form>
-
-        <label class="col-sm-2" for="productImage">이미지</label>
-        <div class="col-sm-3">
-            <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
-                파일 : <input type="file" name="singleFile" id="productImage"><br>
-                파일 설명 : <input type="text" name="singleFileDescription"><br>
-                <button type="submit" class="btn btn-primary">등록</button>
-            </form>
+        <div class="form-group row">
+            <label class="col-sm-2" for="productImage">이미지</label>
+            <div class="col-sm-3">
+                <input type="file" name="upFile" id="productImage" multiple>
+            </div>
+        </div>
+        <div class="form-group row">
+            <button type="submit" class="btn btn-primary">등록</button>
         </div>
 
+    </form>
 
 </main>
 
