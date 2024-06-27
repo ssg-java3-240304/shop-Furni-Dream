@@ -23,55 +23,6 @@
 
     <script th:inline="javascript">
 
-        // var salesDailyDtos = [[${salesByAge}]];
-        //
-        // // 데이터 변환을 통해 Chart.js의 데이터 형식에 맞게 준비-->
-        // var labels = salesDailyDtos.map(function (item) {
-        //     return item.productName; // 월 정보 필드를 사용했다고 가정-->
-        // });
-        //
-        // var salesData1 = salesDailyDtos.map(function (item) {
-        //     return item.earlyToMid20s; // 월별 매출 필드를 사용했다고 가정-->
-        // });
-        // var salesData2 = salesDailyDtos.map(function (item) {
-        //     return item.midToLate20s; // 월별 매출 필드를 사용했다고 가정-->
-        // });
-        // var salesData3 = salesDailyDtos.map(function (item) {
-        //     return item.earlyToMid30s; // 월별 매출 필드를 사용했다고 가정-->
-        // });
-        // var salesData4 = salesDailyDtos.map(function (item) {
-        //     return item.midToLate30s; // 월별 매출 필드를 사용했다고 가정-->
-        // });
-        //
-        // const ctx = document.getElementById('myChart').getContext('2d');
-        //
-        // const myChart = new Chart(ctx, {
-        //     type: 'bar',
-        //     data: {
-        //         labels: labels,
-        //         datasets: [{
-        //             label: '일별 매출 통계',
-        //             data:
-        //             salesData1,
-        //             salesData2,
-        //             salesData3,
-        //             salesData4,
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //         responsive: true,
-        //         // maintainAspectRatio: false,
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
-
-
-        /*<![CDATA[*/
         var salesDailyDtos = /*[[${salesByAge}]]*/ [];
 
         var labels = salesDailyDtos.map(function (item) {
@@ -104,29 +55,29 @@
                     {
                         label: '20 ~ 25세',
                         data: salesData1,
-                        backgroundColor: 'rgb(255,94,124)',
-                        borderColor: 'rgb(255,94,124)',
+                        backgroundColor: 'rgba(255,120,144,0.88)',
+                        borderColor: 'rgba(255,120,144,0.88)',
                         borderWidth: 1
                     },
                     {
                         label: '25 ~ 30세',
                         data: salesData2,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        backgroundColor: 'rgb(97,190,255)',
+                        borderColor: 'rgb(97,190,255)',
                         borderWidth: 1
                     },
                     {
                         label: '30 ~ 35세',
                         data: salesData3,
-                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                        borderColor: 'rgba(255, 206, 86, 1)',
+                        backgroundColor: 'rgb(255,215,105)',
+                        borderColor: 'rgb(255,215,105)',
                         borderWidth: 1
                     },
                     {
                         label: '35 ~ 40세',
                         data: salesData4,
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(84,187,76,0.71)',
+                        borderColor: 'rgba(84,187,76,0.71)',
                         borderWidth: 1
                     }
                 ]
@@ -140,7 +91,7 @@
                 }
             }
         });
-        /*]]>*/
+
     </script>
 
     <div style="padding-top: 20px">
@@ -164,7 +115,7 @@
             <tr th:each="salesStatisticsByAgeDtos : ${salesByAge}">
                 <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
                 <td th:text="${salesStatisticsByAgeDtos.productName}"></td>
-                <td th:text="${#numbers.formatInteger(earlyToMid20s, 0, 'COMMA') }"></td>
+                <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.earlyToMid20s, 0, 'COMMA') }"></td>
                 <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.midToLate20s, 0 , 'COMMA')}"></td>
                 <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.earlyToMid30s, 0, 'COMMA')}"></td>
                 <td th:text="${#numbers.formatInteger(salesStatisticsByAgeDtos.midToLate30s, 0, 'COMMA')}"></td>
