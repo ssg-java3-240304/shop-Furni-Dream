@@ -25,16 +25,16 @@
                         <div class="p-2">
                             <select name="name" class="form-select" aria-label="Default select example">
                                 <option selected disabled>기능을 선택하세요</option>
-                                <option value="day">일간</option>
-                                <option value="month">월간</option>
-                                <option value="year">연간</option>
+                                <option value="day" th:selected="${param.name ne null && param.name[0] eq 'day'}">일간</option>
+                                <option value="month" th:selected="${param.name ne null && param.name[0] eq 'month'}">월간</option>
+                                <option value="year" th:selected="${param.name ne null && param.name[0] eq 'year'}">연간</option>
                             </select>
                         </div>
                         <div class="p-2">
                             <label class="w-auto" for="datepicker" th:text="날짜"></label>
                         </div>
                         <div class="p-2">
-                            <input class="form-control d-flex justify-content-start" id="datepicker" name="value" type="text">
+                            <input class="form-control d-flex justify-content-start" id="datepicker" name="value" th:value="${param.value}" type="text">
                         </div>
                         <div class="p-2">
                             <button class="btn btn-primary" type="submit">Submit</button>

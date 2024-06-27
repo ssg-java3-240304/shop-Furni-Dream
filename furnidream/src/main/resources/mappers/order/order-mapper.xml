@@ -33,13 +33,13 @@
         from
             tbl_order
         <where>
-            <if test="#{name} == 'day'">
+            <if test="name == 'day'">
                 date(created_at) = date(str_to_date(#{value}, '%m/%d/%Y'));
             </if>
-            <if test="#{name} == 'month'">
+            <if test="name == 'month'">
                 left(created_at, 7) = left(str_to_date(#{value}, '%m/%d/%Y'), 7);
             </if>
-            <if test="#{name} == 'year'">
+            <if test="name == 'year'">
                 year(created_at) = year(str_to_date(#{value}, '%m/%d/%Y'));
             </if>
         </where>
