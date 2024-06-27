@@ -20,6 +20,8 @@ public interface SalesMngMapper {
     // 상품 당 연령층에 따른 매출 조회
     List<SalesStatisticsByAgeDto> findSalesByAgeGroup(@Param("offset") int offset, @Param("limit") int limit);
 
+    List<SalesStatisticsByAgeDto> findSalesByAgeGroupAndTotalSales();
+
     //  상품 당 매출 조회
     List<SalesStatisticsByProductDto> findSalesByProduct(@Param("offset") int offset, @Param("limit") int limit);
 
