@@ -4,51 +4,58 @@
       layout:decorate="~{layout/default}">
 
 <head>
-    <title>상품 신규 등록</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
+    <title>상품 수정</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles"/>
 </head>
-<body >
+<body>
 <main layout:fragment="main" class="ms-5 mt-5">
-    <h1>상품 신규 등록</h1><br>
+    <h1>상품 수정</h1><br>
     <style>
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             margin-right: 10px;
         }
+
         .col-sm-2, .col-sm-3 {
             display: inline-block;
             vertical-align: top;
             margin-bottom: 10px;
         }
     </style>
-    <form name="productRegistFrm" class="container" th:action="@{/product/regist}" method="post">
+    <form name="productUpdateFrm" class="container" th:action="@{/product/update}" method="post" enctype="multipart/form-data">
 
         <div class="form-group row">
+            <label class="col-sm-2" for="productId">아이디</label>
+            <div class="col-sm-3">
+                <input type="text" id="productId" name="productId" th:value="${productDto.productId}" required>
+            </div>
             <label class="col-sm-2" for="productName">상품명</label>
             <div class="col-sm-3">
-                <input type="text" id="productName" name="productName" required>
+                <input type="text" id="productName" name="productName" th:value="${productDto.productName}" required>
             </div>
-
             <label class="col-sm-2" for="productStatus">상품상태</label>
             <div class="col-sm-3">
-                <select name="productStatus" id="productStatus" required>
+                <select name="productStatus" id="productStatus" th:value="${productDto.productStatus}" required>
                     <option value="AVAILABLE">AVAILABLE</option>
                     <option value="UNAVAILABLE">UNAVAILABLE</option>
                 </select>
             </div>
         </div>
+        <br>
 
         <div class="form-group row">
             <label class="col-sm-2" for="productCode">상품코드</label>
             <div class="col-sm-3">
-                <input type="text" id="productCode" name="productCode" placeholder="카테고리(영어) + 숫자" required>
+                <input type="text" id="productCode" name="productCode" placeholder="카테고리(영어) + 숫자"
+                       th:value="${productDto.productCode}" required>
             </div>
 
             <label class="col-sm-2" for="category">카테고리</label>
             <div class="col-sm-3">
-                <select name="category" id="category" required>
+                <select name="category" id="category" th:value="${productDto.category}" required>
                     <option value="소파">소파</option>
                     <option value="침대">침대</option>
                     <option value="책상">책상</option>
@@ -62,7 +69,7 @@
         <div class="form-group row">
             <label class="col-sm-2" for="stock">재고</label>
             <div class="col-sm-3">
-                <input type="number" id="stock" name="stock" required>
+                <input type="number" id="stock" name="stock" th:value="${productDto.stock}" required>
             </div>
 
             <div class="col-sm-3">
@@ -76,45 +83,53 @@
         <div class="form-group row">
             <label class="col-sm-2" for="costPrice">원가</label>
             <div class="col-sm-3">
-                <input type="number" id="costPrice" name="costPrice" required>
+                <input type="number" id="costPrice" name="costPrice" th:value="${productDto.costPrice}" required>
             </div>
 
             <label class="col-sm-2" for="retailPrice">판매가</label>
             <div class="col-sm-3">
-                <input type="number" id="retailPrice" name="retailPrice" required>
+                <input type="number" id="retailPrice" name="retailPrice" th:value="${productDto.retailPrice}" required>
             </div>
         </div>
+
+        <br>
 
         <div class="form-group row">
             <label class="col-sm-2" for="discountRate">할인율</label>
             <div class="col-sm-3">
-                <input type="number" id="discountRate" name="discountRate">
+                <input type="number" id="discountRate" name="discountRate" th:value="${productDto.discountRate}">
             </div>
 
             <label class="col-sm-2" for="shippingFee">배송비</label>
             <div class="col-sm-3">
-                <input type="number" id="shippingFee" name="shippingFee">
+                <input type="number" id="shippingFee" name="shippingFee" th:value="${productDto.shippingFee}">
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2" for="description">상세 정보</label>
             <div class="col-sm-3">
-                <textarea name="description" id="description" cols="40" rows="10"></textarea>
+                <textarea name="description" id="description" cols="40" rows="10"
+                          th:text="${productDto.description}"></textarea>
             </div>
         </div>
-    </form>
 
-        <label class="col-sm-2" for="productImage">이미지</label>
-        <div class="col-sm-3">
-            <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">
-                파일 : <input type="file" name="singleFile" id="productImage"><br>
-                파일 설명 : <input type="text" name="singleFileDescription"><br>
-                <button type="submit" class="btn btn-primary">등록</button>
-            </form>
+        <div class="form-group row">
+            <label class="col-sm-2" for="productImage">상품 이미지</label>
+            <div class="col-sm-3">
+<!--                <input type="file" id="productImage" name="productImage" style="max-width: 100%; height: auto;">-->
+                <img th:unless="${productDto.productImage}" th:src="${productDto.productImage}" alt="" style="max-width: 100%; height: auto;">
+            </div>
         </div>
 
-
+        <button onclick="window.location.href='/product/update'" class="btn btn-primary">수정</button>
+    </form>
+    <br>
+<!--    <form th:action="@{/singleFile}" method="post" enctype="multipart/form-data">-->
+<!--        파일 : <input type="file" name="productImage" id="productImage"><br>-->
+<!--        파일 설명 : <input type="text" name="singleFileDescription"><br>-->
+<!--        <input type="submit">-->
+<!--    </form>-->
 </main>
 
 <script th:src="@{/js/script.js}"></script>

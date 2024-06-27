@@ -55,7 +55,7 @@ CREATE TABLE tbl_product (
                          category varchar(20) NOT NULL,
                          cost_price int NOT NULL,
                          retail_price int NOT NULL,
-                         stock int NULL,
+                         stock int NOT NULL,
                          description TEXT NULL,
                          product_code varchar(50) NOT NULL,
                          discount_rate int NULL,

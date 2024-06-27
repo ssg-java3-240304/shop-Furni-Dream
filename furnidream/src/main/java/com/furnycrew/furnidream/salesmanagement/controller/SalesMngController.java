@@ -40,6 +40,41 @@ public class SalesMngController {
 
     }
 
+    @GetMapping("/totalSalesByProduct")
+    public void list5(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "20") int limit,
+            Model model) {
+        log.info("GEt / statistics/totalSalesByProduct?page={}&limit={}", page, limit);
+
+        //1. 컨텐츠 영역 (limit 쿼리)
+        int offset = (page - 1) * limit;
+        List<SalesStatisticsByProductDto> salesStatisticsByProductDtos = salesMngService.findSalesByProduct(offset, limit);
+        model.addAttribute("salesByProduct", salesStatisticsByProductDtos);
+
+        // 2. 페이지 바
+        int totalCount = salesMngService.count();
+        String url = "totalSalesByProduct";
+        model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
+    }
+
+    @GetMapping("/salesByAge")
+    public void list4(@RequestParam(defaultValue = "1") int page,
+                      @RequestParam(defaultValue = "20") int limit,
+                      Model model) {
+        log.info("GEt / statistics/salesByAge??page={}&limit={}", page, limit);
+
+        //1. 컨텐츠
+        int offset = (page - 1) * limit;
+        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngService.findSalesByAgeGroup(offset, limit);
+        model.addAttribute("salesByAge", salesStatisticsByAgeDtos);
+
+        //2. 페이지 바
+        int totalCount = salesMngService.count();
+        String url = "salesByAge";
+        model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
+    }
+
     @GetMapping("/totalMonthlySales")
     public void list2(Model model) {
         log.info("GET /statistics/totalMonthlySales");
@@ -54,19 +89,7 @@ public class SalesMngController {
         model.addAttribute("salesMngQuarterDtoLists", salesMngQuarterDtos);
     }
 
-    @GetMapping("/salesByAge")
-    public void list4(Model model) {
-        log.info("GEt / statistics/salesByAge");
-        List<SalesStatisticsByAgeDto> salesStatisticsByAgeDtos = salesMngService.findSalesByAgeGroup();
-        model.addAttribute("salesByAge", salesStatisticsByAgeDtos);
-    }
 
-    @GetMapping("/totalSalesByProduct")
-    public void list5(Model model) {
-        log.info("GEt / statistics/totalSalesByProduct");
-        List<SalesStatisticsByProductDto> salesStatisticsByProductDtos = salesMngService.findSalesByProduct();
-        model.addAttribute("salesByProduct", salesStatisticsByProductDtos);
-    }
 
 
 }
