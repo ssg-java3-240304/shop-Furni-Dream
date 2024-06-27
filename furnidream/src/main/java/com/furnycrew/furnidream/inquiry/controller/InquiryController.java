@@ -1,12 +1,12 @@
 package com.furnycrew.furnidream.inquiry.controller;
 
+
 import com.furnycrew.furnidream.common.paging.PageCriteria;
 import com.furnycrew.furnidream.common.search.SearchCriteria;
 import com.furnycrew.furnidream.common.search.UpdateCriteria;
 import com.furnycrew.furnidream.inquiry.model.dto.InquiryDto;
 import com.furnycrew.furnidream.inquiry.model.service.InquiryCommandService;
 import com.furnycrew.furnidream.inquiry.model.service.InquiryQueryService;
-import com.furnycrew.furnidream.order.model.dto.OrderDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,18 +28,22 @@ public class InquiryController {
     }
 
     @GetMapping("/list")
-    public void list(@RequestParam(defaultValue = "") String viewType,
+    public String list(@RequestParam(defaultValue = "") String viewType,
                     @RequestParam(defaultValue = "1") int page,
                     @RequestParam(defaultValue = "10") int limit,
                     Model model){
 
         log.info("GET /menu/list?page={}&limit={}", page, limit);
         SearchCriteria searchCriteria = new SearchCriteria();
-        searchCriteria.setName(viewType);
+        if(!viewType.isEmpty()) {
+            searchCriteria.setName("status");
+            searchCriteria.setValue(viewType);
+        }
+        log.debug("Get searchCriteria = {}", searchCriteria);
         // 1. 컨텐츠 영역 (limit쿼리)
         int offset = (page - 1) * limit; // 1페이지 - 0, 2페이지 - 10, 3페이지 - 20, ...
         List<InquiryDto> inquiries = inquiryQueryService.getInquiries(searchCriteria, offset, limit);
-        log.debug("inquirys = {}", inquiries);
+        log.debug("inquiries = {}", inquiries);
         model.addAttribute("inquiries", inquiries);
 
         // 2. 페이지바 영역 (html)
@@ -47,6 +51,7 @@ public class InquiryController {
         log.debug("totalCount = {}", totalCount);
         String url = "list"; // 간단히 상대경로 사용
         model.addAttribute("pageCriteria", new PageCriteria(page, limit, totalCount, url));
+        return "inquiry/list";
     }
 
     @GetMapping("/detail/{inquiryId}")

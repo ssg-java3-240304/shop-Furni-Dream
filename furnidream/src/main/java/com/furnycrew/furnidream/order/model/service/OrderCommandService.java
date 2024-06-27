@@ -1,7 +1,7 @@
 package com.furnycrew.furnidream.order.model.service;
 
+
 import com.furnycrew.furnidream.common.enums.OrderStatus;
-import com.furnycrew.furnidream.common.enums.ProductStatus;
 import com.furnycrew.furnidream.common.search.UpdateCriteria;
 import com.furnycrew.furnidream.order.model.dao.OrderMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Random;
 
 @Slf4j
 @Transactional(
@@ -33,6 +35,17 @@ public class OrderCommandService {
             return -1;
         }else if(1<= value && value < 5){
             updateCriteria.setValue(value+1);
+        }
+        if(value == 2){
+            Random random = new Random();
+            // 13자리 난수 생성
+            long min = 1000000000000L; // lower 설정
+            long max = 9999999999999L; // upper 설정
+            long tracking = min + (long) (random.nextDouble() * (max - min));
+            UpdateCriteria tmpCriteria = new UpdateCriteria();
+            tmpCriteria.setId(updateCriteria.getId());
+            tmpCriteria.setValue(tracking);
+            int res = orderMapper.updateTrackingNum(tmpCriteria);
         }
         int result = orderMapper.updateOrderStatus(updateCriteria);
         log.debug("updateOrderStatus service result = {}", result);

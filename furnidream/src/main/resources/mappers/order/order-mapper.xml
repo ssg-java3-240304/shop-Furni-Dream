@@ -27,6 +27,23 @@
         </collection>
     </resultMap>
 
+    <select id="countOrderByDateTime" resultType="_int">
+        select
+            count(*)
+        from
+            tbl_order
+        <where>
+            <if test="#{name} == 'day'">
+                date(created_at) = date(str_to_date(#{value}, '%m/%d/%Y'));
+            </if>
+            <if test="#{name} == 'month'">
+                left(created_at, 7) = left(str_to_date(#{value}, '%m/%d/%Y'), 7);
+            </if>
+            <if test="#{name} == 'year'">
+                year(created_at) = year(str_to_date(#{value}, '%m/%d/%Y'));
+            </if>
+        </where>
+    </select>
 
     <select id="findAllOrder" resultMap="orderDtoMap">
         select
@@ -45,13 +62,13 @@
                 from tbl_order
                 <where>
                     <if test="searchCriteria.name == 'day'">
-                        date(created_at) = date(#{searchCriteria.value})
+                        date(created_at) = date(str_to_date(#{searchCriteria.value}, '%m/%d/%Y'))
                     </if>
                     <if test="searchCriteria.name == 'month'">
-                        left(created_at, 7) = left(#{searchCriteria.value}, 7)
+                        left(created_at, 7) = left(date(str_to_date(#{searchCriteria.value}, '%m/%d/%Y')), 7)
                     </if>
                     <if test="searchCriteria.name == 'year'">
-                        year(created_at) = year(#{searchCriteria.value})
+                        year(created_at) = year(str_to_date(#{searchCriteria.value}, '%m/%d/%Y'))
                     </if>
                 </where>
                 limit
@@ -60,23 +77,7 @@
                 join tbl_order_product op on o.order_code = op.order_code;
     </select>
 
-    <select id="countOrderByDateTime" resultType="_int">
-        select
-            count(*)
-        from
-            tbl_order
-        <where>
-            <if test="#{name} == 'day'">
-                date(created_at) = date(#{searchCriteria.value})
-            </if>
-            <if test="#{name} == 'month'">
-                left(created_at, 7) = left(#{searchCriteria.value}, 7)
-            </if>
-            <if test="#{name} == 'year'">
-                year(created_at) = year(#{searchCriteria.value})
-            </if>
-        </where>
-    </select>
+
 
     <select id="getOrderDetail" resultMap="orderDtoMap">
         select
@@ -111,5 +112,14 @@
                     from tbl_order
                     where order_code = #{id}))
     </insert>
+
+    <update id="updateTrackingNum">
+        update
+            tbl_order
+        set
+            tracking_number = #{value}
+        where
+            order_code = #{id}
+    </update>
 
 </mapper>

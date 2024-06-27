@@ -1,10 +1,10 @@
 package com.furnycrew.furnidream.order.model.service;
 
+
 import com.furnycrew.furnidream.common.search.SearchCriteria;
 import com.furnycrew.furnidream.order.model.dao.OrderMapper;
 import com.furnycrew.furnidream.order.model.dto.OrderDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,7 @@ public class OrderQueryService {
     };
 
     public int countOrderByDateTime(SearchCriteria searchCriteria) {
+        log.debug("search 값 보기 +++ {}", searchCriteria);
         return orderMapper.countOrderByDateTime(searchCriteria);
     }
 

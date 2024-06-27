@@ -16,33 +16,43 @@
 
 <main layout:fragment="main">
     <div class="container ms-5 mt-5">
-        <h1>주문 조회</h1><br>
+
+        <h1 class="d-flex justify-content-center">주문 조회</h1><br>
         <div class="container text-center row">
             <div class="col">
-                <form class="d-flex justify-content-start">
-                    <div class="form-group d-flex justify-content-start align-items-center">
-                        <label class="w-50" for="datepicker" th:text="날짜"></label>
-                        <input class="form-control ms-3" id="datepicker" name="date" type="text">
+                <form class="d-flex justify-content-start" method="GET">
+                    <div class="d-flex flex-row mb-3">
+                        <div class="p-2">
+                            <select name="name" class="form-select" aria-label="Default select example">
+                                <option selected disabled>기능을 선택하세요</option>
+                                <option value="day">일간</option>
+                                <option value="month">월간</option>
+                                <option value="year">연간</option>
+                            </select>
+                        </div>
+                        <div class="p-2">
+                            <label class="w-auto" for="datepicker" th:text="날짜"></label>
+                        </div>
+                        <div class="p-2">
+                            <input class="form-control d-flex justify-content-start" id="datepicker" name="value" type="text">
+                        </div>
+                        <div class="p-2">
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </div>
+                        <div class="p-2">
+<!--                            <form action="/order/list" method="GET">-->
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="이름으로 검색" aria-label="Recipient's username" aria-describedby="button-addon2">
+
+                                    <button class="btn btn-primary" type="submit" id="button-addon2">Button</button>
+                                </div>
+<!--                            </form>-->
+                        </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">Submit</button>
                 </form>
             </div>
         </div>
 
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a aria-current="page" class="nav-link active" href="#" id="viewType">기본</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/order/list?viewType=daily">일간</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/order/list/?viewType=monthly">월간</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/order/list/?viewType=yearly">연간</a>
-            </li>
-        </ul>
         <table class="table table-hover">
             <thead>
             <tr class="table-primary">

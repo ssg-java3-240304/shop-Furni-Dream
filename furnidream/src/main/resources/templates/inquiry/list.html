@@ -16,18 +16,20 @@
 <main layout:fragment="main">
     <div class="container ms-5 mt-5">
         <h1>1:1 문의</h1><br>
-
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a aria-current="page" class="nav-link active" href="#" id="viewType">기본</a>
+<!--        시작-->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="home-tab" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true" onclick="location.href='/app/inquiry/list'">전체</button>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/inquiry/list?viewType=Pending">대기중</a>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pending-tab" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false" onclick="location.href='/app/inquiry/list?viewType=Pending'">대기중</button>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/inquiry/list/?viewType=Completed">완료</a>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="answered-tab" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false" onclick="location.href='/app/inquiry/list?viewType=Answered'">답변완료</button>
             </li>
         </ul>
+<!--        끝-->
+
         <table class="table table-hover">
             <thead>
             <tr class="table-primary">
@@ -39,12 +41,12 @@
             </tr>
             </thead>
             <tbody th:each="inquiry, stat : ${inquiries}" th:object="${inquiry}">
-            <tr th:tbl_href="@{|/inquiry/detail/*{inquiryId}|}">
+            <tr class="table" th:tbl_href="@{|/inquiry/detail/*{inquiryId}|}">
                 <th scope="row" th:text="${stat.index+1}"></th>
                 <td><a th:text="*{name}"></a></td>
                 <td><a th:text="*{title}"></a></td>
                 <td><a th:text="*{createdAt}"></a></td>
-                <td><a th:text="*{status}"></a></td>
+                <td><span class="badge " th:classappend="${inquiry.status == 'Pending'} ? 'text-bg-warning' : 'text-bg-success' " th:text="${inquiry.status}">Status</span></td>
             </tr>
             </tbody>
         </table>
@@ -52,6 +54,7 @@
 </main>
 
 <script layout:fragment="script">
+
     document.addEventListener('DOMContentLoaded', function () {
         const $rows = document.querySelectorAll('table tbody tr');
         $rows.forEach(function (row) {
@@ -61,6 +64,7 @@
             });
         });
     });
+
 </script>
 </body>
 </html>

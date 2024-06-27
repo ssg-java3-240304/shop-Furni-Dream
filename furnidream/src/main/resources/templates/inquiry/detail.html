@@ -53,15 +53,11 @@
 
 <script layout:fragment="script">
     document.iqResponsefrm.addEventListener("submit", (e) => {
-        // 이름 검사
-        // 가격 검사
         const $response = e.target.response;
         if ($response.value === "") {
             alert("답변을 비워둘 수 없습니다.");
             e.preventDefault(); // 폼제출 방지
         }
-        // 카테고리 검사
-        // 주문가능여부 검사
     });
 </script>
 </body>
