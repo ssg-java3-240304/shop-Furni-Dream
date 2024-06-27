@@ -7,9 +7,9 @@ var ctx = document.getElementById("myPieChart");
 var myPieChart = new Chart(ctx, {
   type: 'pie',
   data: {
-    labels: labels,
+    labels: orderStatusLabels,
     datasets: [{
-      data: data,
+      data: orderStatusData,
       backgroundColor: ['#F4FF81', '#64FFDA', '#E040FB', '#40C4FF', '#00E676', '#FF1744'],
       // pending	1 '#F4FF81' 라임
       // processing	2 '#64FFDA' 민트

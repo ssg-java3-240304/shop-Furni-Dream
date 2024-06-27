@@ -10,7 +10,7 @@ var monthNames = ["January", "February", "March", "April", "May", "June",
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: labels.map(function(month) {
+    labels: orderSalesLabels.map(function(month) {
       return monthNames[month - 1]; // labels 배열의 각 요소를 월 이름으로 변환
     }),
     datasets: [{
@@ -25,10 +25,15 @@ var myLineChart = new Chart(ctx, {
       pointHoverBackgroundColor: "rgba(2,117,216,1)",
       pointHitRadius: 50,
       pointBorderWidth: 2,
-      data: dataPoints, // Thymeleaf를 통해 전달된 데이터
+      data: orderSalesDataPoints, // Thymeleaf를 통해 전달된 데이터
     }],
   },
   options: {
+    plugins: {
+      datalabels: {
+        display: false // 데이터 라벨 숨기기
+      }
+    },
     scales: {
       xAxes: [{
         time: {
@@ -48,9 +53,9 @@ var myLineChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: Math.max(...dataPoints) , // y축 최대값을 데이터 범위에 맞게 설정 (최대값의 110%)
+          max: Math.max(...orderSalesDataPoints) , // y축 최대값을 데이터 범위에 맞게 설정 (최대값의 110%)
           // maxTicksLimit:6,
-          stepSize:(Math.max(...dataPoints)/5)
+          stepSize:(Math.max(...orderSalesDataPoints)/5)
           // autoSkip: true, // 자동으로 눈금 간격 조정
           ,
           callback: function(value, index, values) {

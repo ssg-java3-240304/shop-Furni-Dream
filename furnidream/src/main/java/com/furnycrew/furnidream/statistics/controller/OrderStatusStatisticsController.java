@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrderStatusStatisticsController {
     private final OrderStatusStatisticsMapper orderStatusStatisticsMapper;
     @GetMapping()
-    public String calculateSalesStatistics(Model model) {
+    public String findAllOrderStatus(Model model) {
         List<OrderStatusStatisticsDto> result = orderStatusStatisticsMapper.findAllOrderStatus();
-        model.addAttribute("result", result);
+        model.addAttribute("orderStatus", result);
 
         return "statistics/order/status/chart";
     }

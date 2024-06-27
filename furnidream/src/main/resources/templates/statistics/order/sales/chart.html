@@ -61,13 +61,14 @@
         </main>
     </div>
     <script th:inline="javascript">
-        var data = /*[[${result}]]*/ [];
-        var labels = [];
-        var dataPoints = [];
+        // sales
+        var orderSalesData = /*[[${orderSales}]]*/ [];
+        var orderSalesLabels = [];
+        var orderSalesDataPoints = [];
 
-        data.forEach(function (item) {
-            labels.push(item.month);
-            dataPoints.push(item.totalPrice);
+        orderSalesData.forEach(function (item) {
+            orderSalesLabels.push(item.month);
+            orderSalesDataPoints.push(item.totalPrice);
         });
 
         // 현재 날짜와 시간 가져오기

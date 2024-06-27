@@ -27,7 +27,7 @@ public String calculateSalesStatistics() {
         List<OrderSalesStatisticsDto> result = orderSalesStatisticsMapper.calculateSalesStatistics(
                 year);
 
-        model.addAttribute("result", result);
+        model.addAttribute("orderSales", result);
 
         return "statistics/order/sales/chart";
     }

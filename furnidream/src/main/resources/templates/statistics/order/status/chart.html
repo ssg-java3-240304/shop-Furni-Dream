@@ -33,14 +33,14 @@
     </div>
 
     <script th:inline="javascript">
-        // 데이터 모델로부터 전달받은 값을 JS 배열로 변환
-        var orderStatusData = /*[[${result}]]*/ [];
-        var labels = [];
-        var data = [];
+        // status
+        var orderStatusResult = /*[[${orderStatus}]]*/ [];
+        var orderStatusLabels = [];
+        var orderStatusData = [];
 
-        orderStatusData.forEach(function(stat) {
-            labels.push(stat.orderStatus);
-            data.push(stat.statusCount);
+        orderStatusResult.forEach(function(stat) {
+            orderStatusLabels.push(stat.orderStatus);
+            orderStatusData.push(stat.statusCount);
         });
 
         // 퍼센티지 계산 함수
@@ -49,7 +49,7 @@
         }
 
         // 총 합계 계산
-        var total = data.reduce((acc, curr) => acc + curr, 0);
+        var total = orderStatusData.reduce((acc, curr) => acc + curr, 0);
 
         // 현재 날짜와 시간 가져오기
         var currentDate = new Date();
@@ -71,7 +71,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0/dist/chartjs-plugin-datalabels.min.js"
+            crossorigin="anonymous"></script>
     <script th:src="@{/assets/statistics/order-status-chart.js}"></script>
 
 </main>
