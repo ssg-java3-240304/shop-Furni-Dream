@@ -13,7 +13,7 @@
         <result column="business_address" property="businessAddress"/>
         <result column="business_status" property="businessStatus"/>
         <result column="business_category" property="businessCategory"/>
-        <result column="stamp_image" property="stampImage"/>
+<!--        <result column="stamp_image" property="stampImage"/>-->
         <result column="mail_order_yn" property="mailOrderYn"/>
         <result column="mail_order_num" property="mailOrderNum"/>
     </resultMap>
@@ -43,9 +43,9 @@
     <!--  상점 등록  -->
     <insert id="insertStore" useGeneratedKeys="true" keyProperty="storeId">
         insert into
-            tbl_store (business_num, store_name, ceo_name, ceo_phone, ceo_email, business_address, business_status, business_category, stamp_image, mail_order_yn, mail_order_num)
+            tbl_store (business_num, store_name, ceo_name, ceo_phone, ceo_email, business_address, business_status, business_category, mail_order_yn, mail_order_num)
         values (
-            #{businessNum}, #{storeName}, #{ceoName}, #{ceoPhone}, #{ceoEmail}, #{businessAddress}, #{businessStatus}, #{businessCategory}, #{stampImage}, #{mailOrderYn}, #{mailOrderNum}
+            #{businessNum}, #{storeName}, #{ceoName}, #{ceoPhone}, #{ceoEmail}, #{businessAddress}, #{businessStatus}, #{businessCategory}, #{mailOrderYn}, #{mailOrderNum}
         )
     </insert>
 
@@ -62,7 +62,7 @@
             business_address = #{businessAddress},
             business_status = #{businessStatus},
             business_category = #{businessCategory},
-            stamp_image = #{stampImage},
+<!--            stamp_image = #{stampImage},-->
             mail_order_yn = #{mailOrderYn},
             mail_order_num = #{mailOrderNum}
         where

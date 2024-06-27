@@ -17,7 +17,7 @@ public class StoreDto {
     private String businessAddress;
     private String businessStatus;
     private String businessCategory;
-    private String stampImage;
+//    private String stampImage;
     private String mailOrderYn;
     private String mailOrderNum;
 }
