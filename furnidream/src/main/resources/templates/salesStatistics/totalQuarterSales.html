@@ -16,36 +16,49 @@
 </head>
 <body>
 
-<div>
-    <canvas id="myChart"></canvas>
-</div>
+<main layout:fragment="main" class="container">
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:inline="javascript">
 
-<script>
-    const ctx = document.getElementById('myChart');
+        var salesMngQuarterDtos = [[${salesMngQuarterDtoLists}]];
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+        // 데이터 변환을 통해 Chart.js의 데이터 형식에 맞게 준비-->
+        var labels = salesMngQuarterDtos.map(function (item) {
+            return item.dateQuarter; // 월 정보 필드를 사용했다고 가정-->
+        });
+
+        var salesData = salesMngQuarterDtos.map(function (item) {
+            return item.totalSales; // 월별 매출 필드를 사용했다고 가정-->
+        });
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '분기별 매출 통계',
+                    data:
+                    salesData,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-</script>
-<main layout:fragment="main" class="container">
-    <div style="padding-top: 100px">
+        });
+    </script>
+
+    <div style="padding-top: 20px">
 
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link " aria-current="page"
@@ -72,9 +85,9 @@
                 <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
                 <td th:text="*{dateQuarter}"></td>
                 <td th:text="*{orderAmount}"></td>
-                <td th:text="*{totalPrice}"></td>
-                <td th:text="*{refundAmount}"></td>
-                <td th:text="*{totalSales}"></td>
+                <td th:text="*{#numbers.formatInteger(totalPrice, 0, 'COMMA')}"></td>
+                <td th:text="*{#numbers.formatInteger(refundAmount, 0, 'COMMA')}"></td>
+                <td th:text="*{#numbers.formatInteger(totalSales, 0, 'COMMA')}"></td>
             </tr>
             </tbody>
         </table>
@@ -85,6 +98,6 @@
 <script th:src="@{/js/scripts.js}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
-            crossorigin="anonymous"></script>
+            crossOrigin="anonymous"></script>
 </body>
 </html>
