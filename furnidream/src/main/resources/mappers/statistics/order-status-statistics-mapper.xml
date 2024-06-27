@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.furnycrew.furnidream.statistics.model.dao.OrderStatusStatisticsMapper">
+
+    <resultMap id="OrderStatusStatisticsMap" type="OrderStatusStatisticsDto" >
+        <result column="order_status" property="orderStatus"/>
+        <result column="status_count" property="statusCount"/>
+    </resultMap>
+
+
+    <select id="findAllOrderStatus" resultMap="OrderStatusStatisticsMap">
+        SELECT CASE order_status
+        WHEN 1 THEN 'pending'
+        WHEN 2 THEN 'processing'
+        WHEN 3 THEN 'shipped'
+        WHEN 4 THEN 'delivered'
+        WHEN 5 THEN 'completed'
+        WHEN 6 THEN 'cancelled'
+        END             AS order_status,
+        COUNT(order_status) AS status_count
+        FROM tbl_order
+        GROUP BY order_status
+        order by tbl_order.order_status;
+    </select>
+
+</mapper>

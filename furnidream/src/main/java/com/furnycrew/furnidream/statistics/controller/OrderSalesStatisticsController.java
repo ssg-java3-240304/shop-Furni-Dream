@@ -24,7 +24,6 @@ public String calculateSalesStatistics() {
 }
     @GetMapping("/chart")
     public String calculateSalesStatistics(Integer year, Model model) {
-        System.out.println("hi");
         List<OrderSalesStatisticsDto> result = orderSalesStatisticsMapper.calculateSalesStatistics(
                 year);
 
