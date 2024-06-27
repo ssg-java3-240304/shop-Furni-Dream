@@ -1,5 +1,21 @@
-
-    <header th:fragment="headerFragment">
+<header th:fragment="headerFragment">
+  <script>
+        function logout() {
+            fetch('/app/admin/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = '/app/admin/login';
+                    } else {
+                        alert('Logout failed.');
+                    }
+                });
+        }
+    </script>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="/app/store/list">FurniDream</a>
@@ -20,7 +36,7 @@
 <!--                        <li><a class="dropdown-item" href="#!">Settings</a></li>-->
 <!--                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>-->
 <!--                        <li><hr class="dropdown-divider" /></li>-->
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="#!" onclick="logout()">Logout</a></li>
                     </ul>
                 </li>
             </ul>
