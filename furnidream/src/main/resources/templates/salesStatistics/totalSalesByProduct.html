@@ -11,13 +11,56 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
           crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <main layout:fragment="main" class="container">
 
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
 
+    <script th:inline="javascript">
 
-    <div style="padding-top: 100px">
+        var salesByProductDtos = [[${salesByProduct}]];
+
+        var labels = salesByProductDtos.map(function (item) {
+            return item.productName + '(' + item.color + ')';
+        });
+
+        var salesData5 = salesByProductDtos.map(function (item) {
+            return item.totalSales;
+        });
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: '매출 합계',
+                        data: salesData5,
+                        backgroundColor: 'rgb(142,212,255)',
+                        borderColor: 'rgb(142,212,255)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    </script>
+
+    <div style="padding-top: 20px">
 
         <nav class="nav nav-pills flex-column flex-sm-row">
             <a class="flex-sm-fill text-sm-center nav-link active " aria-current="page" th:href="@{/salesStatistics/totalSalesList}">상품별 매출 통계</a><!-- ✨active 추가하면 파래짐 -->
@@ -35,14 +78,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="salesStatisticsByProductDtos, stat : ${salesByProduct}" th:object="${salesStatisticsByProductDtos}">
-                <!-- salesMngDailyDtoLists = model.addAttribute에서의 attributeName -->
-                <td th:text="*{productName}"></td>
-                <td th:text="*{color}"></td>
-                <td th:text="*{orderAmount}"></td>
-                <td th:text="*{totalPrice}"></td>
-                <td th:text="*{refundAmount}"></td>
-                <td th:text="*{totalSales}"></td>
+            <tr th:each="salesStatisticsByProductDto :  ${salesByProduct}">
+                <td th:text="*{salesStatisticsByProductDto.productName}"></td>
+                <td th:text="*{salesStatisticsByProductDto.color}"></td>
+                <td th:text="*{salesStatisticsByProductDto.orderAmount}"></td>
+                <td th:text="*{#numbers.formatInteger(salesStatisticsByProductDto.totalPrice, 0, 'COMMA')}"></td>
+                <td th:text="*{#numbers.formatInteger(salesStatisticsByProductDto.refundAmount, 0, 'COMMA')}"></td>
+                <td th:text="*{#numbers.formatInteger(salesStatisticsByProductDto.totalSales, 0, 'COMMA')}"></td>
             </tr>
             </tbody>
         </table>
