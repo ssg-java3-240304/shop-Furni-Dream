@@ -1,25 +1,17 @@
-# [모든 기간/전체 상품]
-## 1.주문완료인 주문 번호 가져오기
+# [모든 기간/전체 상품] 상품별 주문량 순위 내림차순으로 가져오기
+## 1. 주문완료인 주문 번호 가져오기
 select order_code
 from tbl_order
 where order_status = 5;
 
-## 75번 상품 주문수량 16개
-select sum(quantity)
-from tbl_order_product
-where product_id = 75
-  and order_code in (select order_code
-                     from tbl_order
-                     where order_status = 5);
-
-## 2. 주문완료인 주문 번호로 상품번호 가져오기
+## 2. 주문완료 상태인 주문 번호로 상품번호 가져오기
 select product_id
 from tbl_order_product
 where order_code in (select order_code
                      from tbl_order
                      where order_status = 5);
 
-## 3. 전체 상품id의 주문수량 내림차순으로 가져오기
+## 3. [2.]번 데이터에서 상품번호로 그룹화하고 상품에 대한 주문수량 내림차순으로 가져오기
 select product_id, SUM(quantity)
 from tbl_order_product
 where order_code in (select order_code
@@ -28,8 +20,7 @@ where order_code in (select order_code
 group by product_id
 order by SUM(quantity) desc;
 
-
-## 4. 상품 코드별 주문수량 내림차순으로 가져오기
+## 4. 최종 [3.]번 데이터에서 상품 테이블과 조인하여 추가 데이터(이름, 카테고리)를 가져오기
 select product_code, product_name, category, SUM(o.quantity) quantity
 from (select product_id, SUM(quantity) quantity
       from tbl_order_product
@@ -118,7 +109,7 @@ group by p.product_code, product_name, category
 order by quantity desc;
 
 
-# [분기별/카테고리]  (category, year, quarter 변수로 변경 필수!!!)
+# [분기별/카테고리] 상품별 주문량 순위 내림차순으로 가져오기 (category, year, quarter 변수로 변경 필수!!!)
 select product_code, product_name, category, SUM(o.quantity) quantity
 from (select product_id, SUM(quantity) quantity
       from tbl_order_product
@@ -132,7 +123,7 @@ from (select product_id, SUM(quantity) quantity
 group by p.product_code, product_name, category
 order by quantity desc;
 
-# [월별/카테고리]  (category, year, month 변수로 변경 필수!!!)
+# [월별/카테고리] 상품별 주문량 순위 내림차순으로 가져오기  (category, year, month 변수로 변경 필수!!!)
 select product_code, product_name, category, SUM(o.quantity) quantity
 from (select product_id, SUM(quantity) quantity
       from tbl_order_product
