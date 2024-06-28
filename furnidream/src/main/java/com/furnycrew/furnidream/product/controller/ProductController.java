@@ -55,7 +55,6 @@ public class ProductController {
         model.addAttribute("categories", categories);
     }
 
-    @Transactional
     @PostMapping("/regist")
     public String regist(
             @ModelAttribute ProductRegistDto productRegistDto,
