@@ -13,6 +13,7 @@
 <aside th:fragment="asideFragment">
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
+<!--            <nav class="sb-sidenav accordion sb-sidenav-dark" style="background-color: #865d36" id="sidenavAccordion">-->
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
@@ -93,13 +94,15 @@
                     </div>
                 </div>
 
+<!--                <div class="sb-sidenav-footer" style="background-color: #865d36">-->
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
                     furnnycrew
                 </div>
             </nav>
         </div>
-        <div id="layoutSidenav_content">
+<!--        <div id="layoutSidenav_content" style="background-color: #a69080">-->
+        <div id="layoutSidenav_content" style="background-color: #F4F3EA">
             <main layout:fragment="main">
                 <!-- 각 페이지에서 작성한 layout:fragment="main"으로 대체됩니다. -->
                 <div class="container-fluid px-4">
