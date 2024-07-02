@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html layout:decorate="~{layout/default}"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/default}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title layout:title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">검색</title>
-    <title>검색</title>
-    <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles"/>
+    <title>상품 검색</title>
+    <link rel="stylesheet" th:fragment="styles" th:href="@{/css/styles.css}" type="text/css"/>
     <style>
         .table tbody tr {
             cursor: pointer;
@@ -14,48 +12,56 @@
     </style>
 </head>
 <body>
-<main layout:fragment="main" class="container">
-    <h2 class="m-3">검색 결과</h2>
-
-    <table class="table table-hover" >
-        <thead>
-        <tr class="table-primary">
-            <th scope="col">상품코드</th>
-            <th scope="col">상품명</th>
-            <th scope="col">카테고리</th>
-            <th scope="col">판매가</th>
-            <th scope="col">재고</th>
-            <th scope="col">상품상태</th>
-            <th scope="col">옵션(color/size)</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product, stat : ${products}" th:object="${product}" th:tbl_href="@{|/product/detail/*{productId}|}">
-            <td><a th:text="*{productCode}"></a></td>
-            <td><a th:text="*{productName}"></a></td>
-            <td><a th:text="*{category}"></a></td>
-            <td><a th:text="*{#numbers.formatInteger(retailPrice, 3, 'COMMA')}"></a></td>
-            <td><a th:text="*{stock}"></a></td>
-            <td><a th:text="*{productStatus}"></a></td>
-            <td>
-                <span><a th:text="*{color}"></a></span>
-                <span><a th:text="*{size}"></a></span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <button onclick="window.location.href='/product/register'" class="btn btn-primary">상품 등록</button>
+<main class="ms-4 mt-4 me-4" layout:fragment="main">
+    <div class="card mb-4 m-0 shadow">
+        <div class="card-header text-center"><h2>상품 검색</h2></div>
+        <div class="mt-2 px-4 ms-3 me-3 ">
+            <div class="border border-secondary mt-3 p-3 rounded shadow-sm">
+                <table class="table me-5 table-hover">
+                    <thead>
+                    <tr class="table-primary">
+                        <th scope="col">상품코드</th>
+                        <th scope="col">상품명</th>
+                        <th scope="col">카테고리</th>
+                        <th scope="col">판매가</th>
+                        <th scope="col">재고</th>
+                        <th scope="col">상품상태</th>
+                        <th scope="col">옵션(color/size)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product, stat : ${products}" th:object="${product}"
+                        th:tbl_href="@{|/product/detail/*{productId}|}">
+                        <td><a th:text="*{productCode}"></a></td>
+                        <td><a th:text="*{productName}"></a></td>
+                        <td><a th:text="*{category}"></a></td>
+                        <td><a th:text="*{#numbers.formatInteger(retailPrice, 3, 'COMMA')}"></a></td>
+                        <td><a th:text="*{stock}"></a></td>
+                        <td><a th:text="*{productStatus}"></a></td>
+                        <td>
+                            <span><a th:text="*{color}"></a></span>
+                            <span><a th:text="*{size}"></a></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--    <button type="button" class="btn btn-primary" onclick="window.location.href='/product/regist'">상품 등록</button>-->
+            <button class="btn btn-primary fs-4 mt-3 d-grid gap-2 col-2 mx-auto mb-3" th:onclick="|window.location.href='/app/product/regist'|">상품 등록</button>
+            <p th:if="${products == null}" class="text-danger fs-2 text-center">No store data available.</p>
+        </div>
+    </div>
 </main>
-    <script layout:fragment="script">
-        document.addEventListener('DOMContentLoaded', function() {
-            const $rows = document.querySelectorAll('table tbody tr');
-            $rows.forEach(function(row) {
-                row.addEventListener('click', function() {
-                    console.log(row.getAttribute('tbl_href'));
-                    window.location.href = row.getAttribute('tbl_href');
-                });
+<script layout:fragment="script">
+    document.addEventListener('DOMContentLoaded', function () {
+        const $rows = document.querySelectorAll('table tbody tr');
+        $rows.forEach(function (row) {
+            row.addEventListener('click', function () {
+                console.log(row.getAttribute('tbl_href'));
+                window.location.href = row.getAttribute('tbl_href');
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>

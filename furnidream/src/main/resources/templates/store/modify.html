@@ -3,36 +3,71 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/default}">
 <head>
-    <title>상점 수정</title>
+    <title>상점 정보 수정</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css" th:fragment="styles" />
 </head>
 <body>
-    <main layout:fragment="main" class="ms-5 mt-5">
-        <style>
-            input {
-                margin-top: 10px;
-            }
-        </style>
-        <h2>상점 수정</h2>
+<main layout:fragment="main" class="ms-4 mt-4 me-4">
+    <div class="card mb-4 m-0 shadow">
+        <div class="card-header text-center"><h2>상점 정보 수정</h2></div>
+        <form name="storeModifyFrm" th:if="${store != null}" th:action="@{/store/modify}" th:object="${store}" method="post" class="mt-2 px-4 ms-3 me-3">
+            <div class="mt-2">
+                <div class="input-group mb-3  shadow-sm">
+                    <span class="input-group-text" id="businessNum-addon">* 사업자 등록번호</span>
+                    <input type="text" class="form-control" th:value="*{businessNum}" name="businessNum"  data-mdb-input-mask-init="" data-mdb-input-mask="9999999999" aria-label="businessNum" aria-describedby="businessNum-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="storeName-addon">* 상점명</span>
+                    <input type="text" class="form-control" th:value="*{storeName}" name="storeName" aria-label="storeName" aria-describedby="storeName-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="ceoName-addon">* 대표자명</span>
+                    <input type="text" class="form-control" th:value="*{ceoName}" name="ceoName" aria-label="ceoName" aria-describedby="ceoName-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="ceoPhone-addon" data-mdb-input-initialized="true"> 대표전화</span>
+                    <input type="text" id="ceoPhone" name="ceoPhone" th:value="*{ceoPhone}" class="form-control active" placeholder="010-0000-0000" aria-label="ceoPhone" aria-describedby="ceoPhone-addon" maxlength="12">
+                </div>
 
-        <form name="storeModifyFrm" th:if="${store != null}" th:action="@{/store/modify}" method="post" th:object="${store}">
-            * 사업자 등록번호 : <input type="text" name="businessNum" th:value="*{businessNum}" required><br>
-            * 상점명 : <input type="text" name="storeName" th:value="*{storeName}" required><br>
-            * 대표자명 : <input type="text" name="ceoName" th:value="*{ceoName}" required><br>
-            대표 전화 : <input type="text" name="ceoPhone" th:value="*{ceoPhone}"><br>
-            대표 메일 : <input type="text" name="ceoEmail" th:value="*{ceoEmail}"><br>
-            * 사업장 주소 : <input type="text" name="businessAddress" th:value="*{businessAddress}" required><br>
-            * 업태 : <input type="text" name="businessStatus" th:value="*{businessStatus}" required><br>
-            * 종목 : <input type="text" name="businessCategory" th:value="*{businessCategory}" required><br>
-<!--            도장이미지 : <input type="text" name="stampImage" th:value="*{stampImage}"><br>-->
-            * 통신판매업 신고 여부 : <input type="text" name="mailOrderYn" th:value="*{mailOrderYn}" required><br>
-            통신판매업 신고 번호 : <input type="text" name="mailOrderNum" th:value="*{mailOrderNum}"><br>
-            <button type="submit" class="btn btn-primary">수정</button>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="ceoEmail-addon"> 대표 이메일</span>
+                    <input type="text" class="form-control" name="ceoEmail" th:value="*{ceoEmail}" aria-label="Email" aria-describedby="ceoEmail-addon">
+                </div>
 
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="businessAddress-addon">* 사업장 주소</span>
+                    <input type="text" class="form-control" name="businessAddress" th:value="*{businessAddress}" aria-label="businessAddress" aria-describedby="businessAddress-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="businessStatus-addon">* 업태</span>
+                    <input type="text" class="form-control" name="businessStatus" th:value="*{businessStatus}" aria-label="businessStatus" aria-describedby="businessStatus-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="businessCategory-addon">* 종목</span>
+                    <input type="text" class="form-control" name="businessCategory" th:value="*{businessCategory}" aria-label="businessCategory" aria-describedby="businessCategory-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="mailOrderYn-addon">* 통신판매업 신고 여부</span>
+                    <input type="text" class="form-control" name="mailOrderYn" th:value="*{mailOrderYn}" aria-label="mailOrderYn" aria-describedby="mailOrderYn-addon" required>
+                </div>
+                <div class="input-group mb-3 shadow-sm">
+                    <span class="input-group-text" id="mailOrderNum-addon">통신판매업 신고 번호</span>
+                    <input type="text" class="form-control" name="mailOrderNum" th:value="*{mailOrderNum}" placeholder="년도(4)-지역-번호(4)" data-mdb-input-mask-init="" data-mdb-input-mask="9999-9999" aria-label="mailOrderNum" aria-describedby="mailOrderNum-addon">
+                </div>
+                <button type="submit" class="btn btn-primary d-grid gap-2 col-6 mx-auto mb-3">수정</button>
+            </div>
         </form>
         <p th:if="${store == null}" style="font-size: large; text-align: center; margin-top: 240px;">No store data available.</p>
+    </div>
+</main>
+<script layout:fragment="script">
+    var tele = document.querySelector('#ceoPhone');
 
-    </main>
-    <script th:src="@{/js/script.js}"></script>
+    tele.addEventListener('keyup', function(e){
+        if (event.key != 'Backspace' && (tele.value.length === 3 || tele.value.length === 7)){
+            tele.value += '-';
+        }
+    });
+</script>
 </body>
 </html>

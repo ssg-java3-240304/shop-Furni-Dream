@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS tbl_store (
                                        `store_name` varchar(20) NOT NULL,
                                        `ceo_name` varchar(20) NOT NULL,
                                        `ceo_phone` varchar(20) NULL,
-                                       `ceo_email` varchar(20) NULL,
+                                       `ceo_email` varchar(35) NULL,
                                        `business_address` varchar(50) NOT NULL,
                                        `business_status` varchar(20) NOT NULL,
                                        `business_category` varchar(20) NOT NULL,
@@ -1110,3 +1110,7 @@ VALUES
     ('클래식 원목 옷장', NULL, '옷장', 300000, 450000, 70, '클래식한 원목 소재의 옷장입니다.', 'WARDROBE013', 10, 0, 'AVAILABLE', 'BROWN', 200);
 
 call generate_orders();
+
+UPDATE tbl_order
+Set tracking_number = ''
+where order_status=1 or order_status=2;
