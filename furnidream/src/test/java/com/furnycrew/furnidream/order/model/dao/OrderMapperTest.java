@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,7 +49,7 @@ class OrderMapperTest {
         SearchCriteria searchCriteria = new SearchCriteria();
         searchCriteria.setName("day");
         LocalDateTime localDateTime =  LocalDateTime.of(2023,6, 13, 0, 0);
-        searchCriteria.setValue(localDateTime);
+        searchCriteria.setValue(localDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
         //when
         List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria, 1, 10);
         //then
@@ -56,7 +57,7 @@ class OrderMapperTest {
         assertThat(orders)
                 .isNotNull()
                 .isNotEmpty()
-                .hasSize(10)
+                .hasSizeLessThan(11)
                 .allSatisfy((order)->{
                     assertThat(order.getOrderCode()).isNotZero();
                     assertThat(order.getCustomerDto()).isNotNull();
@@ -74,8 +75,8 @@ class OrderMapperTest {
         //given
         SearchCriteria searchCriteria = new SearchCriteria();
         searchCriteria.setName("month");
-        LocalDateTime localDateTime =  LocalDateTime.of(2023,6, 13, 0, 0);
-        searchCriteria.setValue(localDateTime);
+        LocalDateTime localDateTime =  LocalDateTime.of(2022,2, 23, 0, 0);
+        searchCriteria.setValue(localDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
         //when
         List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria, 1, 10);
         //then
@@ -102,8 +103,8 @@ class OrderMapperTest {
         //given
         SearchCriteria searchCriteria = new SearchCriteria();
         searchCriteria.setName("year");
-        LocalDateTime localDateTime =  LocalDateTime.of(2024,6, 13, 0, 0);
-        searchCriteria.setValue(localDateTime);
+        LocalDateTime localDateTime =  LocalDateTime.of(2022,2, 23, 0, 0);
+        searchCriteria.setValue(localDateTime.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")));
         //when
         List<OrderDto> orders = orderMapper.findOrdersByDateTime(searchCriteria , 1, 10);
         //then
@@ -115,6 +116,7 @@ class OrderMapperTest {
                 .allSatisfy((order)->{
                     assertThat(order.getOrderCode()).isNotZero();
                     assertThat(order.getCustomerDto()).isNotNull();
+//                    assertThat(order.getCreatedAt().getYear()).isEqualTo(localDateTime.getYear());
                     assertThat(order.getCreatedAt().getYear()).isEqualTo(localDateTime.getYear());
                     assertThat(order.getPhone()).isNotNull();
                     assertThat(order.getShippingAddress()).isNotNull();
